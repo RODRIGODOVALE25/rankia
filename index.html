@@ -908,7 +908,7 @@
             <div class="logo">
                 🏆 RankIA
             </div>
-            <a href="#cta" class="nav-cta">Teste Grátis</a>
+            <div class="nav-cta" style="cursor: pointer;">Teste Grátis</div>
         </div>
     </nav>
 
@@ -919,7 +919,7 @@
                 <h1>Pare de Assistir <span class="highlight">500 Vídeos</span> de UGC Manualmente</h1>
                 <p>IA analisa e rankeia automaticamente todos os participantes da sua campanha premiada em minutos, não semanas.</p>
                 <div class="cta-buttons">
-                    <a href="#cta" class="cta-primary">
+                    <a href="https://api.whatsapp.com/send/?phone=5531975285780&text=Tenho%20interesse%20na%20solução%20RankIA%20para%20campanhas%20UGC&type=phone_number&app_absent=0" target="_blank" class="cta-primary">
                         ⚡ Teste na Próxima Campanha
                     </a>
                     <a href="#como-funciona" class="cta-secondary">
@@ -1192,7 +1192,7 @@
                         🎁 Análise Grátis dos Primeiros 50 Vídeos
                     </div>
                     <div class="cta-buttons" style="justify-content: center; margin-top: 2rem;">
-                        <a href="#" class="cta-primary" onclick="showContactForm()">
+                        <a href="https://api.whatsapp.com/send/?phone=5531975285780&text=Quero%20testar%20o%20RankIA%20gratuitamente&type=phone_number&app_absent=0" target="_blank" class="cta-primary">
                             ⚡ Começar Teste Grátis
                         </a>
                     </div>
@@ -1272,14 +1272,33 @@
             });
         });
 
-        // Contact form
-        function showContactForm() {
-            alert('Entre em contato via WhatsApp: (11) 99999-9999 ou email: contato@rankia.com.br');
-        }
+        // Nav CTA
+        document.querySelector('.nav-cta').addEventListener('click', function() {
+            window.open('https://api.whatsapp.com/send/?phone=5531975285780&text=Tenho%20interesse%20na%20solução%20RankIA&type=phone_number&app_absent=0', '_blank');
+        });
 
         // Initialize
         createParticles();
     </script>
 </body>
 </html>
-                      
+                        <div class="video-score">8.9</div>
+                        <div class="video-user">@joao_fit</div>
+                    </div>
+                    <div class="video-card">
+                        <div class="video-thumbnail">📸</div>
+                        <div class="video-score">9.1</div>
+                        <div class="video-user">@ana_vibes</div>
+                    </div>
+                    <div class="video-card">
+                        <div class="video-thumbnail">🎥</div>
+                        <div class="video-score">8.7</div>
+                        <div class="video-user">@carlos_br</div>
+                    </div>
+                    <div class="video-card">
+                        <div class="video-thumbnail">📹</div>
+                        <div class="video-score">9.2</div>
+                        <div class="video-user">@lifestyle</div>
+                    </div>
+                    <div class="video-card">
+                        <div class="video-thumbnail">🎬</div>
