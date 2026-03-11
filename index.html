@@ -212,6 +212,7 @@
             overflow: hidden;
             aspect-ratio: 4 / 3;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            cursor: zoom-in; /* Altera o cursor para indicar que pode clicar */
         }
 
         .gallery-item img {
@@ -239,11 +240,73 @@
             transform: translateY(10px);
             opacity: 0;
             transition: all 0.3s ease;
+            pointer-events: none; /* Evita que o texto bloqueie o clique na imagem */
         }
 
         .gallery-item:hover .gallery-caption {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        /* --- Estilos do Lightbox (Popup de Imagem) --- */
+        .lightbox {
+            display: none; /* Escondido por padrão */
+            position: fixed;
+            z-index: 10000; /* Fica acima de tudo */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(17, 24, 39, 0.95);
+            backdrop-filter: blur(8px);
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 80vh;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            object-fit: contain;
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+
+        .lightbox.active .lightbox-content {
+            transform: scale(1);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            color: white;
+            font-size: 40px;
+            font-weight: 300;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            line-height: 1;
+        }
+
+        .lightbox-close:hover {
+            color: var(--accent-color);
+        }
+
+        .lightbox-text {
+            margin-top: 1.5rem;
+            color: white;
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            letter-spacing: 1px;
         }
 
         /* CTA Final - Foco em Conversão */
@@ -364,6 +427,8 @@
             header .btn { width: auto; padding: 0.5rem 1rem; font-size: 0.85rem; }
             .floating-wpp { bottom: 20px; right: 20px; width: 50px; height: 50px; }
             .floating-wpp svg { width: 30px; height: 30px; }
+            .lightbox-close { top: 15px; right: 20px; }
+            .lightbox-text { font-size: 1.2rem; }
         }
     </style>
 </head>
@@ -398,25 +463,6 @@
         </div>
     </section>
 
-    <script>
-        var pano_iframe_name = "tour-embeded";
-        window.addEventListener("devicemotion", function(e){ 
-            var iframe = document.getElementById(pano_iframe_name); 
-            if (iframe && iframe.contentWindow) {
-                iframe.contentWindow.postMessage({ 
-                    type:"devicemotion", 
-                    deviceMotionEvent:{ 
-                        acceleration:{ x:e.acceleration.x, y:e.acceleration.y, z:e.acceleration.z }, 
-                        accelerationIncludingGravity:{ x:e.accelerationIncludingGravity.x, y:e.accelerationIncludingGravity.y, z:e.accelerationIncludingGravity.z }, 
-                        rotationRate:{ alpha:e.rotationRate.alpha, beta:e.rotationRate.beta, gamma:e.rotationRate.gamma }, 
-                        interval:e.interval, 
-                        timeStamp:e.timeStamp 
-                    } 
-                }, "*"); 
-            }
-        });
-    </script>
-
     <section class="highlights">
         <div class="highlight-item">
             <h3>67m²</h3>
@@ -439,7 +485,7 @@
     <section class="gallery-section">
         <div class="section-header">
             <h2>Acabamento Impecável</h2>
-            <p>Design moderno e marcenaria planejada em todos os ambientes.</p>
+            <p>Clique nas imagens para ampliar e ver os detalhes.</p>
         </div>
         <div class="gallery-grid">
             <div class="gallery-item">
@@ -473,6 +519,12 @@
         </div>
     </section>
 
+    <div id="image-lightbox" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-content" id="lightbox-img">
+        <div id="lightbox-caption" class="lightbox-text"></div>
+    </div>
+
     <section class="cta-section">
         <div class="cta-box">
             <h2>Única Unidade Disponível</h2>
@@ -497,5 +549,68 @@
         <p>&copy; 2026 ImobTech. Todos os direitos reservados.</p>
     </footer>
 
+    <script>
+        // Script do Tour 360 (Giroscópio)
+        var pano_iframe_name = "tour-embeded";
+        window.addEventListener("devicemotion", function(e){ 
+            var iframe = document.getElementById(pano_iframe_name); 
+            if (iframe && iframe.contentWindow) {
+                iframe.contentWindow.postMessage({ 
+                    type:"devicemotion", 
+                    deviceMotionEvent:{ 
+                        acceleration:{ x:e.acceleration.x, y:e.acceleration.y, z:e.acceleration.z }, 
+                        accelerationIncludingGravity:{ x:e.accelerationIncludingGravity.x, y:e.accelerationIncludingGravity.y, z:e.accelerationIncludingGravity.z }, 
+                        rotationRate:{ alpha:e.rotationRate.alpha, beta:e.rotationRate.beta, gamma:e.rotationRate.gamma }, 
+                        interval:e.interval, 
+                        timeStamp:e.timeStamp 
+                    } 
+                }, "*"); 
+            }
+        });
+
+        // Script do Lightbox da Galeria de Fotos
+        const lightbox = document.getElementById('image-lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxCaption = document.getElementById('lightbox-caption');
+        const closeBtn = document.querySelector('.lightbox-close');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        // Abrir o Lightbox ao clicar na imagem
+        galleryItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const imgElement = this.querySelector('img');
+                const captionElement = this.querySelector('.gallery-caption');
+                
+                lightboxImg.src = imgElement.src;
+                lightboxCaption.innerText = captionElement.innerText;
+                
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Trava a rolagem da página por baixo
+            });
+        });
+
+        // Função para fechar o Lightbox
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto'; // Devolve a rolagem da página
+        }
+
+        // Fechar ao clicar no "X"
+        closeBtn.addEventListener('click', closeLightbox);
+
+        // Fechar ao clicar fora da imagem (na área escura)
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        // Fechar ao apertar a tecla ESC do teclado
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                closeLightbox();
+            }
+        });
+    </script>
 </body>
 </html>
