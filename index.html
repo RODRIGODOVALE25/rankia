@@ -3,15 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apartamento no Belvedere | Tour Virtual 360° e Galeria</title>
+    <title>Exclusividade no Belvedere | Apartamento Premium</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
     <style>
-        /* Variáveis de Cores e Fontes */
+        /* Paleta Premium e Variáveis */
         :root {
-            --primary-color: #0f172a;
-            --accent-color: #3b82f6;
-            --bg-light: #f8fafc;
-            --text-dark: #334155;
-            --text-light: #94a3b8;
+            --bg-color: #FAFAFA; /* Off-white suave */
+            --dark-color: #1A1A1A; /* Chumbo quase preto */
+            --accent-color: #C5A059; /* Dourado/Champagne */
+            --accent-hover: #A68545;
+            --text-muted: #666666;
+            
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Lato', sans-serif;
         }
 
         /* Reset e Base */
@@ -19,77 +27,93 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
-            background-color: var(--bg-light);
-            color: var(--text-dark);
+            background-color: var(--bg-color);
+            color: var(--dark-color);
+            font-family: var(--font-body);
             line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Cabecalho */
+        /* Header Minimalista */
         header {
-            background-color: white;
-            padding: 1rem 5%;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            background-color: rgba(250, 250, 250, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             position: sticky;
             top: 0;
             z-index: 100;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
         }
 
         .logo {
+            font-family: var(--font-heading);
             font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary-color);
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: var(--dark-color);
         }
 
         .logo span {
             color: var(--accent-color);
+            font-style: italic;
         }
 
-        /* Hero Section */
+        /* Hero Section Premium */
         .hero {
             text-align: center;
-            padding: 4rem 5% 2rem;
-            max-width: 800px;
+            padding: 6rem 5% 4rem;
+            max-width: 900px;
             margin: 0 auto;
         }
 
+        .hero-tag {
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
         .hero h1 {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-            line-height: 1.2;
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            font-weight: 400;
+            color: var(--dark-color);
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
         }
 
         .hero p {
             font-size: 1.1rem;
-            color: var(--text-light);
-            margin-bottom: 2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            font-weight: 300;
         }
 
         /* Seção do Tour 360 */
         .tour-container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto 2rem;
-            background: white;
-            padding: 1rem;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto 4rem;
+            padding: 0 5%;
         }
 
         .iframe-wrapper {
             position: relative;
             width: 100%;
-            height: max(60vh, 400px); 
-            border-radius: 8px;
-            overflow: hidden;
-            background-color: #ddd;
+            height: 70vh;
+            min-height: 500px;
+            background-color: #EAEAEA;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
         }
 
         .iframe-wrapper iframe {
@@ -101,162 +125,206 @@
             border: none;
         }
 
-        /* Detalhes do Imóvel */
-        .features {
+        /* Ficha Técnica (Detalhes) */
+        .property-details {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 2rem;
-            padding: 2rem 5%;
-            background-color: white;
-            margin-bottom: 2rem;
+            gap: 3rem;
+            padding: 4rem 5%;
+            background-color: #ffffff;
+            border-top: 1px solid rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            margin-bottom: 5rem;
         }
 
-        .feature-card {
+        .detail-item {
             text-align: center;
-            padding: 1.5rem;
-            min-width: 150px;
+            padding: 0 1rem;
+            position: relative;
         }
 
-        .feature-card h3 {
-            font-size: 2rem;
-            color: var(--accent-color);
-            margin-bottom: 0.5rem;
+        /* Linha divisória elegante entre os itens, exceto no último */
+        .detail-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: -1.5rem;
+            top: 20%;
+            height: 60%;
+            width: 1px;
+            background-color: rgba(0,0,0,0.1);
         }
 
-        .feature-card p {
-            font-weight: 600;
-            color: var(--primary-color);
+        .detail-item h3 {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: var(--dark-color);
+            margin-bottom: 0.2rem;
         }
 
-        /* Galeria de Fotos */
+        .detail-item span {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+        }
+
+        /* Galeria Editorial */
         .gallery-section {
-            padding: 2rem 5% 4rem;
-            max-width: 1200px;
+            padding: 0 5% 6rem;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
-        .gallery-section h2 {
+        .section-title {
             text-align: center;
-            color: var(--primary-color);
-            margin-bottom: 2rem;
-            font-size: 2rem;
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 3rem;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent-color);
+            margin: 1.5rem auto 0;
         }
 
         .gallery-grid {
             display: grid;
-            /* Cria colunas responsivas com no mínimo 250px de largura */
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2px; /* Estilo de revista com gap bem fino */
         }
 
         .gallery-item {
             position: relative;
-            border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            aspect-ratio: 4 / 3; /* Mantém uma proporção padrão para as fotos */
-            background-color: #e2e8f0;
+            aspect-ratio: 4 / 3;
+            background-color: #f0f0f0;
         }
 
         .gallery-item img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Faz a imagem preencher o espaço sem distorcer */
-            transition: transform 0.3s ease;
+            object-fit: cover;
+            transition: transform 0.6s ease, filter 0.6s ease;
+            filter: brightness(0.95);
         }
 
         .gallery-item:hover img {
-            transform: scale(1.05); /* Efeito de zoom suave ao passar o mouse */
+            transform: scale(1.03);
+            filter: brightness(1.05);
         }
         
         .gallery-caption {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            padding: 0.5rem;
-            background: rgba(15, 23, 42, 0.7);
-            color: white;
-            text-align: center;
-            font-size: 0.9rem;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
+            bottom: 1.5rem;
+            left: 1.5rem;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 0.5rem 1.5rem;
+            color: var(--dark-color);
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            letter-spacing: 1px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s ease;
         }
 
         .gallery-item:hover .gallery-caption {
+            opacity: 1;
             transform: translateY(0);
         }
 
-        /* Call to Action */
+        /* Call to Action Premium */
         .cta-section {
             text-align: center;
-            padding: 4rem 5%;
-            background-color: var(--primary-color);
+            padding: 6rem 5%;
+            background-color: var(--dark-color);
             color: white;
         }
 
         .cta-section h2 {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            font-weight: 400;
             margin-bottom: 1.5rem;
-            font-size: 2rem;
         }
 
+        .cta-section p {
+            color: #a0a0a0;
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+
+        /* Botões Estilizados */
         .btn {
             display: inline-block;
             background-color: var(--accent-color);
             color: white;
-            padding: 1rem 2.5rem;
-            font-size: 1.1rem;
-            font-weight: bold;
+            padding: 1rem 3rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
             text-decoration: none;
-            border-radius: 50px;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            transition: all 0.3s ease;
+            border: 1px solid var(--accent-color);
             cursor: pointer;
-            border: none;
         }
 
         .btn:hover {
-            background-color: #2563eb;
-            transform: translateY(-2px);
+            background-color: transparent;
+            color: var(--accent-color);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--dark-color);
+            border: 1px solid var(--dark-color);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--dark-color);
+            color: white;
         }
 
         /* Footer */
         footer {
             text-align: center;
-            padding: 2rem;
-            background-color: #020617;
-            color: var(--text-light);
-            font-size: 0.9rem;
+            padding: 3rem 5%;
+            background-color: #111;
+            color: #666;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
         }
 
         /* Responsividade */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-            .features {
-                gap: 1rem;
-            }
-            .tour-container {
-                width: 95%;
-                padding: 0.5rem;
-            }
-            .gallery-grid {
-                grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
-            }
+            .hero h1 { font-size: 2.5rem; }
+            .hero { padding: 4rem 5% 2rem; }
+            .property-details { gap: 2rem; flex-direction: column; }
+            .detail-item:not(:last-child)::after { display: none; }
+            .iframe-wrapper { height: 50vh; min-height: 400px; }
+            .tour-container { padding: 0; } /* Tour encostando nas bordas no celular */
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo">Imóveis<span>360</span></div>
-        <a href="#contato" class="btn" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Agendar Visita</a>
+        <div class="logo">Belvedere<span>360</span></div>
+        <a href="#contato" class="btn btn-outline" style="padding: 0.6rem 1.5rem; font-size: 0.75rem;">Agendar Visita</a>
     </header>
 
     <section class="hero">
-        <h1>Excelente Apartamento no Belvedere</h1>
-        <p>Explore cada detalhe deste imóvel exclusivo sem sair de casa. Utilize o mouse ou o celular para interagir com o tour.</p>
+        <span class="hero-tag">Lançamento Exclusivo</span>
+        <h1>Sofisticação e Conforto no Belvedere</h1>
+        <p>Apartamento mobiliado de alto padrão pronto para morar. Viva a experiência de caminhar pelo seu futuro lar agora mesmo através do nosso tour virtual imersivo.</p>
     </section>
 
     <section class="tour-container">
@@ -295,57 +363,62 @@
             }
         });
 
+        // Scroll suave
         document.querySelector('a[href="#contato"]').addEventListener('click', function(e) {
             e.preventDefault();
             document.querySelector('#contato').scrollIntoView({ behavior: 'smooth' });
         });
     </script>
 
-    <section class="features">
-        <div class="feature-card">
-            <h3>3</h3>
-            <p>Quartos</p>
+    <section class="property-details">
+        <div class="detail-item">
+            <h3>67m²</h3>
+            <span>Área Privativa</span>
         </div>
-        <div class="feature-card">
+        <div class="detail-item">
             <h3>2</h3>
-            <p>Banheiros</p>
+            <span>Quartos (1 Suíte)</span>
         </div>
-        <div class="feature-card">
+        <div class="detail-item">
             <h3>2</h3>
-            <p>Vagas</p>
+            <span>Banheiros Totais</span>
         </div>
-        <div class="feature-card">
-            <h3>120m²</h3>
-            <p>Área Útil</p>
+        <div class="detail-item">
+            <h3>1</h3>
+            <span>Vaga de Garagem</span>
+        </div>
+        <div class="detail-item">
+            <h3 style="font-size: 1.8rem; margin-top: 0.5rem; color: var(--accent-color);">Mobiliado</h3>
+            <span>Pronto para morar</span>
         </div>
     </section>
 
     <section class="gallery-section">
-        <h2>Galeria de Fotos</h2>
+        <h2 class="section-title">Conheça os Detalhes</h2>
         <div class="gallery-grid">
             <div class="gallery-item">
                 <img src="https://pub-ae39c497d9854edc9d5f072b5d147986.r2.dev/Belvedere_RodrigoVale/Sala.jpeg" alt="Sala" loading="lazy">
-                <div class="gallery-caption">Sala</div>
+                <div class="gallery-caption">Living Integrado</div>
             </div>
             <div class="gallery-item">
                 <img src="https://pub-ae39c497d9854edc9d5f072b5d147986.r2.dev/Belvedere_RodrigoVale/Cozinha.jpeg" alt="Cozinha" loading="lazy">
-                <div class="gallery-caption">Cozinha</div>
+                <div class="gallery-caption">Cozinha Equipada</div>
             </div>
             <div class="gallery-item">
                 <img src="https://pub-ae39c497d9854edc9d5f072b5d147986.r2.dev/Belvedere_RodrigoVale/Suite_1.jpeg" alt="Suíte 1" loading="lazy">
-                <div class="gallery-caption">Suíte 1</div>
+                <div class="gallery-caption">Suíte Principal</div>
             </div>
             <div class="gallery-item">
                 <img src="https://pub-ae39c497d9854edc9d5f072b5d147986.r2.dev/Belvedere_RodrigoVale/Banheiro%20Suite.jpeg" alt="Banheiro da Suíte" loading="lazy">
-                <div class="gallery-caption">Banheiro da Suíte</div>
+                <div class="gallery-caption">Banho Suíte</div>
             </div>
             <div class="gallery-item">
-                <img src="https://pub-ae39c497d9854edc9d5f072b5d147986.r2.dev/Belvedere_RodrigoVale/Suite_2.jpeg" alt="Suíte 2" loading="lazy">
-                <div class="gallery-caption">Suíte 2</div>
+                <img src="https://pub-ae39c497d9854edc9d5f072b5d147986.r2.dev/Belvedere_RodrigoVale/Suite_2.jpeg" alt="Quarto 2" loading="lazy">
+                <div class="gallery-caption">Segundo Quarto</div>
             </div>
             <div class="gallery-item">
                 <img src="https://pub-ae39c497d9854edc9d5f072b5d147986.r2.dev/Belvedere_RodrigoVale/Banheiro%20Social.jpeg" alt="Banheiro Social" loading="lazy">
-                <div class="gallery-caption">Banheiro Social</div>
+                <div class="gallery-caption">Banho Social</div>
             </div>
             <div class="gallery-item">
                 <img src="https://pub-ae39c497d9854edc9d5f072b5d147986.r2.dev/Belvedere_RodrigoVale/Area%20Servic%CC%A7o.jpeg" alt="Área de Serviço" loading="lazy">
@@ -355,13 +428,13 @@
     </section>
 
     <section id="contato" class="cta-section">
-        <h2>Gostou do que viu?</h2>
-        <p style="margin-bottom: 2rem; color: #cbd5e1;">Entre em contato com nosso corretor e agende uma visita presencial para fechar negócio.</p>
-        <button class="btn" onclick="alert('Aqui você pode integrar um link direto para o seu WhatsApp!')">Falar no WhatsApp</button>
+        <h2>Dê o próximo passo</h2>
+        <p>Agende uma visita presencial exclusiva e descubra o seu novo estilo de vida.</p>
+        <button class="btn" onclick="alert('Integração com WhatsApp aqui')">Falar com Consultor</button>
     </section>
 
     <footer>
-        <p>&copy; 2026 Imóveis360. Todos os direitos reservados.</p>
+        <p>&copy; 2026 Belvedere 360. Todos os direitos reservados.</p>
     </footer>
 
 </body>
