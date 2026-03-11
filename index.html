@@ -3,23 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exclusividade no Belvedere | Apartamento Premium</title>
+    <title>ImobTech | Apartamento Premium no Belvedere</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <style>
-        /* Paleta Premium e Variáveis */
+        /* Paleta Premium ImobTech */
         :root {
-            --bg-color: #FAFAFA; /* Off-white suave */
-            --dark-color: #1A1A1A; /* Chumbo quase preto */
-            --accent-color: #C5A059; /* Dourado/Champagne */
-            --accent-hover: #A68545;
-            --text-muted: #666666;
+            --bg-color: #F8F9FA; 
+            --dark-color: #111827; 
+            --accent-color: #D4AF37; /* Dourado luxo */
+            --accent-hover: #B5952F;
+            --whatsapp-color: #25D366;
+            --whatsapp-hover: #128C7E;
+            --text-main: #374151;
+            --text-muted: #6B7280;
             
             --font-heading: 'Playfair Display', serif;
-            --font-body: 'Lato', sans-serif;
+            --font-body: 'Inter', sans-serif;
         }
 
         /* Reset e Base */
@@ -29,42 +32,47 @@
             box-sizing: border-box;
         }
 
+        html { scroll-behavior: smooth; }
+
         body {
             background-color: var(--bg-color);
-            color: var(--dark-color);
+            color: var(--text-main);
             font-family: var(--font-body);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Header Minimalista */
+        /* Header Moderno */
         header {
-            background-color: rgba(250, 250, 250, 0.95);
+            background-color: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(10px);
-            padding: 1.5rem 5%;
+            padding: 1rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             position: sticky;
             top: 0;
             z-index: 100;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         }
 
         .logo {
-            font-family: var(--font-heading);
+            font-family: var(--font-body);
             font-size: 1.5rem;
-            font-weight: 600;
-            letter-spacing: 1px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
             color: var(--dark-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
         .logo span {
             color: var(--accent-color);
-            font-style: italic;
         }
 
-        /* Hero Section Premium */
+        /* Hero Section Persuasiva */
         .hero {
             text-align: center;
             padding: 6rem 5% 4rem;
@@ -73,36 +81,43 @@
         }
 
         .hero-tag {
+            display: inline-block;
+            background-color: rgba(212, 175, 55, 0.1);
+            color: var(--accent-hover);
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            font-size: 0.8rem;
-            color: var(--accent-color);
+            letter-spacing: 2px;
+            font-size: 0.75rem;
             font-weight: 700;
             margin-bottom: 1.5rem;
-            display: block;
         }
 
         .hero h1 {
             font-family: var(--font-heading);
-            font-size: 3.5rem;
-            font-weight: 400;
+            font-size: 3.8rem;
+            font-weight: 600;
             color: var(--dark-color);
             margin-bottom: 1.5rem;
             line-height: 1.1;
         }
 
         .hero p {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto 3rem;
-            font-weight: 300;
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .hero strong {
+            color: var(--dark-color);
+            background: linear-gradient(transparent 60%, rgba(212, 175, 55, 0.3) 60%);
         }
 
         /* Seção do Tour 360 */
-        .tour-container {
+        .tour-section {
             width: 100%;
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto 4rem;
             padding: 0 5%;
         }
@@ -113,7 +128,10 @@
             height: 70vh;
             min-height: 500px;
             background-color: #EAEAEA;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            border-radius: 12px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+            border: 4px solid white;
         }
 
         .iframe-wrapper iframe {
@@ -125,114 +143,102 @@
             border: none;
         }
 
-        /* Ficha Técnica (Detalhes) */
-        .property-details {
+        /* Highlights / Ficha Técnica */
+        .highlights {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 3rem;
-            padding: 4rem 5%;
-            background-color: #ffffff;
-            border-top: 1px solid rgba(0,0,0,0.05);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            gap: 2rem;
+            padding: 3rem 5%;
+            background-color: var(--dark-color);
+            color: white;
             margin-bottom: 5rem;
         }
 
-        .detail-item {
+        .highlight-item {
             text-align: center;
-            padding: 0 1rem;
-            position: relative;
+            padding: 1.5rem;
+            min-width: 160px;
         }
 
-        /* Linha divisória elegante entre os itens, exceto no último */
-        .detail-item:not(:last-child)::after {
-            content: '';
-            position: absolute;
-            right: -1.5rem;
-            top: 20%;
-            height: 60%;
-            width: 1px;
-            background-color: rgba(0,0,0,0.1);
-        }
-
-        .detail-item h3 {
+        .highlight-item h3 {
             font-family: var(--font-heading);
-            font-size: 2.5rem;
+            font-size: 2.8rem;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
             font-weight: 400;
-            color: var(--dark-color);
-            margin-bottom: 0.2rem;
         }
 
-        .detail-item span {
+        .highlight-item span {
             font-size: 0.85rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--text-muted);
+            letter-spacing: 1.5px;
+            color: #D1D5DB;
         }
 
-        /* Galeria Editorial */
+        /* Galeria ImobTech */
         .gallery-section {
             padding: 0 5% 6rem;
             max-width: 1400px;
             margin: 0 auto;
         }
 
-        .section-title {
+        .section-header {
             text-align: center;
-            font-family: var(--font-heading);
-            font-size: 2.5rem;
-            font-weight: 400;
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
         }
 
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 50px;
-            height: 2px;
-            background-color: var(--accent-color);
-            margin: 1.5rem auto 0;
+        .section-header h2 {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            color: var(--dark-color);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
         }
 
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2px; /* Estilo de revista com gap bem fino */
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem; 
         }
 
         .gallery-item {
             position: relative;
+            border-radius: 8px;
             overflow: hidden;
             aspect-ratio: 4 / 3;
-            background-color: #f0f0f0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
         .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.6s ease, filter 0.6s ease;
-            filter: brightness(0.95);
+            transition: transform 0.7s ease;
         }
 
         .gallery-item:hover img {
-            transform: scale(1.03);
-            filter: brightness(1.05);
+            transform: scale(1.08);
         }
         
         .gallery-caption {
             position: absolute;
-            bottom: 1.5rem;
-            left: 1.5rem;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 0.5rem 1.5rem;
-            color: var(--dark-color);
-            font-family: var(--font-heading);
-            font-size: 1rem;
-            letter-spacing: 1px;
-            opacity: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(17, 24, 39, 0.9), transparent);
+            padding: 2rem 1.5rem 1.5rem;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
             transform: translateY(10px);
-            transition: all 0.4s ease;
+            opacity: 0;
+            transition: all 0.3s ease;
         }
 
         .gallery-item:hover .gallery-caption {
@@ -240,52 +246,68 @@
             transform: translateY(0);
         }
 
-        /* Call to Action Premium */
+        /* CTA Final - Foco em Conversão */
         .cta-section {
             text-align: center;
             padding: 6rem 5%;
-            background-color: var(--dark-color);
-            color: white;
+            background-color: var(--bg-color);
+            border-top: 1px solid #E5E7EB;
         }
 
-        .cta-section h2 {
+        .cta-box {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 4rem 3rem;
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+        }
+
+        .cta-box h2 {
             font-family: var(--font-heading);
             font-size: 2.5rem;
-            font-weight: 400;
-            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+            margin-bottom: 1rem;
         }
 
-        .cta-section p {
-            color: #a0a0a0;
-            margin-bottom: 3rem;
+        .cta-box p {
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
             font-size: 1.1rem;
-            font-weight: 300;
         }
 
-        /* Botões Estilizados */
+        /* Botões */
         .btn {
-            display: inline-block;
-            background-color: var(--accent-color);
-            color: white;
-            padding: 1rem 3rem;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 1rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
             text-decoration: none;
             transition: all 0.3s ease;
-            border: 1px solid var(--accent-color);
             cursor: pointer;
+            border: none;
         }
 
-        .btn:hover {
-            background-color: transparent;
-            color: var(--accent-color);
+        .btn-whatsapp {
+            background-color: var(--whatsapp-color);
+            color: white;
+            box-shadow: 0 10px 15px -3px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-whatsapp:hover {
+            background-color: var(--whatsapp-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(18, 140, 126, 0.4);
         }
 
         .btn-outline {
             background-color: transparent;
             color: var(--dark-color);
-            border: 1px solid var(--dark-color);
+            border: 2px solid var(--dark-color);
         }
 
         .btn-outline:hover {
@@ -293,41 +315,72 @@
             color: white;
         }
 
+        /* Botão Flutuante do WhatsApp */
+        .floating-wpp {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--whatsapp-color);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.4);
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+
+        .floating-wpp:hover {
+            transform: scale(1.1);
+            background-color: var(--whatsapp-hover);
+        }
+
+        .floating-wpp svg {
+            width: 35px;
+            height: 35px;
+        }
+
         /* Footer */
         footer {
             text-align: center;
-            padding: 3rem 5%;
-            background-color: #111;
-            color: #666;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
+            padding: 2rem 5%;
+            background-color: var(--dark-color);
+            color: #9CA3AF;
+            font-size: 0.9rem;
         }
 
         /* Responsividade */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
+            .hero h1 { font-size: 2.6rem; }
             .hero { padding: 4rem 5% 2rem; }
-            .property-details { gap: 2rem; flex-direction: column; }
-            .detail-item:not(:last-child)::after { display: none; }
-            .iframe-wrapper { height: 50vh; min-height: 400px; }
-            .tour-container { padding: 0; } /* Tour encostando nas bordas no celular */
+            .iframe-wrapper { height: 50vh; min-height: 400px; border-radius: 8px; }
+            .highlights { gap: 1rem; padding: 2rem 5%; }
+            .highlight-item { min-width: 120px; padding: 1rem; }
+            .cta-box { padding: 3rem 1.5rem; }
+            .btn { width: 100%; }
+            header .btn { width: auto; padding: 0.5rem 1rem; font-size: 0.85rem; }
+            .floating-wpp { bottom: 20px; right: 20px; width: 50px; height: 50px; }
+            .floating-wpp svg { width: 30px; height: 30px; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo">Belvedere<span>360</span></div>
-        <a href="#contato" class="btn btn-outline" style="padding: 0.6rem 1.5rem; font-size: 0.75rem;">Agendar Visita</a>
+        <a href="#" class="logo">Imob<span>Tech</span></a>
+        <a href="https://wa.me/5531975285780?text=Ol%C3%A1%21%20Acessei%20a%20landing%20page%20da%20ImobTech%20e%20quero%20mais%20informa%C3%A7%C3%B5es%20sobre%20o%20apartamento%20no%20Belvedere." target="_blank" class="btn btn-outline">Falar com Corretor</a>
     </header>
 
     <section class="hero">
-        <span class="hero-tag">Lançamento Exclusivo</span>
-        <h1>Sofisticação e Conforto no Belvedere</h1>
-        <p>Apartamento mobiliado de alto padrão pronto para morar. Viva a experiência de caminhar pelo seu futuro lar agora mesmo através do nosso tour virtual imersivo.</p>
+        <span class="hero-tag">Exclusividade Porteira Fechada</span>
+        <h1>Seu Novo Padrão de Vida no Belvedere.</h1>
+        <p>Mais do que um apartamento, um imóvel pronto para receber a sua história. <strong>Totalmente mobiliado e decorado.</strong> Navegue pelo tour virtual abaixo e descubra cada detalhe em 360º.</p>
     </section>
 
-    <section class="tour-container">
+    <section class="tour-section">
         <div class="iframe-wrapper">
             <iframe 
                 id="tour-embeded" 
@@ -362,79 +415,86 @@
                 }, "*"); 
             }
         });
-
-        // Scroll suave
-        document.querySelector('a[href="#contato"]').addEventListener('click', function(e) {
-            e.preventDefault();
-            document.querySelector('#contato').scrollIntoView({ behavior: 'smooth' });
-        });
     </script>
 
-    <section class="property-details">
-        <div class="detail-item">
+    <section class="highlights">
+        <div class="highlight-item">
             <h3>67m²</h3>
-            <span>Área Privativa</span>
+            <span>Área Útil</span>
         </div>
-        <div class="detail-item">
+        <div class="highlight-item">
             <h3>2</h3>
             <span>Quartos (1 Suíte)</span>
         </div>
-        <div class="detail-item">
-            <h3>2</h3>
-            <span>Banheiros Totais</span>
-        </div>
-        <div class="detail-item">
+        <div class="highlight-item">
             <h3>1</h3>
-            <span>Vaga de Garagem</span>
+            <span>Vaga Fixa</span>
         </div>
-        <div class="detail-item">
-            <h3 style="font-size: 1.8rem; margin-top: 0.5rem; color: var(--accent-color);">Mobiliado</h3>
-            <span>Pronto para morar</span>
+        <div class="highlight-item">
+            <h3 style="color: white;">100%</h3>
+            <span style="color: var(--accent-color); font-weight: bold;">Mobiliado</span>
         </div>
     </section>
 
     <section class="gallery-section">
-        <h2 class="section-title">Conheça os Detalhes</h2>
+        <div class="section-header">
+            <h2>Acabamento Impecável</h2>
+            <p>Design moderno e marcenaria planejada em todos os ambientes.</p>
+        </div>
         <div class="gallery-grid">
             <div class="gallery-item">
                 <img src="https://pub-ae39c497d9854edc9d5f072b5d147986.r2.dev/Belvedere_RodrigoVale/Sala.jpeg" alt="Sala" loading="lazy">
-                <div class="gallery-caption">Living Integrado</div>
+                <div class="gallery-caption">Living Integrado e Climatizado</div>
             </div>
             <div class="gallery-item">
                 <img src="https://pub-ae39c497d9854edc9d5f072b5d147986.r2.dev/Belvedere_RodrigoVale/Cozinha.jpeg" alt="Cozinha" loading="lazy">
-                <div class="gallery-caption">Cozinha Equipada</div>
+                <div class="gallery-caption">Cozinha com Armários Planejados</div>
             </div>
             <div class="gallery-item">
-                <img src="https://pub-ae39c497d9854edc9d5f072b5d147986.r2.dev/Belvedere_RodrigoVale/Suite_1.jpeg" alt="Suíte 1" loading="lazy">
-                <div class="gallery-caption">Suíte Principal</div>
+                <img src="https://pub-ae39c497d9854edc9d5f072b5d147986.r2.dev/Belvedere_RodrigoVale/Suite_1.jpeg" alt="Suíte Principal" loading="lazy">
+                <div class="gallery-caption">Suíte Principal Confortável</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://pub-ae39c497d9854edc9d5f072b5d147986.r2.dev/Belvedere_RodrigoVale/Quarto.jpeg" alt="Segundo Quarto" loading="lazy">
+                <div class="gallery-caption">Segundo Quarto Versátil</div>
             </div>
             <div class="gallery-item">
                 <img src="https://pub-ae39c497d9854edc9d5f072b5d147986.r2.dev/Belvedere_RodrigoVale/Banheiro%20Suite.jpeg" alt="Banheiro da Suíte" loading="lazy">
-                <div class="gallery-caption">Banho Suíte</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://pub-ae39c497d9854edc9d5f072b5d147986.r2.dev/Belvedere_RodrigoVale/Suite_2.jpeg" alt="Quarto 2" loading="lazy">
-                <div class="gallery-caption">Segundo Quarto</div>
+                <div class="gallery-caption">Banho da Suíte</div>
             </div>
             <div class="gallery-item">
                 <img src="https://pub-ae39c497d9854edc9d5f072b5d147986.r2.dev/Belvedere_RodrigoVale/Banheiro%20Social.jpeg" alt="Banheiro Social" loading="lazy">
-                <div class="gallery-caption">Banho Social</div>
+                <div class="gallery-caption">Banho Social Moderno</div>
             </div>
             <div class="gallery-item">
                 <img src="https://pub-ae39c497d9854edc9d5f072b5d147986.r2.dev/Belvedere_RodrigoVale/Area%20Servic%CC%A7o.jpeg" alt="Área de Serviço" loading="lazy">
-                <div class="gallery-caption">Área de Serviço</div>
+                <div class="gallery-caption">Área de Serviço Independente</div>
             </div>
         </div>
     </section>
 
-    <section id="contato" class="cta-section">
-        <h2>Dê o próximo passo</h2>
-        <p>Agende uma visita presencial exclusiva e descubra o seu novo estilo de vida.</p>
-        <button class="btn" onclick="alert('Integração com WhatsApp aqui')">Falar com Consultor</button>
+    <section class="cta-section">
+        <div class="cta-box">
+            <h2>Única Unidade Disponível</h2>
+            <p>Imóveis mobiliados nesse padrão no Belvedere são vendidos rapidamente. Não perca a oportunidade de morar com conforto e praticidade imediata.</p>
+            
+            <a href="https://wa.me/5531975285780?text=Ol%C3%A1%21%20Acessei%20a%20landing%20page%20da%20ImobTech%20e%20quero%20agendar%20uma%20visita%20ao%20apartamento%20no%20Belvedere." target="_blank" class="btn btn-whatsapp">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+                </svg>
+                Garantir Minha Visita
+            </a>
+        </div>
     </section>
 
+    <a href="https://wa.me/5531975285780?text=Ol%C3%A1%21%20Acessei%20a%20landing%20page%20da%20ImobTech%20e%20quero%20mais%20informa%C3%A7%C3%B5es%20sobre%20o%20apartamento%20no%20Belvedere." target="_blank" class="floating-wpp" aria-label="Falar no WhatsApp">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+        </svg>
+    </a>
+
     <footer>
-        <p>&copy; 2026 Belvedere 360. Todos os direitos reservados.</p>
+        <p>&copy; 2026 ImobTech. Todos os direitos reservados.</p>
     </footer>
 
 </body>
