@@ -4,16 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ImobTech | Apartamento Premium no Belvedere</title>
-    <meta property="og:type" content="website">
-<meta property="og:url" content="https://seusite.com.br/"> <meta property="og:title" content="ImobTech | Apartamento Premium no Belvedere">
-<meta property="og:description" content="Totalmente mobiliado e decorado. Conheça este imóvel exclusivo com tour virtual 360º.">
-<meta property="og:image" content="https://pub-ae39c497d9854edc9d5f072b5d147986.r2.dev/Belvedere_RodrigoVale/Sala.jpeg">
-
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="ImobTech | Apartamento Premium no Belvedere">
-<meta name="twitter:description" content="Totalmente mobiliado e decorado. Conheça este imóvel exclusivo com tour virtual 360º.">
-<meta name="twitter:image" content="https://pub-ae39c497d9854edc9d5f072b5d147986.r2.dev/Belvedere_RodrigoVale/Sala.jpeg">
     
+    <meta name="description" content="Apartamento exclusivo no Belvedere, 100% mobiliado e decorado (porteira fechada). Faça um tour virtual 360º agora.">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://imobtech.ncodes.com.br/">
+    <meta property="og:title" content="ImobTech | Apartamento Premium no Belvedere">
+    <meta property="og:description" content="Totalmente mobiliado e decorado. Conheça este imóvel exclusivo com tour virtual 360º.">
+    <meta property="og:image" content="https://pub-ae39c497d9854edc9d5f072b5d147986.r2.dev/Belvedere_RodrigoVale/Sala.jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ImobTech | Apartamento Premium no Belvedere">
+    <meta name="twitter:description" content="Totalmente mobiliado e decorado. Conheça este imóvel exclusivo com tour virtual 360º.">
+    <meta name="twitter:image" content="https://pub-ae39c497d9854edc9d5f072b5d147986.r2.dev/Belvedere_RodrigoVale/Sala.jpeg">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -592,7 +598,6 @@
         const closeBtn = document.querySelector('.lightbox-close');
         const galleryItems = document.querySelectorAll('.gallery-item');
 
-        // Abrir o Lightbox ao clicar na imagem
         galleryItems.forEach(item => {
             item.addEventListener('click', function() {
                 const imgElement = this.querySelector('img');
@@ -602,27 +607,22 @@
                 lightboxCaption.innerText = captionElement.innerText;
                 
                 lightbox.classList.add('active');
-                document.body.style.overflow = 'hidden'; // Trava a rolagem da página por baixo
+                document.body.style.overflow = 'hidden';
             });
         });
 
-        // Função para fechar o Lightbox
         function closeLightbox() {
             lightbox.classList.remove('active');
-            document.body.style.overflow = 'auto'; // Devolve a rolagem da página
+            document.body.style.overflow = 'auto';
         }
 
-        // Fechar ao clicar no "X"
         closeBtn.addEventListener('click', closeLightbox);
-
-        // Fechar ao clicar fora da imagem (na área escura)
         lightbox.addEventListener('click', function(e) {
             if (e.target === lightbox) {
                 closeLightbox();
             }
         });
 
-        // Fechar ao apertar a tecla ESC do teclado
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && lightbox.classList.contains('active')) {
                 closeLightbox();
