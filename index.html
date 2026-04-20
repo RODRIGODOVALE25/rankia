@@ -3,8 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Plano de estudos interativo para o concurso TJ-SP Escrevente Técnico Judiciário — banca VUNESP. Checklist com progresso salvo automaticamente.">
+<meta name="theme-color" content="#0f0f14">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Plano de Estudos TJ-SP Escrevente">
+<meta property="og:description" content="Checklist interativo com todas as disciplinas do edital. Progresso salvo no seu navegador.">
+<meta property="og:type" content="website">
+
 <title>Plano de Estudos — TJ-SP Escrevente</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
   :root {
     --ink: #0f0f14;
@@ -32,6 +44,49 @@
     padding: 0 0 60px;
   }
 
+  /* ── SAVE TOAST ── */
+  #save-toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--ink);
+    color: var(--gold);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--gold-dim);
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.25s, transform 0.25s;
+    pointer-events: none;
+    z-index: 999;
+  }
+  #save-toast.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESET BTN ── */
+  .reset-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    background: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .reset-btn:hover { color: var(--red); border-color: var(--red); }
+
   /* ── HEADER ── */
   .hero {
     background: var(--ink);
@@ -45,11 +100,8 @@
     position: absolute;
     inset: 0;
     background: repeating-linear-gradient(
-      45deg,
-      transparent,
-      transparent 18px,
-      rgba(201,168,76,0.06) 18px,
-      rgba(201,168,76,0.06) 19px
+      45deg, transparent, transparent 18px,
+      rgba(201,168,76,0.06) 18px, rgba(201,168,76,0.06) 19px
     );
   }
   .hero-inner { position: relative; max-width: 760px; margin: 0 auto; }
@@ -78,19 +130,18 @@
     font-weight: 300;
     max-width: 480px;
     line-height: 1.6;
+    margin-top: 4px;
   }
 
   /* ── STATS BAR ── */
   .stats-bar {
     background: var(--gold);
     display: flex;
-    gap: 0;
-    max-width: 100%;
     overflow-x: auto;
   }
   .stat {
     flex: 1;
-    min-width: 120px;
+    min-width: 110px;
     padding: 14px 20px;
     text-align: center;
     border-right: 1px solid var(--gold-dim);
@@ -111,10 +162,7 @@
     color: var(--gold-dim);
   }
 
-  /* ── LAYOUT ── */
-  .container { max-width: 760px; margin: 0 auto; padding: 0 20px; }
-
-  /* ── PROGRESS RING ── */
+  /* ── PROGRESS ── */
   .progress-section {
     padding: 32px 20px;
     max-width: 760px;
@@ -124,7 +172,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
   }
   .progress-header h2 {
     font-family: 'DM Serif Display', serif;
@@ -159,9 +207,9 @@
   .ring-sub { font-size: 9px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
   .progress-info h3 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
   .progress-info p { font-size: 13px; color: var(--muted); }
-  #topics-done, #topics-total { font-family: 'DM Mono', monospace; }
+  .progress-info p span { font-family: 'DM Mono', monospace; }
 
-  /* ── SECTION CARDS ── */
+  /* ── SECTION TITLE ── */
   .section-title {
     font-family: 'DM Serif Display', serif;
     font-size: 22px;
@@ -179,11 +227,8 @@
     background: var(--border);
   }
 
-  .discipline-card {
-    max-width: 760px;
-    margin: 0 auto 16px;
-    padding: 0 20px;
-  }
+  /* ── DISCIPLINE CARD ── */
+  .discipline-card { max-width: 760px; margin: 0 auto 16px; padding: 0 20px; }
   .card-inner {
     background: white;
     border: 1px solid var(--border);
@@ -206,24 +251,15 @@
   .card-header:hover { background: var(--cream); }
 
   .card-icon {
-    width: 40px;
-    height: 40px;
+    width: 40px; height: 40px;
     border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
   }
-
   .card-meta { flex: 1; }
   .card-meta h3 { font-size: 15px; font-weight: 600; }
-  .card-meta .card-info {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 4px;
-  }
+  .card-info { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+
   .pill {
     font-size: 10px;
     font-family: 'DM Mono', monospace;
@@ -233,47 +269,24 @@
     letter-spacing: 0.5px;
   }
   .pill-q { background: #e8f0fd; color: var(--blue); }
-  .pill-peso {
-    background: #fff8e1;
-    color: var(--gold-dim);
-    display: flex;
-    align-items: center;
-    gap: 3px;
-  }
+  .pill-peso { background: #fff8e1; color: var(--gold-dim); }
+
   .card-pct {
     font-family: 'DM Mono', monospace;
     font-size: 13px;
     color: var(--muted);
     margin-right: 4px;
+    min-width: 36px;
+    text-align: right;
   }
+  .mini-bar { width: 60px; height: 4px; background: var(--cream); border-radius: 2px; overflow: hidden; }
+  .mini-fill { height: 100%; border-radius: 2px; transition: width 0.4s ease; }
 
-  .mini-bar {
-    width: 60px;
-    height: 4px;
-    background: var(--cream);
-    border-radius: 2px;
-    overflow: hidden;
-  }
-  .mini-fill {
-    height: 100%;
-    border-radius: 2px;
-    transition: width 0.4s ease;
-  }
-
-  .chevron {
-    font-size: 14px;
-    color: var(--muted);
-    transition: transform 0.25s;
-    flex-shrink: 0;
-  }
+  .chevron { font-size: 14px; color: var(--muted); transition: transform 0.25s; flex-shrink: 0; }
   .card-inner.open .chevron { transform: rotate(180deg); }
 
-  /* ── TOPICS LIST ── */
-  .topics-list {
-    display: none;
-    border-top: 1px solid var(--border);
-    padding: 0 20px 16px;
-  }
+  /* ── TOPICS ── */
+  .topics-list { display: none; border-top: 1px solid var(--border); padding: 0 20px 16px; }
   .card-inner.open .topics-list { display: block; }
 
   .topic-item {
@@ -289,49 +302,35 @@
   .topic-item:hover { opacity: 0.8; }
 
   .topic-check {
-    width: 20px;
-    height: 20px;
+    width: 20px; height: 20px;
     border: 2px solid var(--border);
     border-radius: 5px;
     flex-shrink: 0;
     margin-top: 1px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     transition: all 0.15s;
     background: white;
+    position: relative;
   }
   .topic-item.done .topic-check {
     background: var(--green);
     border-color: var(--green);
+  }
+  .topic-item.done .topic-check::after {
+    content: '✓';
     color: white;
+    font-size: 12px;
+    font-weight: 700;
   }
-  .topic-item.done .topic-check::after { content: '✓'; font-size: 12px; font-weight: 700; }
-
   .topic-text { flex: 1; }
-  .topic-name {
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 1.4;
-  }
-  .topic-item.done .topic-name {
-    text-decoration: line-through;
-    color: var(--muted);
-  }
-  .topic-tag {
-    font-size: 10px;
-    font-family: 'DM Mono', monospace;
-    color: var(--muted);
-    margin-top: 2px;
-  }
+  .topic-name { font-size: 13px; font-weight: 500; line-height: 1.4; }
+  .topic-item.done .topic-name { text-decoration: line-through; color: var(--muted); }
+  .topic-tag { font-size: 10px; font-family: 'DM Mono', monospace; color: var(--muted); margin-top: 2px; }
   .hot-tag {
     display: inline-block;
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    background: #fff0f0;
-    color: var(--red);
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 0.5px; text-transform: uppercase;
+    background: #fff0f0; color: var(--red);
     border: 1px solid #f5c6c0;
     border-radius: 3px;
     padding: 1px 5px;
@@ -340,7 +339,7 @@
   }
 
   /* ── TIMELINE ── */
-  .timeline-section { padding: 0 20px 0; max-width: 760px; margin: 0 auto; }
+  .timeline-section { padding: 0 20px; max-width: 760px; margin: 0 auto; }
   .phase-block {
     background: white;
     border: 1px solid var(--border);
@@ -350,35 +349,17 @@
     box-shadow: 0 2px 8px var(--shadow);
   }
   .phase-header {
-    display: flex;
-    align-items: center;
-    gap: 14px;
+    display: flex; align-items: center; gap: 14px;
     padding: 14px 20px;
-    background: var(--ink);
-    color: var(--paper);
+    background: var(--ink); color: var(--paper);
   }
-  .phase-num {
-    font-family: 'DM Mono', monospace;
-    font-size: 20px;
-    font-weight: 500;
-    color: var(--gold);
-    min-width: 28px;
-  }
+  .phase-num { font-family: 'DM Mono', monospace; font-size: 20px; font-weight: 500; color: var(--gold); min-width: 28px; }
   .phase-header h3 { font-size: 14px; font-weight: 600; }
   .phase-header span { font-size: 11px; color: rgba(245,243,238,0.5); margin-left: auto; font-family: 'DM Mono', monospace; }
   .phase-body { padding: 16px 20px; }
   .phase-rows { display: flex; flex-direction: column; gap: 8px; }
-  .phase-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 13px;
-  }
-  .phase-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
+  .phase-row { display: flex; align-items: center; gap: 10px; font-size: 13px; }
+  .phase-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
 
   /* ── TIPS ── */
   .tips-grid {
@@ -390,7 +371,6 @@
     margin: 0 auto;
   }
   @media (max-width: 520px) { .tips-grid { grid-template-columns: 1fr; } }
-
   .tip-card {
     background: white;
     border: 1px solid var(--border);
@@ -398,47 +378,23 @@
     padding: 16px 18px;
     box-shadow: 0 2px 8px var(--shadow);
   }
-  .tip-card h4 {
-    font-size: 13px;
-    font-weight: 700;
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .tip-card ul {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
+  .tip-card h4 { font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+  .tip-card ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
   .tip-card li {
-    font-size: 12px;
-    color: var(--muted);
-    padding-left: 12px;
-    position: relative;
-    line-height: 1.5;
+    font-size: 12px; color: var(--muted);
+    padding-left: 12px; position: relative; line-height: 1.5;
   }
-  .tip-card li::before {
-    content: '→';
-    position: absolute;
-    left: 0;
-    color: var(--gold);
-    font-size: 10px;
-    top: 2px;
-  }
+  .tip-card li::before { content: '→'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 2px; }
 
   /* ── FOOTER ── */
   .footer {
     text-align: center;
     padding: 28px 20px 0;
-    font-size: 11px;
-    color: var(--muted);
+    font-size: 11px; color: var(--muted);
     font-family: 'DM Mono', monospace;
     letter-spacing: 0.5px;
   }
 
-  /* scrollbar */
   ::-webkit-scrollbar { width: 6px; height: 6px; }
   ::-webkit-scrollbar-track { background: var(--cream); }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
@@ -446,41 +402,31 @@
 </head>
 <body>
 
+<!-- SAVE TOAST -->
+<div id="save-toast">✓ progresso salvo</div>
+
+<!-- HEADER -->
 <div class="hero">
   <div class="hero-inner">
     <div class="badge">Banca VUNESP · Nível Médio</div>
     <h1>Plano de Estudos<br><em>TJ-SP Escrevente</em></h1>
-    <p>Conteúdo programático completo com checklist interativo. Marque os tópicos conforme avança. Progresso salvo automaticamente.</p>
+    <p>Checklist interativo baseado no edital. Seu progresso é salvo automaticamente no navegador.</p>
   </div>
 </div>
 
 <div class="stats-bar">
-  <div class="stat">
-    <span class="stat-num">3</span>
-    <span class="stat-label">Blocos</span>
-  </div>
-  <div class="stat">
-    <span class="stat-num">70</span>
-    <span class="stat-label">Questões</span>
-  </div>
-  <div class="stat">
-    <span class="stat-num">6</span>
-    <span class="stat-label">Disciplinas</span>
-  </div>
-  <div class="stat">
-    <span class="stat-num">40pts</span>
-    <span class="stat-label">Redação</span>
-  </div>
-  <div class="stat">
-    <span class="stat-num">5,0</span>
-    <span class="stat-label">Mínimo obj.</span>
-  </div>
+  <div class="stat"><span class="stat-num">3</span><span class="stat-label">Blocos</span></div>
+  <div class="stat"><span class="stat-num">70</span><span class="stat-label">Questões</span></div>
+  <div class="stat"><span class="stat-num">6</span><span class="stat-label">Disciplinas</span></div>
+  <div class="stat"><span class="stat-num">40pts</span><span class="stat-label">Redação</span></div>
+  <div class="stat"><span class="stat-num">5,0</span><span class="stat-label">Mínimo obj.</span></div>
 </div>
 
 <!-- PROGRESS -->
 <div class="progress-section">
   <div class="progress-header">
-    <h2>Seu progresso geral</h2>
+    <h2>Seu progresso</h2>
+    <button class="reset-btn" onclick="confirmReset()">⟳ Resetar</button>
   </div>
   <div class="overall-progress">
     <div class="ring-wrap">
@@ -499,14 +445,13 @@
     <div class="progress-info">
       <h3>Tópicos concluídos</h3>
       <p><span id="topics-done">0</span> de <span id="topics-total">0</span> tópicos marcados</p>
-      <p style="margin-top:6px;font-size:12px;color:var(--muted);">Clique nos tópicos abaixo para marcar como estudado.</p>
+      <p style="margin-top:6px;font-size:12px;">Clique em qualquer tópico para marcar como estudado.</p>
     </div>
   </div>
 </div>
 
-<!-- ═══ BLOCO I — LÍNGUA PORTUGUESA ═══ -->
+<!-- ═══ BLOCO I — PORTUGUÊS ═══ -->
 <div class="section-title">📘 Bloco I — Língua Portuguesa</div>
-
 <div class="discipline-card">
   <div class="card-inner" id="card-lp">
     <div class="card-header" onclick="toggleCard('card-lp')">
@@ -523,90 +468,23 @@
       <span class="chevron">▼</span>
     </div>
     <div class="topics-list" id="list-lp">
-      <div class="topic-item" onclick="toggleTopic(this,'lp')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Leitura e compreensão de textos <span class="hot-tag">🔥 mais cobrado</span></div>
-          <div class="topic-tag">Interpretação, inferência, coesão e coerência</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'lp')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Ortografia oficial (Acordo Ortográfico 2009) <span class="hot-tag">🔥</span></div>
-          <div class="topic-tag">Uso do hífen, acento, maiúsculas/minúsculas</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'lp')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Acentuação gráfica</div>
-          <div class="topic-tag">Regras de acentuação, monossílabos tônicos</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'lp')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Classes de palavras: morfologia <span class="hot-tag">🔥</span></div>
-          <div class="topic-tag">Substantivo, adjetivo, verbo, pronomes, numerais, advérbios</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'lp')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Sintaxe: concordância verbal e nominal <span class="hot-tag">🔥</span></div>
-          <div class="topic-tag">Casos especiais, sujeito composto, partitivo</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'lp')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Regência verbal e nominal</div>
-          <div class="topic-tag">Verbos com mais de uma regência, crase</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'lp')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Crase</div>
-          <div class="topic-tag">Casos de uso obrigatório, facultativo e proibido</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'lp')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Pontuação</div>
-          <div class="topic-tag">Vírgula, ponto e vírgula, dois-pontos, travessão</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'lp')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Colocação pronominal</div>
-          <div class="topic-tag">Ênclise, próclise, mesóclise</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'lp')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Reescrita de frases e equivalência</div>
-          <div class="topic-tag">Voz ativa/passiva, transformações sintáticas</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'lp')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Redação oficial e técnica <span class="hot-tag">🔥</span></div>
-          <div class="topic-tag">Clareza, objetividade, adequação à situação comunicativa</div>
-        </div>
-      </div>
+      <div class="topic-item" data-key="lp-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Leitura e compreensão de textos <span class="hot-tag">🔥 mais cobrado</span></div><div class="topic-tag">Interpretação, inferência, coesão e coerência</div></div></div>
+      <div class="topic-item" data-key="lp-02"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Ortografia oficial (Acordo Ortográfico 2009) <span class="hot-tag">🔥</span></div><div class="topic-tag">Uso do hífen, acento, maiúsculas/minúsculas</div></div></div>
+      <div class="topic-item" data-key="lp-03"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Acentuação gráfica</div><div class="topic-tag">Regras de acentuação, monossílabos tônicos</div></div></div>
+      <div class="topic-item" data-key="lp-04"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Classes de palavras: morfologia <span class="hot-tag">🔥</span></div><div class="topic-tag">Substantivo, adjetivo, verbo, pronomes, numerais, advérbios</div></div></div>
+      <div class="topic-item" data-key="lp-05"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Concordância verbal e nominal <span class="hot-tag">🔥</span></div><div class="topic-tag">Casos especiais, sujeito composto, partitivo</div></div></div>
+      <div class="topic-item" data-key="lp-06"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Regência verbal e nominal</div><div class="topic-tag">Verbos com mais de uma regência, crase</div></div></div>
+      <div class="topic-item" data-key="lp-07"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Crase</div><div class="topic-tag">Casos de uso obrigatório, facultativo e proibido</div></div></div>
+      <div class="topic-item" data-key="lp-08"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Pontuação</div><div class="topic-tag">Vírgula, ponto e vírgula, dois-pontos, travessão</div></div></div>
+      <div class="topic-item" data-key="lp-09"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Colocação pronominal</div><div class="topic-tag">Ênclise, próclise, mesóclise</div></div></div>
+      <div class="topic-item" data-key="lp-10"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Reescrita de frases e equivalência</div><div class="topic-tag">Voz ativa/passiva, transformações sintáticas</div></div></div>
+      <div class="topic-item" data-key="lp-11"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Redação oficial e técnica <span class="hot-tag">🔥</span></div><div class="topic-tag">Clareza, objetividade, adequação à situação comunicativa</div></div></div>
     </div>
   </div>
 </div>
 
 <!-- ═══ BLOCO II — DIREITO + ATUALIDADES ═══ -->
-<div class="section-title">⚖️ Bloco II — Direito & Atualidades</div>
-
+<div class="section-title">⚖️ Bloco II — Direito &amp; Atualidades</div>
 <div class="discipline-card">
   <div class="card-inner" id="card-dir">
     <div class="card-header" onclick="toggleCard('card-dir')">
@@ -623,90 +501,18 @@
       <span class="chevron">▼</span>
     </div>
     <div class="topics-list" id="list-dir">
-      <div class="topic-item" onclick="toggleTopic(this,'dir')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Constituição Federal — Título II (Direitos e Garantias) <span class="hot-tag">🔥</span></div>
-          <div class="topic-tag">Arts. 1º ao 17; direitos individuais, coletivos, sociais</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'dir')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Organização do Poder Judiciário (CF arts. 92-126) <span class="hot-tag">🔥</span></div>
-          <div class="topic-tag">Estrutura, competências, STF, STJ, TJs</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'dir')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Código de Processo Civil — Partes e normas gerais <span class="hot-tag">🔥</span></div>
-          <div class="topic-tag">Livro I: normas fundamentais, arts. 1º ao 12</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'dir')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">CPC — Petição inicial, citação e intimação <span class="hot-tag">🔥</span></div>
-          <div class="topic-tag">Arts. 319 a 340; prazos, formas de comunicação</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'dir')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">CPC — Recursos: apelação, agravo, embargos</div>
-          <div class="topic-tag">Arts. 994 a 1044</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'dir')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Estatuto dos Funcionários Públicos do Estado de SP <span class="hot-tag">🔥</span></div>
-          <div class="topic-tag">Lei nº 10.261/68 — deveres, direitos, regime disciplinar</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'dir')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">NORMAS — Regulamento Interno dos Servidores TJSP</div>
-          <div class="topic-tag">Tomo I, Capítulo XI: Seções I a VII</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'dir')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Estatuto da Pessoa com Deficiência (Lei 13.146/2015) <span class="hot-tag">🔥</span></div>
-          <div class="topic-tag">Arts. 1º ao 13 e arts. 34 ao 38</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'dir')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Lei de Acesso à Informação (Lei 12.527/2011)</div>
-          <div class="topic-tag">Transparência ativa/passiva, sigilo, recursos</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'dir')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">LGPD — Lei Geral de Proteção de Dados (Lei 13.709/2018)</div>
-          <div class="topic-tag">Conceitos, base legal, direitos do titular</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'dir')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Direito Penal — Parte Geral (arts. 1º ao 120 CP)</div>
-          <div class="topic-tag">Crimes, penas, causas excludentes, prescrição</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'dir')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Código de Ética dos Servidores do TJSP</div>
-          <div class="topic-tag">Resolução TJSP sobre conduta funcional</div>
-        </div>
-      </div>
+      <div class="topic-item" data-key="dir-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">CF — Título II: Direitos e Garantias Fundamentais <span class="hot-tag">🔥</span></div><div class="topic-tag">Arts. 1º ao 17; direitos individuais, coletivos, sociais</div></div></div>
+      <div class="topic-item" data-key="dir-02"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Organização do Poder Judiciário (CF arts. 92–126) <span class="hot-tag">🔥</span></div><div class="topic-tag">Estrutura, competências, STF, STJ, TJs</div></div></div>
+      <div class="topic-item" data-key="dir-03"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">CPC — Normas fundamentais e partes gerais <span class="hot-tag">🔥</span></div><div class="topic-tag">Livro I: arts. 1º ao 12; princípios processuais</div></div></div>
+      <div class="topic-item" data-key="dir-04"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">CPC — Petição inicial, citação e intimação <span class="hot-tag">🔥</span></div><div class="topic-tag">Arts. 319 a 340; prazos, formas de comunicação</div></div></div>
+      <div class="topic-item" data-key="dir-05"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">CPC — Recursos: apelação, agravo, embargos</div><div class="topic-tag">Arts. 994 a 1044</div></div></div>
+      <div class="topic-item" data-key="dir-06"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Estatuto dos Funcionários Públicos SP (Lei 10.261/68) <span class="hot-tag">🔥</span></div><div class="topic-tag">Deveres, direitos, regime disciplinar, responsabilidades</div></div></div>
+      <div class="topic-item" data-key="dir-07"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Regulamento Interno dos Servidores TJSP <span class="hot-tag">🔥</span></div><div class="topic-tag">Tomo I, Capítulo XI: Seções I a VII</div></div></div>
+      <div class="topic-item" data-key="dir-08"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Estatuto da Pessoa com Deficiência (Lei 13.146/2015) <span class="hot-tag">🔥</span></div><div class="topic-tag">Arts. 1º ao 13 e arts. 34 ao 38</div></div></div>
+      <div class="topic-item" data-key="dir-09"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Lei de Acesso à Informação (Lei 12.527/2011)</div><div class="topic-tag">Transparência ativa/passiva, sigilo, recursos</div></div></div>
+      <div class="topic-item" data-key="dir-10"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">LGPD — Lei Geral de Proteção de Dados (Lei 13.709/2018)</div><div class="topic-tag">Conceitos, base legal, direitos do titular</div></div></div>
+      <div class="topic-item" data-key="dir-11"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Direito Penal — Parte Geral (arts. 1º ao 120 CP)</div><div class="topic-tag">Crimes, penas, causas excludentes, prescrição</div></div></div>
+      <div class="topic-item" data-key="dir-12"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Código de Ética dos Servidores do TJSP</div><div class="topic-tag">Resolução TJSP sobre conduta funcional</div></div></div>
     </div>
   </div>
 </div>
@@ -727,54 +533,23 @@
       <span class="chevron">▼</span>
     </div>
     <div class="topics-list" id="list-atu">
-      <div class="topic-item" onclick="toggleTopic(this,'atu')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Fatos nacionais: política, economia, saúde, educação <span class="hot-tag">🔥</span></div>
-          <div class="topic-tag">Eventos relevantes a partir de 2025</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'atu')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Fatos internacionais: geopolítica, crises, acordos <span class="hot-tag">🔥</span></div>
-          <div class="topic-tag">Conflitos, eleições mundiais, clima</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'atu')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Meio ambiente e sustentabilidade</div>
-          <div class="topic-tag">COPs, desastres climáticos, políticas ambientais</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'atu')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Ciência, tecnologia e inovação</div>
-          <div class="topic-tag">Inteligência artificial, avanços científicos</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'atu')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Direitos humanos e questões sociais</div>
-          <div class="topic-tag">Desigualdade, diversidade, legislação social</div>
-        </div>
-      </div>
+      <div class="topic-item" data-key="atu-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Fatos nacionais: política, economia, saúde, educação <span class="hot-tag">🔥</span></div><div class="topic-tag">Eventos relevantes a partir de 2025</div></div></div>
+      <div class="topic-item" data-key="atu-02"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Fatos internacionais: geopolítica, crises, acordos <span class="hot-tag">🔥</span></div><div class="topic-tag">Conflitos, eleições mundiais, clima</div></div></div>
+      <div class="topic-item" data-key="atu-03"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Meio ambiente e sustentabilidade</div><div class="topic-tag">COPs, desastres climáticos, políticas ambientais</div></div></div>
+      <div class="topic-item" data-key="atu-04"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Ciência, tecnologia e inovação</div><div class="topic-tag">Inteligência artificial, avanços científicos</div></div></div>
+      <div class="topic-item" data-key="atu-05"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Direitos humanos e questões sociais</div><div class="topic-tag">Desigualdade, diversidade, legislação social</div></div></div>
     </div>
   </div>
 </div>
 
 <!-- ═══ BLOCO III — EXATAS ═══ -->
-<div class="section-title">🔢 Bloco III — Matemática & Informática</div>
-
+<div class="section-title">🔢 Bloco III — Matemática &amp; Informática</div>
 <div class="discipline-card">
   <div class="card-inner" id="card-mat">
     <div class="card-header" onclick="toggleCard('card-mat')">
       <div class="card-icon" style="background:#fdf0f0;">🔢</div>
       <div class="card-meta">
-        <h3>Matemática & Raciocínio Lógico</h3>
+        <h3>Matemática &amp; Raciocínio Lógico</h3>
         <div class="card-info">
           <span class="pill pill-q">15 questões</span>
           <span class="pill pill-peso">⭐ Classificatório</span>
@@ -785,83 +560,17 @@
       <span class="chevron">▼</span>
     </div>
     <div class="topics-list" id="list-mat">
-      <div class="topic-item" onclick="toggleTopic(this,'mat')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Operações com números reais e frações <span class="hot-tag">🔥</span></div>
-          <div class="topic-tag">Potências, raízes, operações básicas</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'mat')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Razão, proporção e regra de três <span class="hot-tag">🔥</span></div>
-          <div class="topic-tag">Regra de três simples e composta</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'mat')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Porcentagem <span class="hot-tag">🔥</span></div>
-          <div class="topic-tag">Cálculo de porcentagem, aumento/desconto</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'mat')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Médias aritmética simples e ponderada</div>
-          <div class="topic-tag">Cálculo e interpretação de médias</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'mat')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Juros simples</div>
-          <div class="topic-tag">Montante, capital, taxa, tempo</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'mat')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Equações de 1º e 2º grau + sistemas <span class="hot-tag">🔥</span></div>
-          <div class="topic-tag">Equações lineares e quadráticas</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'mat')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Leitura de tabelas e gráficos <span class="hot-tag">🔥</span></div>
-          <div class="topic-tag">Barras, setores, linhas — interpretação</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'mat')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Geometria: área, perímetro, volume, ângulos</div>
-          <div class="topic-tag">Figuras planas, sólidos, teorema de Pitágoras</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'mat')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Raciocínio lógico: proposições e conectivos <span class="hot-tag">🔥</span></div>
-          <div class="topic-tag">Conjunção, disjunção, condicional, bicondicional</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'mat')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Raciocínio lógico: sequências e padrões <span class="hot-tag">🔥</span></div>
-          <div class="topic-tag">Progressões, séries numéricas, figuras</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'mat')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Problemas situação-problema (contextualizados) <span class="hot-tag">🔥</span></div>
-          <div class="topic-tag">Resolução de problemas do cotidiano</div>
-        </div>
-      </div>
+      <div class="topic-item" data-key="mat-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Operações com números reais e frações <span class="hot-tag">🔥</span></div><div class="topic-tag">Potências, raízes, operações básicas</div></div></div>
+      <div class="topic-item" data-key="mat-02"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Razão, proporção e regra de três <span class="hot-tag">🔥</span></div><div class="topic-tag">Regra de três simples e composta</div></div></div>
+      <div class="topic-item" data-key="mat-03"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Porcentagem <span class="hot-tag">🔥</span></div><div class="topic-tag">Cálculo de porcentagem, aumento/desconto</div></div></div>
+      <div class="topic-item" data-key="mat-04"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Médias aritmética simples e ponderada</div><div class="topic-tag">Cálculo e interpretação de médias</div></div></div>
+      <div class="topic-item" data-key="mat-05"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Juros simples</div><div class="topic-tag">Montante, capital, taxa, tempo</div></div></div>
+      <div class="topic-item" data-key="mat-06"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Equações de 1º e 2º grau + sistemas <span class="hot-tag">🔥</span></div><div class="topic-tag">Equações lineares e quadráticas</div></div></div>
+      <div class="topic-item" data-key="mat-07"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Leitura de tabelas e gráficos <span class="hot-tag">🔥</span></div><div class="topic-tag">Barras, setores, linhas — interpretação</div></div></div>
+      <div class="topic-item" data-key="mat-08"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Geometria: área, perímetro, volume, ângulos</div><div class="topic-tag">Figuras planas, sólidos, teorema de Pitágoras</div></div></div>
+      <div class="topic-item" data-key="mat-09"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Raciocínio lógico: proposições e conectivos <span class="hot-tag">🔥</span></div><div class="topic-tag">Conjunção, disjunção, condicional, bicondicional</div></div></div>
+      <div class="topic-item" data-key="mat-10"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Raciocínio lógico: sequências e padrões <span class="hot-tag">🔥</span></div><div class="topic-tag">Progressões, séries numéricas, figuras</div></div></div>
+      <div class="topic-item" data-key="mat-11"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Situações-problema contextualizadas <span class="hot-tag">🔥</span></div><div class="topic-tag">Resolução de problemas do cotidiano</div></div></div>
     </div>
   </div>
 </div>
@@ -882,62 +591,14 @@
       <span class="chevron">▼</span>
     </div>
     <div class="topics-list" id="list-inf">
-      <div class="topic-item" onclick="toggleTopic(this,'inf')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Windows 10/11: pastas, arquivos, atalhos <span class="hot-tag">🔥</span></div>
-          <div class="topic-tag">Área de trabalho, área de transferência, gerenciador</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'inf')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Microsoft Word (Microsoft 365) <span class="hot-tag">🔥</span></div>
-          <div class="topic-tag">Formatação, estilos, mala direta, revisão</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'inf')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Microsoft Excel (Microsoft 365) <span class="hot-tag">🔥</span></div>
-          <div class="topic-tag">Fórmulas básicas (SOMA, SE, MÉDIA, PROCV), gráficos</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'inf')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Microsoft PowerPoint (Microsoft 365)</div>
-          <div class="topic-tag">Slides, transições, animações básicas</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'inf')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Internet: navegadores, pesquisa e segurança <span class="hot-tag">🔥</span></div>
-          <div class="topic-tag">Chrome/Edge, favoritos, guias, HTTPS, phishing</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'inf')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">E-mail: Outlook e webmail</div>
-          <div class="topic-tag">Envio, CC, CCO, anexos, pastas, assinatura</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'inf')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Segurança digital: vírus, antivírus, firewall, backup</div>
-          <div class="topic-tag">Conceitos de proteção de dados e boas práticas</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'inf')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Conceitos básicos de hardware e redes</div>
-          <div class="topic-tag">Processador, memória, armazenamento; LAN, WAN, Wi-Fi</div>
-        </div>
-      </div>
+      <div class="topic-item" data-key="inf-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Windows 10/11: pastas, arquivos, atalhos <span class="hot-tag">🔥</span></div><div class="topic-tag">Área de trabalho, área de transferência, gerenciador</div></div></div>
+      <div class="topic-item" data-key="inf-02"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Microsoft Word (Microsoft 365) <span class="hot-tag">🔥</span></div><div class="topic-tag">Formatação, estilos, mala direta, revisão</div></div></div>
+      <div class="topic-item" data-key="inf-03"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Microsoft Excel (Microsoft 365) <span class="hot-tag">🔥</span></div><div class="topic-tag">Fórmulas (SOMA, SE, MÉDIA, PROCV), gráficos</div></div></div>
+      <div class="topic-item" data-key="inf-04"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Microsoft PowerPoint (Microsoft 365)</div><div class="topic-tag">Slides, transições, animações básicas</div></div></div>
+      <div class="topic-item" data-key="inf-05"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Internet: navegadores, pesquisa e segurança <span class="hot-tag">🔥</span></div><div class="topic-tag">Chrome/Edge, favoritos, guias, HTTPS, phishing</div></div></div>
+      <div class="topic-item" data-key="inf-06"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">E-mail: Outlook e webmail</div><div class="topic-tag">Envio, CC, CCO, anexos, pastas, assinatura</div></div></div>
+      <div class="topic-item" data-key="inf-07"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Segurança digital: vírus, antivírus, firewall, backup</div><div class="topic-tag">Proteção de dados e boas práticas</div></div></div>
+      <div class="topic-item" data-key="inf-08"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Conceitos básicos de hardware e redes</div><div class="topic-tag">Processador, memória, armazenamento; LAN, WAN, Wi-Fi</div></div></div>
     </div>
   </div>
 </div>
@@ -960,41 +621,11 @@
       <span class="chevron">▼</span>
     </div>
     <div class="topics-list" id="list-red">
-      <div class="topic-item" onclick="toggleTopic(this,'red')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Estrutura do texto dissertativo-argumentativo <span class="hot-tag">🔥</span></div>
-          <div class="topic-tag">Introdução (tese), desenvolvimento, conclusão (proposta)</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'red')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Coesão textual: conectivos e referenciação <span class="hot-tag">🔥</span></div>
-          <div class="topic-tag">Uso de pronomes, conjunções, advérbios para articular ideias</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'red')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Coerência e clareza na exposição de ideias</div>
-          <div class="topic-tag">Progressão temática, objetividade</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'red')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Norma culta e adequação vocabular</div>
-          <div class="topic-tag">Registro formal, evitar coloquialismo excessivo</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="toggleTopic(this,'red')">
-        <div class="topic-check"></div>
-        <div class="topic-text">
-          <div class="topic-name">Prática: escrever 1 redação por semana <span class="hot-tag">🔥</span></div>
-          <div class="topic-tag">Sobre temas de atualidade e direitos sociais</div>
-        </div>
-      </div>
+      <div class="topic-item" data-key="red-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Estrutura do texto dissertativo-argumentativo <span class="hot-tag">🔥</span></div><div class="topic-tag">Introdução (tese), desenvolvimento, conclusão (proposta)</div></div></div>
+      <div class="topic-item" data-key="red-02"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Coesão textual: conectivos e referenciação <span class="hot-tag">🔥</span></div><div class="topic-tag">Pronomes, conjunções, advérbios para articular ideias</div></div></div>
+      <div class="topic-item" data-key="red-03"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Coerência e clareza na exposição de ideias</div><div class="topic-tag">Progressão temática, objetividade</div></div></div>
+      <div class="topic-item" data-key="red-04"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Norma culta e adequação vocabular</div><div class="topic-tag">Registro formal, evitar coloquialismo excessivo</div></div></div>
+      <div class="topic-item" data-key="red-05"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Prática: escrever 1 redação por semana <span class="hot-tag">🔥</span></div><div class="topic-tag">Temas de atualidade e direitos sociais</div></div></div>
     </div>
   </div>
 </div>
@@ -1002,77 +633,58 @@
 <!-- ═══ CRONOGRAMA ═══ -->
 <div class="section-title">📅 Cronograma de Estudos</div>
 <div class="timeline-section">
-
   <div class="phase-block">
     <div class="phase-header">
       <span class="phase-num">01</span>
-      <div>
-        <h3>Fase Base — Fundamentos</h3>
-        <div style="font-size:11px;color:rgba(245,243,238,0.5);">Meses 1 e 2</div>
-      </div>
+      <div><h3>Fase Base — Fundamentos</h3><div style="font-size:11px;color:rgba(245,243,238,0.5);">Meses 1 e 2</div></div>
       <span>~60h</span>
     </div>
-    <div class="phase-body">
-      <div class="phase-rows">
-        <div class="phase-row"><div class="phase-dot" style="background:#1d4e8f;"></div><strong>Língua Portuguesa:</strong>&nbsp;gramática base, ortografia, concordância</div>
-        <div class="phase-row"><div class="phase-dot" style="background:#c0392b;"></div><strong>Matemática:</strong>&nbsp;operações, porcentagem, razão e proporção</div>
-        <div class="phase-row"><div class="phase-dot" style="background:#1a7a4a;"></div><strong>Direito:</strong>&nbsp;Constituição Federal, organização do Judiciário</div>
-        <div class="phase-row"><div class="phase-dot" style="background:#5b2d8e;"></div><strong>Informática:</strong>&nbsp;Windows + Word + Excel (revisão geral)</div>
-        <div class="phase-row"><div class="phase-dot" style="background:#c9a84c;"></div><strong>Meta semanal:</strong>&nbsp;10h de estudo + 30 questões VUNESP antigas</div>
-      </div>
-    </div>
+    <div class="phase-body"><div class="phase-rows">
+      <div class="phase-row"><div class="phase-dot" style="background:#1d4e8f;"></div><strong>Português:</strong>&nbsp;gramática base, ortografia, concordância</div>
+      <div class="phase-row"><div class="phase-dot" style="background:#c0392b;"></div><strong>Matemática:</strong>&nbsp;operações, porcentagem, razão e proporção</div>
+      <div class="phase-row"><div class="phase-dot" style="background:#1a7a4a;"></div><strong>Direito:</strong>&nbsp;Constituição Federal, organização do Judiciário</div>
+      <div class="phase-row"><div class="phase-dot" style="background:#5b2d8e;"></div><strong>Informática:</strong>&nbsp;Windows + Word + Excel</div>
+      <div class="phase-row"><div class="phase-dot" style="background:#c9a84c;"></div><strong>Meta semanal:</strong>&nbsp;10h de estudo + 30 questões VUNESP antigas</div>
+    </div></div>
   </div>
-
   <div class="phase-block">
     <div class="phase-header">
       <span class="phase-num">02</span>
-      <div>
-        <h3>Fase Aprofundamento</h3>
-        <div style="font-size:11px;color:rgba(245,243,238,0.5);">Meses 3 e 4</div>
-      </div>
+      <div><h3>Fase Aprofundamento</h3><div style="font-size:11px;color:rgba(245,243,238,0.5);">Meses 3 e 4</div></div>
       <span>~80h</span>
     </div>
-    <div class="phase-body">
-      <div class="phase-rows">
-        <div class="phase-row"><div class="phase-dot" style="background:#1d4e8f;"></div><strong>Português:</strong>&nbsp;interpretação avançada + redação (1x/semana)</div>
-        <div class="phase-row"><div class="phase-dot" style="background:#1a7a4a;"></div><strong>Direito:</strong>&nbsp;CPC, Estatuto Funcionário, legislações específicas</div>
-        <div class="phase-row"><div class="phase-dot" style="background:#c0392b;"></div><strong>Mat. + Lógica:</strong>&nbsp;equações, geometria, raciocínio lógico</div>
-        <div class="phase-row"><div class="phase-dot" style="background:#c9a84c;"></div><strong>Atualidades:</strong>&nbsp;ler 1 jornal/dia (G1, Agência Brasil)</div>
-        <div class="phase-row"><div class="phase-dot" style="background:#c9a84c;"></div><strong>Meta semanal:</strong>&nbsp;12h + resolução de simulado completo</div>
-      </div>
-    </div>
+    <div class="phase-body"><div class="phase-rows">
+      <div class="phase-row"><div class="phase-dot" style="background:#1d4e8f;"></div><strong>Português:</strong>&nbsp;interpretação avançada + redação (1x/semana)</div>
+      <div class="phase-row"><div class="phase-dot" style="background:#1a7a4a;"></div><strong>Direito:</strong>&nbsp;CPC, Estatuto Funcionário, legislações específicas</div>
+      <div class="phase-row"><div class="phase-dot" style="background:#c0392b;"></div><strong>Mat. + Lógica:</strong>&nbsp;equações, geometria, raciocínio lógico</div>
+      <div class="phase-row"><div class="phase-dot" style="background:#c9a84c;"></div><strong>Atualidades:</strong>&nbsp;ler 1 jornal/dia (G1, Agência Brasil)</div>
+      <div class="phase-row"><div class="phase-dot" style="background:#c9a84c;"></div><strong>Meta semanal:</strong>&nbsp;12h + resolução de simulado completo</div>
+    </div></div>
   </div>
-
   <div class="phase-block">
     <div class="phase-header">
       <span class="phase-num">03</span>
-      <div>
-        <h3>Fase Revisão Intensiva</h3>
-        <div style="font-size:11px;color:rgba(245,243,238,0.5);">Último mês antes da prova</div>
-      </div>
+      <div><h3>Fase Revisão Intensiva</h3><div style="font-size:11px;color:rgba(245,243,238,0.5);">Último mês antes da prova</div></div>
       <span>~60h</span>
     </div>
-    <div class="phase-body">
-      <div class="phase-rows">
-        <div class="phase-row"><div class="phase-dot" style="background:#c9a84c;"></div><strong>Simulados:</strong>&nbsp;2 por semana no tempo real (3h)</div>
-        <div class="phase-row"><div class="phase-dot" style="background:#1d4e8f;"></div><strong>Português:</strong>&nbsp;revisar regras de concordância e crase</div>
-        <div class="phase-row"><div class="phase-dot" style="background:#1a7a4a;"></div><strong>Direito:</strong>&nbsp;reler arts. fundamentais + Regulamento TJSP</div>
-        <div class="phase-row"><div class="phase-dot" style="background:#c0392b;"></div><strong>Lógica:</strong>&nbsp;maratonar questões de anos anteriores</div>
-        <div class="phase-row"><div class="phase-dot" style="background:#5b2d8e;"></div><strong>Redação:</strong>&nbsp;1 por semana + revisão com base em gabarito</div>
-      </div>
-    </div>
+    <div class="phase-body"><div class="phase-rows">
+      <div class="phase-row"><div class="phase-dot" style="background:#c9a84c;"></div><strong>Simulados:</strong>&nbsp;2 por semana no tempo real (3h)</div>
+      <div class="phase-row"><div class="phase-dot" style="background:#1d4e8f;"></div><strong>Português:</strong>&nbsp;revisar regras de concordância e crase</div>
+      <div class="phase-row"><div class="phase-dot" style="background:#1a7a4a;"></div><strong>Direito:</strong>&nbsp;reler arts. fundamentais + Regulamento TJSP</div>
+      <div class="phase-row"><div class="phase-dot" style="background:#c0392b;"></div><strong>Lógica:</strong>&nbsp;maratonar questões de anos anteriores</div>
+      <div class="phase-row"><div class="phase-dot" style="background:#5b2d8e;"></div><strong>Redação:</strong>&nbsp;1 por semana + revisão com gabarito</div>
+    </div></div>
   </div>
-
 </div>
 
-<!-- ═══ DICAS VUNESP ═══ -->
+<!-- ═══ DICAS ═══ -->
 <div class="section-title" style="margin-top:28px;">💡 Dicas da Banca VUNESP</div>
 <div class="tips-grid">
   <div class="tip-card">
     <h4>📝 Português VUNESP</h4>
     <ul>
-      <li>Foco total em interpretação de texto — sempre cai 4+ questões</li>
-      <li>Questões de concordância com casos especiais (sujeito coletivo, partitivo)</li>
+      <li>Foco total em interpretação — sempre cai 4+ questões</li>
+      <li>Concordância com casos especiais (sujeito coletivo, partitivo)</li>
       <li>Sempre cobra crase e pontuação com vírgula</li>
       <li>Prefere textos jornalísticos e literários como base</li>
     </ul>
@@ -1080,7 +692,7 @@
   <div class="tip-card">
     <h4>⚖️ Direito VUNESP</h4>
     <ul>
-      <li>Cobra muito a letra fria da lei — decorar artigos é essencial</li>
+      <li>Cobra a letra fria da lei — decorar artigos é essencial</li>
       <li>CPC tem peso enorme: petição inicial, prazos, recursos</li>
       <li>Regulamento Interno do TJSP cai todos os anos</li>
       <li>Atenção a leis novas publicadas até a data do edital</li>
@@ -1089,7 +701,7 @@
   <div class="tip-card">
     <h4>🔢 Matemática VUNESP</h4>
     <ul>
-      <li>Questões contextualizadas — sempre leia o enunciado todo</li>
+      <li>Questões contextualizadas — leia o enunciado todo</li>
       <li>Porcentagem + regra de três = mais de 50% das questões</li>
       <li>Lógica: atenção a silogismos e tabela-verdade</li>
       <li>Geometria básica: área/perímetro de retângulo e triângulo</li>
@@ -1099,7 +711,7 @@
     <h4>✍️ Redação VUNESP</h4>
     <ul>
       <li>Mínimo 20/40 para não ser eliminado — prioridade!</li>
-      <li>Texto dissertativo-argumentativo com proposta de intervenção</li>
+      <li>Dissertativo-argumentativo com proposta de intervenção</li>
       <li>Extensão ideal: 25 a 30 linhas</li>
       <li>Evite clichês, gírias e frases longas demais</li>
     </ul>
@@ -1107,106 +719,128 @@
 </div>
 
 <div class="footer">
-  Plano baseado no edital TJ-SP 2025 · Banca VUNESP · Gerado por Claude para Rodrigo
+  Plano baseado no edital TJ-SP 2025 · Banca VUNESP · Progresso salvo localmente no seu navegador
 </div>
 
 <script>
-// ── STATE ──
-const STORAGE_KEY = 'tjsp_checklist_v2';
-let state = {};
+// ════════════════════════════════════════════════════════
+//  PERSISTÊNCIA: localStorage (primário) + cookie (fallback)
+//  Cada tópico tem data-key único — imune a reordenações
+// ════════════════════════════════════════════════════════
 
+const STORAGE_KEY = 'tjsp_v3';
+const COOKIE_KEY  = 'tjsp_v3_ck';
+const COOKIE_DAYS = 365;
+
+// ── cookie helpers ──
+function setCookie(name, value, days) {
+  const d = new Date();
+  d.setTime(d.getTime() + days * 86400000);
+  document.cookie = name + '=' + encodeURIComponent(value) + ';expires=' + d.toUTCString() + ';path=/;SameSite=Lax';
+}
+function getCookie(name) {
+  const prefix = name + '=';
+  for (const part of document.cookie.split(';')) {
+    const p = part.trim();
+    if (p.startsWith(prefix)) return decodeURIComponent(p.slice(prefix.length));
+  }
+  return null;
+}
+
+// ── load / save state ──
 function loadState() {
-  try { state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { state = {}; }
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY) || getCookie(COOKIE_KEY) || '{}';
+    return JSON.parse(raw);
+  } catch { return {}; }
 }
 
-function saveState() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+let _toastTimer = null;
+function saveState(state) {
+  const json = JSON.stringify(state);
+  try { localStorage.setItem(STORAGE_KEY, json); } catch (_) {}
+  setCookie(COOKIE_KEY, json, COOKIE_DAYS);
+  showToast();
 }
 
-// ── CARDS ──
+function showToast() {
+  const t = document.getElementById('save-toast');
+  t.classList.add('show');
+  clearTimeout(_toastTimer);
+  _toastTimer = setTimeout(() => t.classList.remove('show'), 1800);
+}
+
+// ── card toggle ──
 function toggleCard(id) {
-  const el = document.getElementById(id);
-  el.classList.toggle('open');
+  document.getElementById(id).classList.toggle('open');
 }
 
-// ── TOPICS ──
-function toggleTopic(el, group) {
+// ── topic toggle ──
+function toggleTopic(el) {
+  const state = loadState();
+  const key = el.dataset.key;
   el.classList.toggle('done');
-  updateGroup(group);
+  state[key] = el.classList.contains('done');
+  saveState(state);
+  updateGroup(el.closest('.topics-list').id.replace('list-', ''));
   updateOverall();
-  saveState();
 }
 
+// ── attach click events ──
+function attachTopics() {
+  document.querySelectorAll('.topic-item').forEach(item => {
+    item.addEventListener('click', () => toggleTopic(item));
+  });
+}
+
+// ── restore state ──
+function restoreState() {
+  const state = loadState();
+  document.querySelectorAll('.topic-item').forEach(item => {
+    if (state[item.dataset.key]) item.classList.add('done');
+  });
+}
+
+// ── group progress ──
 function updateGroup(group) {
   const list = document.getElementById('list-' + group);
   if (!list) return;
-  const items = list.querySelectorAll('.topic-item');
-  const done = list.querySelectorAll('.topic-item.done').length;
-  const total = items.length;
-  const pct = total ? Math.round(done / total * 100) : 0;
-
+  const total = list.querySelectorAll('.topic-item').length;
+  const done  = list.querySelectorAll('.topic-item.done').length;
+  const pct   = total ? Math.round(done / total * 100) : 0;
   const pctEl = document.getElementById('pct-' + group);
   const barEl = document.getElementById('bar-' + group);
   if (pctEl) pctEl.textContent = pct + '%';
   if (barEl) barEl.style.width = pct + '%';
 }
 
+// ── overall progress ──
 function updateOverall() {
-  const allItems = document.querySelectorAll('.topic-item');
-  const allDone = document.querySelectorAll('.topic-item.done');
-  const total = allItems.length;
-  const done = allDone.length;
-  const pct = total ? Math.round(done / total * 100) : 0;
-
-  document.getElementById('topics-done').textContent = done;
+  const total = document.querySelectorAll('.topic-item').length;
+  const done  = document.querySelectorAll('.topic-item.done').length;
+  const pct   = total ? Math.round(done / total * 100) : 0;
+  document.getElementById('topics-done').textContent  = done;
   document.getElementById('topics-total').textContent = total;
-  document.getElementById('ring-pct').textContent = pct + '%';
-
-  const circumference = 201.06;
-  const offset = circumference - (pct / 100) * circumference;
+  document.getElementById('ring-pct').textContent     = pct + '%';
+  const offset = 201.06 - (pct / 100) * 201.06;
   document.getElementById('progress-ring').style.strokeDashoffset = offset;
 }
 
-// ── PERSIST TOPIC STATE ──
-function persistTopics() {
-  const groups = ['lp','dir','atu','mat','inf','red'];
-  groups.forEach(g => {
-    const list = document.getElementById('list-' + g);
-    if (!list) return;
-    const items = list.querySelectorAll('.topic-item');
-    items.forEach((item, i) => {
-      const key = g + '_' + i;
-      if (state[key]) item.classList.add('done');
-    });
-  });
-}
-
-function attachSaveTopic() {
-  document.querySelectorAll('.topic-item').forEach((item, _) => {
-    // identify by group + index within list
-    const list = item.closest('.topics-list');
-    if (!list) return;
-    const groupId = list.id.replace('list-','');
-    const siblings = list.querySelectorAll('.topic-item');
-    const idx = Array.from(siblings).indexOf(item);
-    const key = groupId + '_' + idx;
-
-    item.addEventListener('click', () => {
-      state[key] = item.classList.contains('done');
-      saveState();
-    });
-  });
+// ── reset ──
+function confirmReset() {
+  if (!confirm('Resetar todo o progresso? Essa ação não pode ser desfeita.')) return;
+  try { localStorage.removeItem(STORAGE_KEY); } catch (_) {}
+  setCookie(COOKIE_KEY, '{}', COOKIE_DAYS);
+  document.querySelectorAll('.topic-item.done').forEach(el => el.classList.remove('done'));
+  ['lp','dir','atu','mat','inf','red'].forEach(g => updateGroup(g));
+  updateOverall();
 }
 
 // ── INIT ──
-window.addEventListener('DOMContentLoaded', () => {
-  loadState();
-  persistTopics();
-  attachSaveTopic();
-
-  // init counts
-  const groups = ['lp','dir','atu','mat','inf','red'];
-  groups.forEach(g => updateGroup(g));
+document.addEventListener('DOMContentLoaded', () => {
+  restoreState();
+  attachTopics();
+  ['lp','dir','atu','mat','inf','red'].forEach(g => updateGroup(g));
   updateOverall();
 });
 </script>
