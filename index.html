@@ -1,196 +1,1214 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ImobTech | Apartamento Premium no Belvedere</title>
-    
-    <meta name="description" content="Apartamento exclusivo no Belvedere, totalmente mobiliado e decorado. Faça um tour virtual 360º agora.">
-    
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://imobtech.ncodes.com.br/">
-    <meta property="og:title" content="ImobTech | Apartamento Premium no Belvedere">
-    <meta property="og:description" content="Totalmente mobiliado e decorado. Conheça este imóvel exclusivo com tour virtual 360º.">
-    
-    <meta property="og:image" content="https://pub-ae39c497d9854edc9d5f072b5d147986.r2.dev/Belvedere_RodrigoVale/Sala.jpeg">
-    <meta property="og:image:secure_url" content="https://pub-ae39c497d9854edc9d5f072b5d147986.r2.dev/Belvedere_RodrigoVale/Sala.jpeg">
-    <meta property="og:image:type" content="image/jpeg">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    
-    <link rel="image_src" href="https://pub-ae39c497d9854edc9d5f072b5d147986.r2.dev/Belvedere_RodrigoVale/Sala.jpeg">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plano de Estudos — TJ-SP Escrevente</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f0f14;
+    --paper: #f5f3ee;
+    --cream: #ede9e1;
+    --gold: #c9a84c;
+    --gold-light: #f0d990;
+    --gold-dim: #8a6f2e;
+    --red: #c0392b;
+    --green: #1a7a4a;
+    --blue: #1d4e8f;
+    --purple: #5b2d8e;
+    --muted: #6b6660;
+    --border: #d4cfc6;
+    --shadow: rgba(15,15,20,0.12);
+  }
 
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="ImobTech | Apartamento Premium no Belvedere">
-    <meta name="twitter:description" content="Totalmente mobiliado e decorado. Conheça este imóvel exclusivo com tour virtual 360º.">
-    <meta name="twitter:image" content="https://pub-ae39c497d9854edc9d5f072b5d147986.r2.dev/Belvedere_RodrigoVale/Sala.jpeg">
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
 
-    <style>
-        :root {
-            --bg-color: #F8F9FA; 
-            --dark-color: #111827; 
-            --accent-color: #D4AF37;
-            --accent-hover: #B5952F;
-            --whatsapp-color: #25D366;
-            --whatsapp-hover: #128C7E;
-            --text-main: #374151;
-            --text-muted: #6B7280;
-            --font-heading: 'Playfair Display', serif;
-            --font-body: 'Inter', sans-serif;
-        }
+  /* ── HEADER ── */
+  .hero {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 48px 32px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 18px,
+      rgba(201,168,76,0.06) 18px,
+      rgba(201,168,76,0.06) 19px
+    );
+  }
+  .hero-inner { position: relative; max-width: 760px; margin: 0 auto; }
+  .badge {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--gold-dim);
+    padding: 4px 10px;
+    border-radius: 2px;
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(28px, 5vw, 48px);
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  .hero h1 em { color: var(--gold); font-style: normal; }
+  .hero p {
+    font-size: 14px;
+    color: rgba(245,243,238,0.6);
+    font-weight: 300;
+    max-width: 480px;
+    line-height: 1.6;
+  }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body { background-color: var(--bg-color); color: var(--text-main); font-family: var(--font-body); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  /* ── STATS BAR ── */
+  .stats-bar {
+    background: var(--gold);
+    display: flex;
+    gap: 0;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  .stat {
+    flex: 1;
+    min-width: 120px;
+    padding: 14px 20px;
+    text-align: center;
+    border-right: 1px solid var(--gold-dim);
+  }
+  .stat:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--ink);
+    display: block;
+  }
+  .stat-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+  }
 
-        header { background-color: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
-        .logo { font-family: var(--font-body); font-size: 1.5rem; font-weight: 700; letter-spacing: -0.5px; color: var(--dark-color); text-decoration: none; display: flex; align-items: center; gap: 5px; }
-        .logo span { color: var(--accent-color); }
+  /* ── LAYOUT ── */
+  .container { max-width: 760px; margin: 0 auto; padding: 0 20px; }
 
-        .hero { text-align: center; padding: 6rem 5% 4rem; max-width: 900px; margin: 0 auto; }
-        .hero-tag { display: inline-block; background-color: rgba(212, 175, 55, 0.1); color: var(--accent-hover); padding: 0.4rem 1.2rem; border-radius: 50px; text-transform: uppercase; letter-spacing: 2px; font-size: 0.75rem; font-weight: 700; margin-bottom: 1.5rem; }
-        .hero h1 { font-family: var(--font-heading); font-size: 3.8rem; font-weight: 600; color: var(--dark-color); margin-bottom: 1.5rem; line-height: 1.1; }
-        .hero p { font-size: 1.2rem; color: var(--text-muted); max-width: 700px; margin: 0 auto 2.5rem; }
-        .hero strong { color: var(--dark-color); background: linear-gradient(transparent 60%, rgba(212, 175, 55, 0.3) 60%); }
+  /* ── PROGRESS RING ── */
+  .progress-section {
+    padding: 32px 20px;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .progress-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .progress-header h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+  }
+  .overall-progress {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    box-shadow: 0 2px 12px var(--shadow);
+  }
+  .ring-wrap { position: relative; flex-shrink: 0; }
+  .ring-wrap svg { display: block; }
+  .ring-label {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .ring-pct {
+    font-family: 'DM Mono', monospace;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .ring-sub { font-size: 9px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+  .progress-info h3 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+  .progress-info p { font-size: 13px; color: var(--muted); }
+  #topics-done, #topics-total { font-family: 'DM Mono', monospace; }
 
-        .tour-section { width: 100%; max-width: 1200px; margin: 0 auto 4rem; padding: 0 5%; }
-        .iframe-wrapper { position: relative; width: 100%; height: 70vh; min-height: 500px; background-color: #EAEAEA; border-radius: 12px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); overflow: hidden; border: 4px solid white; }
-        .iframe-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+  /* ── SECTION CARDS ── */
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    padding: 28px 20px 12px;
+    max-width: 760px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
 
-        .highlights { display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; padding: 3rem 5%; background-color: var(--dark-color); color: white; margin-bottom: 5rem; }
-        .highlight-item { text-align: center; padding: 1.5rem; min-width: 160px; }
-        .highlight-item h3 { font-family: var(--font-heading); font-size: 2.8rem; color: var(--accent-color); margin-bottom: 0.5rem; font-weight: 400; }
-        .highlight-item span { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; color: #D1D5DB; }
+  .discipline-card {
+    max-width: 760px;
+    margin: 0 auto 16px;
+    padding: 0 20px;
+  }
+  .card-inner {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px var(--shadow);
+    transition: box-shadow 0.2s;
+  }
+  .card-inner:hover { box-shadow: 0 4px 20px var(--shadow); }
 
-        .gallery-section { padding: 0 5% 6rem; max-width: 1400px; margin: 0 auto; }
-        .section-header { text-align: center; margin-bottom: 4rem; }
-        .section-header h2 { font-family: var(--font-heading); font-size: 2.5rem; color: var(--dark-color); margin-bottom: 1rem; }
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
-        .gallery-item { position: relative; border-radius: 8px; overflow: hidden; aspect-ratio: 4 / 3; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); cursor: zoom-in; }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s ease; }
-        .gallery-item:hover img { transform: scale(1.08); }
-        .gallery-caption { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(17, 24, 39, 0.9), transparent); padding: 2rem 1.5rem 1.5rem; color: white; font-weight: 600; opacity: 0; transition: all 0.3s ease; transform: translateY(10px); }
-        .gallery-item:hover .gallery-caption { opacity: 1; transform: translateY(0); }
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+  }
+  .card-header:hover { background: var(--cream); }
 
-        .lightbox { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(17, 24, 39, 0.95); backdrop-filter: blur(8px); align-items: center; justify-content: center; flex-direction: column; opacity: 0; transition: opacity 0.3s ease; }
-        .lightbox.active { display: flex; opacity: 1; }
-        .lightbox-content { max-width: 90%; max-height: 80vh; border-radius: 8px; object-fit: contain; }
-        .lightbox-close { position: absolute; top: 30px; right: 40px; color: white; font-size: 40px; cursor: pointer; }
+  .card-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
 
-        .cta-section { text-align: center; padding: 6rem 5%; background-color: var(--bg-color); border-top: 1px solid #E5E7EB; }
-        .cta-box { max-width: 800px; margin: 0 auto; background: white; padding: 4rem 3rem; border-radius: 16px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05); }
-        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 1rem 2.5rem; font-size: 1rem; font-weight: 600; border-radius: 8px; text-decoration: none; transition: all 0.3s ease; border: none; }
-        .btn-whatsapp { background-color: var(--whatsapp-color); color: white; }
-        .btn-outline { background-color: transparent; color: var(--dark-color); border: 2px solid var(--dark-color); }
-        
-        .floating-wpp { position: fixed; bottom: 30px; right: 30px; background-color: var(--whatsapp-color); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 20px rgba(37, 211, 102, 0.4); z-index: 1000; }
+  .card-meta { flex: 1; }
+  .card-meta h3 { font-size: 15px; font-weight: 600; }
+  .card-meta .card-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .pill {
+    font-size: 10px;
+    font-family: 'DM Mono', monospace;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+  .pill-q { background: #e8f0fd; color: var(--blue); }
+  .pill-peso {
+    background: #fff8e1;
+    color: var(--gold-dim);
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+  .card-pct {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--muted);
+    margin-right: 4px;
+  }
 
-        footer { text-align: center; padding: 2rem 5%; background-color: var(--dark-color); color: #9CA3AF; font-size: 0.9rem; }
+  .mini-bar {
+    width: 60px;
+    height: 4px;
+    background: var(--cream);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .mini-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.4s ease;
+  }
 
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.6rem; }
-            .iframe-wrapper { height: 50vh; }
-            .btn { width: 100%; }
-            header .btn { width: auto; }
-        }
-    </style>
+  .chevron {
+    font-size: 14px;
+    color: var(--muted);
+    transition: transform 0.25s;
+    flex-shrink: 0;
+  }
+  .card-inner.open .chevron { transform: rotate(180deg); }
+
+  /* ── TOPICS LIST ── */
+  .topics-list {
+    display: none;
+    border-top: 1px solid var(--border);
+    padding: 0 20px 16px;
+  }
+  .card-inner.open .topics-list { display: block; }
+
+  .topic-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--border);
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .topic-item:last-child { border-bottom: none; }
+  .topic-item:hover { opacity: 0.8; }
+
+  .topic-check {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border);
+    border-radius: 5px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    background: white;
+  }
+  .topic-item.done .topic-check {
+    background: var(--green);
+    border-color: var(--green);
+    color: white;
+  }
+  .topic-item.done .topic-check::after { content: '✓'; font-size: 12px; font-weight: 700; }
+
+  .topic-text { flex: 1; }
+  .topic-name {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+  .topic-item.done .topic-name {
+    text-decoration: line-through;
+    color: var(--muted);
+  }
+  .topic-tag {
+    font-size: 10px;
+    font-family: 'DM Mono', monospace;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+  .hot-tag {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    background: #fff0f0;
+    color: var(--red);
+    border: 1px solid #f5c6c0;
+    border-radius: 3px;
+    padding: 1px 5px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  /* ── TIMELINE ── */
+  .timeline-section { padding: 0 20px 0; max-width: 760px; margin: 0 auto; }
+  .phase-block {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px var(--shadow);
+  }
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 20px;
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .phase-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--gold);
+    min-width: 28px;
+  }
+  .phase-header h3 { font-size: 14px; font-weight: 600; }
+  .phase-header span { font-size: 11px; color: rgba(245,243,238,0.5); margin-left: auto; font-family: 'DM Mono', monospace; }
+  .phase-body { padding: 16px 20px; }
+  .phase-rows { display: flex; flex-direction: column; gap: 8px; }
+  .phase-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+  }
+  .phase-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ── TIPS ── */
+  .tips-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 0 20px;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  @media (max-width: 520px) { .tips-grid { grid-template-columns: 1fr; } }
+
+  .tip-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    box-shadow: 0 2px 8px var(--shadow);
+  }
+  .tip-card h4 {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .tip-card ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .tip-card li {
+    font-size: 12px;
+    color: var(--muted);
+    padding-left: 12px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .tip-card li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 10px;
+    top: 2px;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center;
+    padding: 28px 20px 0;
+    font-size: 11px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.5px;
+  }
+
+  /* scrollbar */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--cream); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
 </head>
 <body>
 
-    <header>
-        <a href="#" class="logo">Imob<span>Tech</span></a>
-        <a href="https://wa.me/5531975285780?text=Olá Rodrigo! Vi o tour 360º do Belvedere e quero mais detalhes." target="_blank" class="btn btn-outline">Falar com Corretor</a>
-    </header>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="badge">Banca VUNESP · Nível Médio</div>
+    <h1>Plano de Estudos<br><em>TJ-SP Escrevente</em></h1>
+    <p>Conteúdo programático completo com checklist interativo. Marque os tópicos conforme avança. Progresso salvo automaticamente.</p>
+  </div>
+</div>
 
-    <section class="hero">
-        <span class="hero-tag">Exclusividade no Belvedere</span>
-        <h1>Seu Novo Padrão de Vida.</h1>
-        <p>Totalmente mobiliado e decorado. Navegue pelo tour virtual abaixo em 360º.</p>
-    </section>
+<div class="stats-bar">
+  <div class="stat">
+    <span class="stat-num">3</span>
+    <span class="stat-label">Blocos</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">70</span>
+    <span class="stat-label">Questões</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">6</span>
+    <span class="stat-label">Disciplinas</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">40pts</span>
+    <span class="stat-label">Redação</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">5,0</span>
+    <span class="stat-label">Mínimo obj.</span>
+  </div>
+</div>
 
-    <section class="tour-section">
-        <div class="iframe-wrapper">
-            <iframe id="tour-embeded" src="https://tour.panoee.net/iframe/69ac4fd0add06470131a05d1" frameBorder="0" allowvr="yes" allow="vr; xr; accelerometer; gyroscope; autoplay;" allowFullScreen="false"></iframe>
-        </div>
-    </section>
-
-    <section class="highlights">
-        <div class="highlight-item"><h3>67m²</h3><span>Área Útil</span></div>
-        <div class="highlight-item"><h3>2</h3><span>Quartos (1 Suíte)</span></div>
-        <div class="highlight-item"><h3>1</h3><span>Vaga Fixa</span></div>
-        <div class="highlight-item"><h3 style="color: white;">100%</h3><span style="color: var(--accent-color);">Mobiliado</span></div>
-    </section>
-
-    <section class="gallery-section">
-        <div class="section-header"><h2>Acabamento Impecável</h2></div>
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <img src="https://pub-ae39c497d9854edc9d5f072b5d147986.r2.dev/Belvedere_RodrigoVale/Sala.jpeg" alt="Sala">
-                <div class="gallery-caption">Living Integrado</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://pub-ae39c497d9854edc9d5f072b5d147986.r2.dev/Belvedere_RodrigoVale/Cozinha.jpeg" alt="Cozinha">
-                <div class="gallery-caption">Cozinha Equipada</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://pub-ae39c497d9854edc9d5f072b5d147986.r2.dev/Belvedere_RodrigoVale/Suite.jpeg" alt="Suíte">
-                <div class="gallery-caption">Suíte Principal</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://pub-ae39c497d9854edc9d5f072b5d147986.r2.dev/Belvedere_RodrigoVale/Banheiro%20Suite.jpeg" alt="Banheiro Suíte">
-                <div class="gallery-caption">Banheiro da Suíte</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://pub-ae39c497d9854edc9d5f072b5d147986.r2.dev/Belvedere_RodrigoVale/Quarto.jpeg" alt="Quarto">
-                <div class="gallery-caption">Segundo Quarto</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://pub-ae39c497d9854edc9d5f072b5d147986.r2.dev/Belvedere_RodrigoVale/Banheiro%20Social.jpeg" alt="Banheiro Social">
-                <div class="gallery-caption">Banheiro Social</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://pub-ae39c497d9854edc9d5f072b5d147986.r2.dev/Belvedere_RodrigoVale/Area%20de%20Servic%CC%A7o.jpeg" alt="Área de Serviço">
-                <div class="gallery-caption">Área de Serviço</div>
-            </div>
-        </div>
-    </section>
-
-    <div id="image-lightbox" class="lightbox">
-        <span class="lightbox-close">&times;</span>
-        <img class="lightbox-content" id="lightbox-img">
+<!-- PROGRESS -->
+<div class="progress-section">
+  <div class="progress-header">
+    <h2>Seu progresso geral</h2>
+  </div>
+  <div class="overall-progress">
+    <div class="ring-wrap">
+      <svg width="80" height="80" viewBox="0 0 80 80">
+        <circle cx="40" cy="40" r="32" fill="none" stroke="#ede9e1" stroke-width="8"/>
+        <circle id="progress-ring" cx="40" cy="40" r="32" fill="none" stroke="#c9a84c" stroke-width="8"
+          stroke-dasharray="201.06" stroke-dashoffset="201.06"
+          stroke-linecap="round" transform="rotate(-90 40 40)"
+          style="transition: stroke-dashoffset 0.6s ease;"/>
+      </svg>
+      <div class="ring-label">
+        <span class="ring-pct" id="ring-pct">0%</span>
+        <span class="ring-sub">done</span>
+      </div>
     </div>
+    <div class="progress-info">
+      <h3>Tópicos concluídos</h3>
+      <p><span id="topics-done">0</span> de <span id="topics-total">0</span> tópicos marcados</p>
+      <p style="margin-top:6px;font-size:12px;color:var(--muted);">Clique nos tópicos abaixo para marcar como estudado.</p>
+    </div>
+  </div>
+</div>
 
-    <section class="cta-section">
-        <div class="cta-box">
-            <h2>Única Unidade Disponível</h2>
-            <p>Imóveis nesse padrão vendem rápido. Agende sua visita agora.</p>
-            <a href="https://wa.me/5531975285780?text=Olá Rodrigo! Quero agendar uma visita ao Belvedere." target="_blank" class="btn btn-whatsapp">Garantir Minha Visita</a>
+<!-- ═══ BLOCO I — LÍNGUA PORTUGUESA ═══ -->
+<div class="section-title">📘 Bloco I — Língua Portuguesa</div>
+
+<div class="discipline-card">
+  <div class="card-inner" id="card-lp">
+    <div class="card-header" onclick="toggleCard('card-lp')">
+      <div class="card-icon" style="background:#e8f0fd;">📝</div>
+      <div class="card-meta">
+        <h3>Língua Portuguesa</h3>
+        <div class="card-info">
+          <span class="pill pill-q">20 questões</span>
+          <span class="pill pill-peso">⭐ Alta relevância</span>
         </div>
-    </section>
+      </div>
+      <span class="card-pct" id="pct-lp">0%</span>
+      <div class="mini-bar"><div class="mini-fill" id="bar-lp" style="width:0%;background:#1d4e8f;"></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="topics-list" id="list-lp">
+      <div class="topic-item" onclick="toggleTopic(this,'lp')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Leitura e compreensão de textos <span class="hot-tag">🔥 mais cobrado</span></div>
+          <div class="topic-tag">Interpretação, inferência, coesão e coerência</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'lp')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Ortografia oficial (Acordo Ortográfico 2009) <span class="hot-tag">🔥</span></div>
+          <div class="topic-tag">Uso do hífen, acento, maiúsculas/minúsculas</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'lp')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Acentuação gráfica</div>
+          <div class="topic-tag">Regras de acentuação, monossílabos tônicos</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'lp')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Classes de palavras: morfologia <span class="hot-tag">🔥</span></div>
+          <div class="topic-tag">Substantivo, adjetivo, verbo, pronomes, numerais, advérbios</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'lp')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Sintaxe: concordância verbal e nominal <span class="hot-tag">🔥</span></div>
+          <div class="topic-tag">Casos especiais, sujeito composto, partitivo</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'lp')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Regência verbal e nominal</div>
+          <div class="topic-tag">Verbos com mais de uma regência, crase</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'lp')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Crase</div>
+          <div class="topic-tag">Casos de uso obrigatório, facultativo e proibido</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'lp')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Pontuação</div>
+          <div class="topic-tag">Vírgula, ponto e vírgula, dois-pontos, travessão</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'lp')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Colocação pronominal</div>
+          <div class="topic-tag">Ênclise, próclise, mesóclise</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'lp')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Reescrita de frases e equivalência</div>
+          <div class="topic-tag">Voz ativa/passiva, transformações sintáticas</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'lp')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Redação oficial e técnica <span class="hot-tag">🔥</span></div>
+          <div class="topic-tag">Clareza, objetividade, adequação à situação comunicativa</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <a href="https://wa.me/5531975285780" target="_blank" class="floating-wpp">
-        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326z"/></svg>
-    </a>
+<!-- ═══ BLOCO II — DIREITO + ATUALIDADES ═══ -->
+<div class="section-title">⚖️ Bloco II — Direito & Atualidades</div>
 
-    <footer><p>&copy; 2026 ImobTech. Todos os direitos reservados.</p></footer>
+<div class="discipline-card">
+  <div class="card-inner" id="card-dir">
+    <div class="card-header" onclick="toggleCard('card-dir')">
+      <div class="card-icon" style="background:#f0fdf4;">⚖️</div>
+      <div class="card-meta">
+        <h3>Conhecimentos em Direito</h3>
+        <div class="card-info">
+          <span class="pill pill-q">20 questões</span>
+          <span class="pill pill-peso">⭐ Alta relevância</span>
+        </div>
+      </div>
+      <span class="card-pct" id="pct-dir">0%</span>
+      <div class="mini-bar"><div class="mini-fill" id="bar-dir" style="width:0%;background:#1a7a4a;"></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="topics-list" id="list-dir">
+      <div class="topic-item" onclick="toggleTopic(this,'dir')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Constituição Federal — Título II (Direitos e Garantias) <span class="hot-tag">🔥</span></div>
+          <div class="topic-tag">Arts. 1º ao 17; direitos individuais, coletivos, sociais</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'dir')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Organização do Poder Judiciário (CF arts. 92-126) <span class="hot-tag">🔥</span></div>
+          <div class="topic-tag">Estrutura, competências, STF, STJ, TJs</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'dir')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Código de Processo Civil — Partes e normas gerais <span class="hot-tag">🔥</span></div>
+          <div class="topic-tag">Livro I: normas fundamentais, arts. 1º ao 12</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'dir')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">CPC — Petição inicial, citação e intimação <span class="hot-tag">🔥</span></div>
+          <div class="topic-tag">Arts. 319 a 340; prazos, formas de comunicação</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'dir')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">CPC — Recursos: apelação, agravo, embargos</div>
+          <div class="topic-tag">Arts. 994 a 1044</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'dir')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Estatuto dos Funcionários Públicos do Estado de SP <span class="hot-tag">🔥</span></div>
+          <div class="topic-tag">Lei nº 10.261/68 — deveres, direitos, regime disciplinar</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'dir')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">NORMAS — Regulamento Interno dos Servidores TJSP</div>
+          <div class="topic-tag">Tomo I, Capítulo XI: Seções I a VII</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'dir')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Estatuto da Pessoa com Deficiência (Lei 13.146/2015) <span class="hot-tag">🔥</span></div>
+          <div class="topic-tag">Arts. 1º ao 13 e arts. 34 ao 38</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'dir')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Lei de Acesso à Informação (Lei 12.527/2011)</div>
+          <div class="topic-tag">Transparência ativa/passiva, sigilo, recursos</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'dir')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">LGPD — Lei Geral de Proteção de Dados (Lei 13.709/2018)</div>
+          <div class="topic-tag">Conceitos, base legal, direitos do titular</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'dir')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Direito Penal — Parte Geral (arts. 1º ao 120 CP)</div>
+          <div class="topic-tag">Crimes, penas, causas excludentes, prescrição</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'dir')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Código de Ética dos Servidores do TJSP</div>
+          <div class="topic-tag">Resolução TJSP sobre conduta funcional</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <script>
-        const lightbox = document.getElementById('image-lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
-        const galleryItems = document.querySelectorAll('.gallery-item');
+<div class="discipline-card">
+  <div class="card-inner" id="card-atu">
+    <div class="card-header" onclick="toggleCard('card-atu')">
+      <div class="card-icon" style="background:#fdf6e8;">🗞️</div>
+      <div class="card-meta">
+        <h3>Atualidades</h3>
+        <div class="card-info">
+          <span class="pill pill-q">5 questões</span>
+          <span class="pill pill-peso">⚡ Dinâmico</span>
+        </div>
+      </div>
+      <span class="card-pct" id="pct-atu">0%</span>
+      <div class="mini-bar"><div class="mini-fill" id="bar-atu" style="width:0%;background:#c9a84c;"></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="topics-list" id="list-atu">
+      <div class="topic-item" onclick="toggleTopic(this,'atu')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Fatos nacionais: política, economia, saúde, educação <span class="hot-tag">🔥</span></div>
+          <div class="topic-tag">Eventos relevantes a partir de 2025</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'atu')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Fatos internacionais: geopolítica, crises, acordos <span class="hot-tag">🔥</span></div>
+          <div class="topic-tag">Conflitos, eleições mundiais, clima</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'atu')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Meio ambiente e sustentabilidade</div>
+          <div class="topic-tag">COPs, desastres climáticos, políticas ambientais</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'atu')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Ciência, tecnologia e inovação</div>
+          <div class="topic-tag">Inteligência artificial, avanços científicos</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'atu')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Direitos humanos e questões sociais</div>
+          <div class="topic-tag">Desigualdade, diversidade, legislação social</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-        galleryItems.forEach(item => {
-            item.addEventListener('click', () => {
-                lightboxImg.src = item.querySelector('img').src;
-                lightbox.classList.add('active');
-            });
-        });
+<!-- ═══ BLOCO III — EXATAS ═══ -->
+<div class="section-title">🔢 Bloco III — Matemática & Informática</div>
 
-        lightbox.addEventListener('click', () => lightbox.classList.remove('active'));
-    </script>
+<div class="discipline-card">
+  <div class="card-inner" id="card-mat">
+    <div class="card-header" onclick="toggleCard('card-mat')">
+      <div class="card-icon" style="background:#fdf0f0;">🔢</div>
+      <div class="card-meta">
+        <h3>Matemática & Raciocínio Lógico</h3>
+        <div class="card-info">
+          <span class="pill pill-q">15 questões</span>
+          <span class="pill pill-peso">⭐ Classificatório</span>
+        </div>
+      </div>
+      <span class="card-pct" id="pct-mat">0%</span>
+      <div class="mini-bar"><div class="mini-fill" id="bar-mat" style="width:0%;background:#c0392b;"></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="topics-list" id="list-mat">
+      <div class="topic-item" onclick="toggleTopic(this,'mat')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Operações com números reais e frações <span class="hot-tag">🔥</span></div>
+          <div class="topic-tag">Potências, raízes, operações básicas</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'mat')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Razão, proporção e regra de três <span class="hot-tag">🔥</span></div>
+          <div class="topic-tag">Regra de três simples e composta</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'mat')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Porcentagem <span class="hot-tag">🔥</span></div>
+          <div class="topic-tag">Cálculo de porcentagem, aumento/desconto</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'mat')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Médias aritmética simples e ponderada</div>
+          <div class="topic-tag">Cálculo e interpretação de médias</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'mat')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Juros simples</div>
+          <div class="topic-tag">Montante, capital, taxa, tempo</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'mat')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Equações de 1º e 2º grau + sistemas <span class="hot-tag">🔥</span></div>
+          <div class="topic-tag">Equações lineares e quadráticas</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'mat')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Leitura de tabelas e gráficos <span class="hot-tag">🔥</span></div>
+          <div class="topic-tag">Barras, setores, linhas — interpretação</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'mat')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Geometria: área, perímetro, volume, ângulos</div>
+          <div class="topic-tag">Figuras planas, sólidos, teorema de Pitágoras</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'mat')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Raciocínio lógico: proposições e conectivos <span class="hot-tag">🔥</span></div>
+          <div class="topic-tag">Conjunção, disjunção, condicional, bicondicional</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'mat')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Raciocínio lógico: sequências e padrões <span class="hot-tag">🔥</span></div>
+          <div class="topic-tag">Progressões, séries numéricas, figuras</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'mat')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Problemas situação-problema (contextualizados) <span class="hot-tag">🔥</span></div>
+          <div class="topic-tag">Resolução de problemas do cotidiano</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="discipline-card">
+  <div class="card-inner" id="card-inf">
+    <div class="card-header" onclick="toggleCard('card-inf')">
+      <div class="card-icon" style="background:#f3e8ff;">💻</div>
+      <div class="card-meta">
+        <h3>Informática</h3>
+        <div class="card-info">
+          <span class="pill pill-q">10 questões</span>
+          <span class="pill pill-peso">💡 Pontos fáceis</span>
+        </div>
+      </div>
+      <span class="card-pct" id="pct-inf">0%</span>
+      <div class="mini-bar"><div class="mini-fill" id="bar-inf" style="width:0%;background:#5b2d8e;"></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="topics-list" id="list-inf">
+      <div class="topic-item" onclick="toggleTopic(this,'inf')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Windows 10/11: pastas, arquivos, atalhos <span class="hot-tag">🔥</span></div>
+          <div class="topic-tag">Área de trabalho, área de transferência, gerenciador</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'inf')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Microsoft Word (Microsoft 365) <span class="hot-tag">🔥</span></div>
+          <div class="topic-tag">Formatação, estilos, mala direta, revisão</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'inf')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Microsoft Excel (Microsoft 365) <span class="hot-tag">🔥</span></div>
+          <div class="topic-tag">Fórmulas básicas (SOMA, SE, MÉDIA, PROCV), gráficos</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'inf')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Microsoft PowerPoint (Microsoft 365)</div>
+          <div class="topic-tag">Slides, transições, animações básicas</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'inf')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Internet: navegadores, pesquisa e segurança <span class="hot-tag">🔥</span></div>
+          <div class="topic-tag">Chrome/Edge, favoritos, guias, HTTPS, phishing</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'inf')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">E-mail: Outlook e webmail</div>
+          <div class="topic-tag">Envio, CC, CCO, anexos, pastas, assinatura</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'inf')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Segurança digital: vírus, antivírus, firewall, backup</div>
+          <div class="topic-tag">Conceitos de proteção de dados e boas práticas</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'inf')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Conceitos básicos de hardware e redes</div>
+          <div class="topic-tag">Processador, memória, armazenamento; LAN, WAN, Wi-Fi</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ REDAÇÃO ═══ -->
+<div class="section-title">✍️ Redação</div>
+<div class="discipline-card">
+  <div class="card-inner" id="card-red">
+    <div class="card-header" onclick="toggleCard('card-red')">
+      <div class="card-icon" style="background:#e8f0fd;">✍️</div>
+      <div class="card-meta">
+        <h3>Prova Discursiva (Redação)</h3>
+        <div class="card-info">
+          <span class="pill pill-q">0 a 40 pts</span>
+          <span class="pill pill-peso">⛔ Eliminatório</span>
+        </div>
+      </div>
+      <span class="card-pct" id="pct-red">0%</span>
+      <div class="mini-bar"><div class="mini-fill" id="bar-red" style="width:0%;background:#1d4e8f;"></div></div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="topics-list" id="list-red">
+      <div class="topic-item" onclick="toggleTopic(this,'red')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Estrutura do texto dissertativo-argumentativo <span class="hot-tag">🔥</span></div>
+          <div class="topic-tag">Introdução (tese), desenvolvimento, conclusão (proposta)</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'red')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Coesão textual: conectivos e referenciação <span class="hot-tag">🔥</span></div>
+          <div class="topic-tag">Uso de pronomes, conjunções, advérbios para articular ideias</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'red')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Coerência e clareza na exposição de ideias</div>
+          <div class="topic-tag">Progressão temática, objetividade</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'red')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Norma culta e adequação vocabular</div>
+          <div class="topic-tag">Registro formal, evitar coloquialismo excessivo</div>
+        </div>
+      </div>
+      <div class="topic-item" onclick="toggleTopic(this,'red')">
+        <div class="topic-check"></div>
+        <div class="topic-text">
+          <div class="topic-name">Prática: escrever 1 redação por semana <span class="hot-tag">🔥</span></div>
+          <div class="topic-tag">Sobre temas de atualidade e direitos sociais</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CRONOGRAMA ═══ -->
+<div class="section-title">📅 Cronograma de Estudos</div>
+<div class="timeline-section">
+
+  <div class="phase-block">
+    <div class="phase-header">
+      <span class="phase-num">01</span>
+      <div>
+        <h3>Fase Base — Fundamentos</h3>
+        <div style="font-size:11px;color:rgba(245,243,238,0.5);">Meses 1 e 2</div>
+      </div>
+      <span>~60h</span>
+    </div>
+    <div class="phase-body">
+      <div class="phase-rows">
+        <div class="phase-row"><div class="phase-dot" style="background:#1d4e8f;"></div><strong>Língua Portuguesa:</strong>&nbsp;gramática base, ortografia, concordância</div>
+        <div class="phase-row"><div class="phase-dot" style="background:#c0392b;"></div><strong>Matemática:</strong>&nbsp;operações, porcentagem, razão e proporção</div>
+        <div class="phase-row"><div class="phase-dot" style="background:#1a7a4a;"></div><strong>Direito:</strong>&nbsp;Constituição Federal, organização do Judiciário</div>
+        <div class="phase-row"><div class="phase-dot" style="background:#5b2d8e;"></div><strong>Informática:</strong>&nbsp;Windows + Word + Excel (revisão geral)</div>
+        <div class="phase-row"><div class="phase-dot" style="background:#c9a84c;"></div><strong>Meta semanal:</strong>&nbsp;10h de estudo + 30 questões VUNESP antigas</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="phase-block">
+    <div class="phase-header">
+      <span class="phase-num">02</span>
+      <div>
+        <h3>Fase Aprofundamento</h3>
+        <div style="font-size:11px;color:rgba(245,243,238,0.5);">Meses 3 e 4</div>
+      </div>
+      <span>~80h</span>
+    </div>
+    <div class="phase-body">
+      <div class="phase-rows">
+        <div class="phase-row"><div class="phase-dot" style="background:#1d4e8f;"></div><strong>Português:</strong>&nbsp;interpretação avançada + redação (1x/semana)</div>
+        <div class="phase-row"><div class="phase-dot" style="background:#1a7a4a;"></div><strong>Direito:</strong>&nbsp;CPC, Estatuto Funcionário, legislações específicas</div>
+        <div class="phase-row"><div class="phase-dot" style="background:#c0392b;"></div><strong>Mat. + Lógica:</strong>&nbsp;equações, geometria, raciocínio lógico</div>
+        <div class="phase-row"><div class="phase-dot" style="background:#c9a84c;"></div><strong>Atualidades:</strong>&nbsp;ler 1 jornal/dia (G1, Agência Brasil)</div>
+        <div class="phase-row"><div class="phase-dot" style="background:#c9a84c;"></div><strong>Meta semanal:</strong>&nbsp;12h + resolução de simulado completo</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="phase-block">
+    <div class="phase-header">
+      <span class="phase-num">03</span>
+      <div>
+        <h3>Fase Revisão Intensiva</h3>
+        <div style="font-size:11px;color:rgba(245,243,238,0.5);">Último mês antes da prova</div>
+      </div>
+      <span>~60h</span>
+    </div>
+    <div class="phase-body">
+      <div class="phase-rows">
+        <div class="phase-row"><div class="phase-dot" style="background:#c9a84c;"></div><strong>Simulados:</strong>&nbsp;2 por semana no tempo real (3h)</div>
+        <div class="phase-row"><div class="phase-dot" style="background:#1d4e8f;"></div><strong>Português:</strong>&nbsp;revisar regras de concordância e crase</div>
+        <div class="phase-row"><div class="phase-dot" style="background:#1a7a4a;"></div><strong>Direito:</strong>&nbsp;reler arts. fundamentais + Regulamento TJSP</div>
+        <div class="phase-row"><div class="phase-dot" style="background:#c0392b;"></div><strong>Lógica:</strong>&nbsp;maratonar questões de anos anteriores</div>
+        <div class="phase-row"><div class="phase-dot" style="background:#5b2d8e;"></div><strong>Redação:</strong>&nbsp;1 por semana + revisão com base em gabarito</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══ DICAS VUNESP ═══ -->
+<div class="section-title" style="margin-top:28px;">💡 Dicas da Banca VUNESP</div>
+<div class="tips-grid">
+  <div class="tip-card">
+    <h4>📝 Português VUNESP</h4>
+    <ul>
+      <li>Foco total em interpretação de texto — sempre cai 4+ questões</li>
+      <li>Questões de concordância com casos especiais (sujeito coletivo, partitivo)</li>
+      <li>Sempre cobra crase e pontuação com vírgula</li>
+      <li>Prefere textos jornalísticos e literários como base</li>
+    </ul>
+  </div>
+  <div class="tip-card">
+    <h4>⚖️ Direito VUNESP</h4>
+    <ul>
+      <li>Cobra muito a letra fria da lei — decorar artigos é essencial</li>
+      <li>CPC tem peso enorme: petição inicial, prazos, recursos</li>
+      <li>Regulamento Interno do TJSP cai todos os anos</li>
+      <li>Atenção a leis novas publicadas até a data do edital</li>
+    </ul>
+  </div>
+  <div class="tip-card">
+    <h4>🔢 Matemática VUNESP</h4>
+    <ul>
+      <li>Questões contextualizadas — sempre leia o enunciado todo</li>
+      <li>Porcentagem + regra de três = mais de 50% das questões</li>
+      <li>Lógica: atenção a silogismos e tabela-verdade</li>
+      <li>Geometria básica: área/perímetro de retângulo e triângulo</li>
+    </ul>
+  </div>
+  <div class="tip-card">
+    <h4>✍️ Redação VUNESP</h4>
+    <ul>
+      <li>Mínimo 20/40 para não ser eliminado — prioridade!</li>
+      <li>Texto dissertativo-argumentativo com proposta de intervenção</li>
+      <li>Extensão ideal: 25 a 30 linhas</li>
+      <li>Evite clichês, gírias e frases longas demais</li>
+    </ul>
+  </div>
+</div>
+
+<div class="footer">
+  Plano baseado no edital TJ-SP 2025 · Banca VUNESP · Gerado por Claude para Rodrigo
+</div>
+
+<script>
+// ── STATE ──
+const STORAGE_KEY = 'tjsp_checklist_v2';
+let state = {};
+
+function loadState() {
+  try { state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { state = {}; }
+}
+
+function saveState() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+// ── CARDS ──
+function toggleCard(id) {
+  const el = document.getElementById(id);
+  el.classList.toggle('open');
+}
+
+// ── TOPICS ──
+function toggleTopic(el, group) {
+  el.classList.toggle('done');
+  updateGroup(group);
+  updateOverall();
+  saveState();
+}
+
+function updateGroup(group) {
+  const list = document.getElementById('list-' + group);
+  if (!list) return;
+  const items = list.querySelectorAll('.topic-item');
+  const done = list.querySelectorAll('.topic-item.done').length;
+  const total = items.length;
+  const pct = total ? Math.round(done / total * 100) : 0;
+
+  const pctEl = document.getElementById('pct-' + group);
+  const barEl = document.getElementById('bar-' + group);
+  if (pctEl) pctEl.textContent = pct + '%';
+  if (barEl) barEl.style.width = pct + '%';
+}
+
+function updateOverall() {
+  const allItems = document.querySelectorAll('.topic-item');
+  const allDone = document.querySelectorAll('.topic-item.done');
+  const total = allItems.length;
+  const done = allDone.length;
+  const pct = total ? Math.round(done / total * 100) : 0;
+
+  document.getElementById('topics-done').textContent = done;
+  document.getElementById('topics-total').textContent = total;
+  document.getElementById('ring-pct').textContent = pct + '%';
+
+  const circumference = 201.06;
+  const offset = circumference - (pct / 100) * circumference;
+  document.getElementById('progress-ring').style.strokeDashoffset = offset;
+}
+
+// ── PERSIST TOPIC STATE ──
+function persistTopics() {
+  const groups = ['lp','dir','atu','mat','inf','red'];
+  groups.forEach(g => {
+    const list = document.getElementById('list-' + g);
+    if (!list) return;
+    const items = list.querySelectorAll('.topic-item');
+    items.forEach((item, i) => {
+      const key = g + '_' + i;
+      if (state[key]) item.classList.add('done');
+    });
+  });
+}
+
+function attachSaveTopic() {
+  document.querySelectorAll('.topic-item').forEach((item, _) => {
+    // identify by group + index within list
+    const list = item.closest('.topics-list');
+    if (!list) return;
+    const groupId = list.id.replace('list-','');
+    const siblings = list.querySelectorAll('.topic-item');
+    const idx = Array.from(siblings).indexOf(item);
+    const key = groupId + '_' + idx;
+
+    item.addEventListener('click', () => {
+      state[key] = item.classList.contains('done');
+      saveState();
+    });
+  });
+}
+
+// ── INIT ──
+window.addEventListener('DOMContentLoaded', () => {
+  loadState();
+  persistTopics();
+  attachSaveTopic();
+
+  // init counts
+  const groups = ['lp','dir','atu','mat','inf','red'];
+  groups.forEach(g => updateGroup(g));
+  updateOverall();
+});
+</script>
 </body>
 </html>
