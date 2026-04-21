@@ -5,9 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Plano de estudos interativo TJ-SP Escrevente Técnico Judiciário — banca VUNESP.">
 <meta name="theme-color" content="#0f0f14">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="TJ-SP Estudos">
 <meta property="og:title" content="Plano de Estudos TJ-SP Escrevente">
 <meta property="og:type" content="website">
 <title>Plano de Estudos — TJ-SP Escrevente</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -212,11 +218,199 @@ body{font-family:'Outfit',sans-serif;background:var(--paper);color:var(--ink);mi
 ::-webkit-scrollbar{width:6px;height:6px;}
 ::-webkit-scrollbar-track{background:var(--cream);}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+
+/* ════════════════════════════════════
+   MOBILE MODE
+════════════════════════════════════ */
+
+/* ── bottom nav bar (mobile only) ── */
+.bottom-nav{
+  display:none;
+  position:fixed;bottom:0;left:0;right:0;z-index:150;
+  background:var(--ink);
+  border-top:1px solid rgba(255,255,255,.08);
+  padding:0 0 env(safe-area-inset-bottom,0);
+  box-shadow:0 -4px 24px rgba(15,15,20,.35);
+}
+.bottom-nav-inner{display:flex;}
+.bn-tab{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:10px 4px 8px;gap:3px;
+  border:none;background:transparent;cursor:pointer;
+  color:rgba(245,243,238,.38);transition:color .18s;
+  -webkit-tap-highlight-color:transparent;
+  min-height:56px;
+}
+.bn-tab.active{color:var(--gold);}
+.bn-tab svg,.bn-tab .bn-icon{font-size:20px;line-height:1;}
+.bn-label{font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;font-family:'Outfit',sans-serif;}
+
+/* active indicator dot */
+.bn-tab.active .bn-dot{
+  width:4px;height:4px;border-radius:50%;
+  background:var(--gold);margin-top:2px;
+}
+
+/* ── mobile hero compact ── */
+@media(max-width:600px){
+  .hero{padding:28px 20px 24px;}
+  .hero h1{font-size:26px;}
+  .hero p{font-size:12px;margin-top:6px;}
+  .badge{font-size:9px;}
+
+  /* hide top nav on mobile — replaced by bottom nav */
+  .nav-tabs{display:none;}
+
+  /* show bottom nav */
+  .bottom-nav{display:block;}
+
+  /* extra bottom padding so content clears bottom nav */
+  body{padding-bottom:calc(64px + env(safe-area-inset-bottom,0));}
+
+  /* stats bar: smaller */
+  .stat{min-width:80px;padding:10px 12px;}
+  .stat-num{font-size:18px;}
+  .stat-label{font-size:9px;}
+
+  /* section titles smaller */
+  .section-title{font-size:18px;padding:20px 16px 10px;}
+
+  /* dash grid single col */
+  .dash-grid{grid-template-columns:1fr;padding:0 12px;gap:12px;}
+
+  /* streak card compact */
+  .streak-card{padding:18px 20px;gap:16px;}
+  .streak-fire{font-size:40px;}
+  .streak-num{font-size:38px;}
+
+  /* heatmap: fewer squares fit */
+  .hm-day{width:12px;height:12px;}
+
+  /* discipline cards */
+  .discipline-card{padding:0 12px;}
+  .card-header{padding:14px 16px;gap:10px;}
+  .topics-list{padding:0 14px 12px;}
+  .topic-item{padding:12px 0;gap:10px;}
+  .topic-check{width:24px;height:24px;border-radius:6px;flex-shrink:0;}/* bigger touch */
+  .topic-name{font-size:14px;}
+  .topic-tag{font-size:11px;}
+
+  /* progress ring section */
+  .progress-section{padding:16px 12px;}
+  .overall-progress{padding:16px 18px;gap:16px;}
+
+  /* agenda */
+  .agenda-wrap{padding:0 12px 12px;}
+  .week-grid{grid-template-columns:1fr !important;}/* one col list on mobile */
+  .day-col{min-height:auto;display:flex;flex-direction:row;align-items:flex-start;gap:12px;flex-wrap:wrap;}
+  .day-col .day-name,.day-col .day-date{flex-shrink:0;}
+  .day-col .day-date{font-size:22px;min-width:32px;}
+  .day-col .day-tasks{flex:1;}
+  .day-col .add-task-btn{width:auto;padding:5px 12px;}
+  .day-task{font-size:13px;padding:7px 10px;}/* bigger tap target */
+  .add-task-btn{font-size:13px;padding:8px;}
+
+  /* timeline */
+  .timeline-section{padding:0 12px;}
+  .phase-body{padding:14px 16px;}
+  .phase-row{font-size:12px;}
+
+  /* tips */
+  .tips-grid{padding:0 12px;grid-template-columns:1fr;}
+
+  /* modal becomes bottom sheet on mobile */
+  .modal-backdrop{align-items:flex-end;padding:0;}
+  .modal{
+    border-radius:20px 20px 0 0;
+    padding:24px 24px calc(24px + env(safe-area-inset-bottom,0));
+    max-width:100%;
+    animation:slideUp .28s cubic-bezier(.32,1,.36,1);
+  }
+  @keyframes slideUp{from{transform:translateY(100%);}to{transform:translateY(0);}}
+
+  /* toast above bottom nav */
+  #save-toast{bottom:calc(72px + env(safe-area-inset-bottom,0));right:16px;}
+
+  /* reset btn smaller */
+  .reset-btn{font-size:9px;padding:5px 10px;}
+}
+
+/* ── swipe animation ── */
+.page{transition:opacity .18s ease;}
+.page.slide-out{opacity:0;pointer-events:none;}
+
+/* ── touch-friendly active states ── */
+@media(hover:none){
+  .topic-item:active{opacity:.6;background:var(--cream);border-radius:6px;}
+  .card-header:active{background:var(--cream);}
+  .day-task:active{filter:brightness(.88);}
+  .bn-tab:active{color:var(--gold-light);}
+}
+
+/* ── PWA install banner ── */
+#pwa-banner{
+  display:none;
+  position:fixed;bottom:calc(64px + env(safe-area-inset-bottom,0) + 12px);left:12px;right:12px;
+  background:var(--ink);color:var(--paper);
+  border-radius:14px;border:1px solid var(--gold-dim);
+  padding:14px 16px;
+  flex-direction:row;align-items:center;gap:12px;
+  box-shadow:0 8px 32px rgba(15,15,20,.4);
+  z-index:140;
+  animation:slideUp .3s cubic-bezier(.32,1,.36,1);
+}
+#pwa-banner.show{display:flex;}
+.pwa-icon{font-size:28px;flex-shrink:0;}
+.pwa-text{flex:1;}
+.pwa-text strong{font-size:13px;font-weight:700;display:block;margin-bottom:2px;}
+.pwa-text span{font-size:11px;color:rgba(245,243,238,.55);}
+.pwa-btns{display:flex;flex-direction:column;gap:6px;flex-shrink:0;}
+.pwa-install{background:var(--gold);color:var(--ink);border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;}
+.pwa-dismiss{background:none;border:none;color:rgba(245,243,238,.4);font-size:11px;cursor:pointer;text-align:center;font-family:'Outfit',sans-serif;padding:2px;}
 </style>
 </head>
 <body>
 
 <div id="save-toast">✓ salvo</div>
+
+<!-- PWA INSTALL BANNER (mobile) -->
+<div id="pwa-banner">
+  <div class="pwa-icon">📚</div>
+  <div class="pwa-text">
+    <strong>Adicionar à tela inicial</strong>
+    <span>Acesse offline, como um app</span>
+  </div>
+  <div class="pwa-btns">
+    <button class="pwa-install" id="pwa-install-btn">Instalar</button>
+    <button class="pwa-dismiss" onclick="dismissPWA()">Agora não</button>
+  </div>
+</div>
+
+<!-- BOTTOM NAV (mobile) -->
+<nav class="bottom-nav" id="bottom-nav">
+  <div class="bottom-nav-inner">
+    <button class="bn-tab active" onclick="switchTab('dashboard',this)" data-tab="dashboard">
+      <span class="bn-icon">📊</span>
+      <span class="bn-label">Dashboard</span>
+      <div class="bn-dot"></div>
+    </button>
+    <button class="bn-tab" onclick="switchTab('checklist',this)" data-tab="checklist">
+      <span class="bn-icon">✅</span>
+      <span class="bn-label">Checklist</span>
+      <div class="bn-dot"></div>
+    </button>
+    <button class="bn-tab" onclick="switchTab('agenda',this)" data-tab="agenda">
+      <span class="bn-icon">🗓️</span>
+      <span class="bn-label">Agenda</span>
+      <div class="bn-dot"></div>
+    </button>
+    <button class="bn-tab" onclick="switchTab('cronograma',this)" data-tab="cronograma">
+      <span class="bn-icon">📅</span>
+      <span class="bn-label">Dicas</span>
+      <div class="bn-dot"></div>
+    </button>
+  </div>
+</nav>
 
 <!-- MODAL -->
 <div class="modal-backdrop" id="task-modal">
@@ -533,11 +727,21 @@ let _tt=null;
 function flashToast(){const t=document.getElementById('save-toast');t.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>t.classList.remove('show'),1600);}
 
 /* ══ TABS ══ */
-function switchTab(name,btn){
+const TAB_ORDER=['dashboard','checklist','agenda','cronograma'];
+let currentTab='dashboard';
+
+function switchTab(name, btn){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.nav-tab, .bn-tab').forEach(b=>b.classList.remove('active'));
   document.getElementById('page-'+name).classList.add('active');
-  btn.classList.add('active');
+  // activate both top and bottom nav buttons for this tab
+  document.querySelectorAll('[data-tab="'+name+'"], .nav-tab').forEach(b=>{
+    if(b.dataset&&b.dataset.tab===name) b.classList.add('active');
+  });
+  // also handle top nav tabs (no data-tab attr)
+  if(btn) btn.classList.add('active');
+  currentTab=name;
+  window.scrollTo({top:0,behavior:'smooth'});
   if(name==='dashboard')renderDashboard();
   if(name==='agenda')renderWeek();
 }
@@ -784,11 +988,72 @@ function toggleTaskDone(wk,dayIdx,taskIdx){
 document.getElementById('task-modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
 document.getElementById('task-input').addEventListener('keydown',e=>{if(e.key==='Enter')saveTask();if(e.key==='Escape')closeModal();});
 
+/* ══ SWIPE BETWEEN TABS (mobile) ══ */
+(function(){
+  let sx=0,sy=0,moved=false;
+  document.addEventListener('touchstart',e=>{
+    // ignore if inside modal or scrollable element
+    if(e.target.closest('.modal,.topics-list,.heatmap,.week-grid'))return;
+    sx=e.touches[0].clientX;sy=e.touches[0].clientY;moved=false;
+  },{passive:true});
+  document.addEventListener('touchmove',e=>{
+    if(Math.abs(e.touches[0].clientX-sx)>10)moved=true;
+  },{passive:true});
+  document.addEventListener('touchend',e=>{
+    if(!moved)return;
+    const dx=e.changedTouches[0].clientX-sx;
+    const dy=e.changedTouches[0].clientY-sy;
+    if(Math.abs(dx)<40||Math.abs(dy)>Math.abs(dx)*1.2)return;// too small or diagonal
+    const idx=TAB_ORDER.indexOf(currentTab);
+    if(dx<-50&&idx<TAB_ORDER.length-1){
+      // swipe left → next tab
+      const next=TAB_ORDER[idx+1];
+      const btn=document.querySelector('.bn-tab[data-tab="'+next+'"]');
+      switchTab(next,btn);
+    } else if(dx>50&&idx>0){
+      // swipe right → prev tab
+      const prev=TAB_ORDER[idx-1];
+      const btn=document.querySelector('.bn-tab[data-tab="'+prev+'"]');
+      switchTab(prev,btn);
+    }
+  },{passive:true});
+})();
+
+/* ══ PWA INSTALL PROMPT ══ */
+let _deferredPrompt=null;
+window.addEventListener('beforeinstallprompt',e=>{
+  e.preventDefault();
+  _deferredPrompt=e;
+  const dismissed=localStorage.getItem('pwa_dismissed');
+  if(!dismissed&&window.innerWidth<=600){
+    setTimeout(()=>document.getElementById('pwa-banner').classList.add('show'),3000);
+  }
+});
+document.getElementById('pwa-install-btn').addEventListener('click',async()=>{
+  if(!_deferredPrompt)return;
+  _deferredPrompt.prompt();
+  const{outcome}=await _deferredPrompt.userChoice;
+  _deferredPrompt=null;
+  document.getElementById('pwa-banner').classList.remove('show');
+});
+function dismissPWA(){
+  document.getElementById('pwa-banner').classList.remove('show');
+  localStorage.setItem('pwa_dismissed','1');
+}
+
 /* ══ INIT ══ */
 document.addEventListener('DOMContentLoaded',()=>{
   restoreTopics();attachTopics();
   GROUPS.forEach(g=>updateGroup(g));updateOverall();
   renderDashboard();
+  // sync bottom nav active state
+  document.querySelectorAll('.bn-tab').forEach(b=>{
+    if(b.dataset.tab==='dashboard')b.classList.add('active');
+  });
+  // register service worker for offline / PWA
+  if('serviceWorker' in navigator){
+    navigator.serviceWorker.register('sw.js').catch(()=>{});
+  }
 });
 </script>
 </body>
