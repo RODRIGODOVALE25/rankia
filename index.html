@@ -3,417 +3,252 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Plano de estudos interativo para o concurso TJ-SP Escrevente Técnico Judiciário — banca VUNESP. Checklist com progresso salvo automaticamente.">
+<meta name="description" content="Plano de estudos interativo TJ-SP Escrevente Técnico Judiciário — banca VUNESP.">
 <meta name="theme-color" content="#0f0f14">
-
-<!-- Open Graph -->
 <meta property="og:title" content="Plano de Estudos TJ-SP Escrevente">
-<meta property="og:description" content="Checklist interativo com todas as disciplinas do edital. Progresso salvo no seu navegador.">
 <meta property="og:type" content="website">
-
 <title>Plano de Estudos — TJ-SP Escrevente</title>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
 <style>
-  :root {
-    --ink: #0f0f14;
-    --paper: #f5f3ee;
-    --cream: #ede9e1;
-    --gold: #c9a84c;
-    --gold-light: #f0d990;
-    --gold-dim: #8a6f2e;
-    --red: #c0392b;
-    --green: #1a7a4a;
-    --blue: #1d4e8f;
-    --purple: #5b2d8e;
-    --muted: #6b6660;
-    --border: #d4cfc6;
-    --shadow: rgba(15,15,20,0.12);
-  }
+:root{
+  --ink:#0f0f14;--paper:#f5f3ee;--cream:#ede9e1;
+  --gold:#c9a84c;--gold-light:#f0d990;--gold-dim:#8a6f2e;
+  --red:#c0392b;--green:#1a7a4a;--blue:#1d4e8f;--purple:#5b2d8e;
+  --muted:#6b6660;--border:#d4cfc6;--shadow:rgba(15,15,20,0.12);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Outfit',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;padding-bottom:80px;}
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+/* NAV */
+.nav-tabs{position:sticky;top:0;z-index:100;background:var(--ink);display:flex;overflow-x:auto;border-bottom:2px solid var(--gold-dim);}
+.nav-tab{flex-shrink:0;padding:14px 20px;font-size:12px;font-weight:600;letter-spacing:.5px;color:rgba(245,243,238,.45);cursor:pointer;border:none;background:transparent;transition:color .2s;white-space:nowrap;position:relative;}
+.nav-tab.active{color:var(--gold);}
+.nav-tab.active::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:2px;background:var(--gold);}
+.nav-tab:hover{color:rgba(245,243,238,.8);}
 
-  body {
-    font-family: 'Outfit', sans-serif;
-    background: var(--paper);
-    color: var(--ink);
-    min-height: 100vh;
-    padding: 0 0 60px;
-  }
+/* PAGES */
+.page{display:none;}
+.page.active{display:block;}
 
-  /* ── SAVE TOAST ── */
-  #save-toast {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    background: var(--ink);
-    color: var(--gold);
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 1px;
-    padding: 10px 16px;
-    border-radius: 8px;
-    border: 1px solid var(--gold-dim);
-    opacity: 0;
-    transform: translateY(8px);
-    transition: opacity 0.25s, transform 0.25s;
-    pointer-events: none;
-    z-index: 999;
-  }
-  #save-toast.show {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* TOAST */
+#save-toast{position:fixed;bottom:24px;right:24px;background:var(--ink);color:var(--gold);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1px;padding:10px 16px;border-radius:8px;border:1px solid var(--gold-dim);opacity:0;transform:translateY(8px);transition:opacity .25s,transform .25s;pointer-events:none;z-index:999;}
+#save-toast.show{opacity:1;transform:translateY(0);}
 
-  /* ── RESET BTN ── */
-  .reset-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--muted);
-    border: 1px solid var(--border);
-    background: white;
-    padding: 6px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-  .reset-btn:hover { color: var(--red); border-color: var(--red); }
+/* HERO */
+.hero{background:var(--ink);color:var(--paper);padding:48px 32px 40px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 18px,rgba(201,168,76,.06) 18px,rgba(201,168,76,.06) 19px);}
+.hero-inner{position:relative;max-width:760px;margin:0 auto;}
+.badge{display:inline-block;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold-dim);padding:4px 10px;border-radius:2px;margin-bottom:16px;}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(28px,5vw,48px);line-height:1.1;margin-bottom:8px;}
+.hero h1 em{color:var(--gold);font-style:normal;}
+.hero p{font-size:14px;color:rgba(245,243,238,.6);font-weight:300;max-width:480px;line-height:1.6;margin-top:4px;}
 
-  /* ── HEADER ── */
-  .hero {
-    background: var(--ink);
-    color: var(--paper);
-    padding: 48px 32px 40px;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(
-      45deg, transparent, transparent 18px,
-      rgba(201,168,76,0.06) 18px, rgba(201,168,76,0.06) 19px
-    );
-  }
-  .hero-inner { position: relative; max-width: 760px; margin: 0 auto; }
-  .badge {
-    display: inline-block;
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--gold);
-    border: 1px solid var(--gold-dim);
-    padding: 4px 10px;
-    border-radius: 2px;
-    margin-bottom: 16px;
-  }
-  .hero h1 {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(28px, 5vw, 48px);
-    line-height: 1.1;
-    margin-bottom: 8px;
-  }
-  .hero h1 em { color: var(--gold); font-style: normal; }
-  .hero p {
-    font-size: 14px;
-    color: rgba(245,243,238,0.6);
-    font-weight: 300;
-    max-width: 480px;
-    line-height: 1.6;
-    margin-top: 4px;
-  }
+/* STATS BAR */
+.stats-bar{background:var(--gold);display:flex;overflow-x:auto;}
+.stat{flex:1;min-width:110px;padding:14px 20px;text-align:center;border-right:1px solid var(--gold-dim);}
+.stat:last-child{border-right:none;}
+.stat-num{font-family:'DM Mono',monospace;font-size:22px;font-weight:500;color:var(--ink);display:block;}
+.stat-label{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--gold-dim);}
 
-  /* ── STATS BAR ── */
-  .stats-bar {
-    background: var(--gold);
-    display: flex;
-    overflow-x: auto;
-  }
-  .stat {
-    flex: 1;
-    min-width: 110px;
-    padding: 14px 20px;
-    text-align: center;
-    border-right: 1px solid var(--gold-dim);
-  }
-  .stat:last-child { border-right: none; }
-  .stat-num {
-    font-family: 'DM Mono', monospace;
-    font-size: 22px;
-    font-weight: 500;
-    color: var(--ink);
-    display: block;
-  }
-  .stat-label {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--gold-dim);
-  }
+/* SHARED */
+.section-title{font-family:'DM Serif Display',serif;font-size:22px;padding:28px 20px 12px;max-width:760px;margin:0 auto;display:flex;align-items:center;gap:10px;}
+.section-title::after{content:'';flex:1;height:1px;background:var(--border);}
+.card{background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:0 2px 8px var(--shadow);}
 
-  /* ── PROGRESS ── */
-  .progress-section {
-    padding: 32px 20px;
-    max-width: 760px;
-    margin: 0 auto;
-  }
-  .progress-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 16px;
-  }
-  .progress-header h2 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 20px;
-  }
-  .overall-progress {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px 24px;
-    box-shadow: 0 2px 12px var(--shadow);
-  }
-  .ring-wrap { position: relative; flex-shrink: 0; }
-  .ring-wrap svg { display: block; }
-  .ring-label {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  .ring-pct {
-    font-family: 'DM Mono', monospace;
-    font-size: 20px;
-    font-weight: 500;
-    color: var(--ink);
-  }
-  .ring-sub { font-size: 9px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
-  .progress-info h3 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
-  .progress-info p { font-size: 13px; color: var(--muted); }
-  .progress-info p span { font-family: 'DM Mono', monospace; }
+/* RESET BTN */
+.reset-btn{display:inline-flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);border:1px solid var(--border);background:white;padding:6px 12px;border-radius:6px;cursor:pointer;transition:all .15s;}
+.reset-btn:hover{color:var(--red);border-color:var(--red);}
 
-  /* ── SECTION TITLE ── */
-  .section-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 22px;
-    padding: 28px 20px 12px;
-    max-width: 760px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .section-title::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
+/* ── DASHBOARD ── */
+.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:0 20px;max-width:760px;margin:0 auto;}
+@media(max-width:520px){.dash-grid{grid-template-columns:1fr;}}
 
-  /* ── DISCIPLINE CARD ── */
-  .discipline-card { max-width: 760px; margin: 0 auto 16px; padding: 0 20px; }
-  .card-inner {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px var(--shadow);
-    transition: box-shadow 0.2s;
-  }
-  .card-inner:hover { box-shadow: 0 4px 20px var(--shadow); }
+.streak-card{grid-column:1/-1;padding:24px 28px;display:flex;align-items:center;gap:24px;background:var(--ink);color:var(--paper);border-radius:12px;position:relative;overflow:hidden;}
+.streak-card::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 14px,rgba(201,168,76,.05) 14px,rgba(201,168,76,.05) 15px);}
+.streak-fire{font-size:52px;line-height:1;position:relative;flex-shrink:0;}
+.streak-info{position:relative;}
+.streak-num{font-family:'DM Mono',monospace;font-size:48px;font-weight:500;color:var(--gold);line-height:1;}
+.streak-label{font-size:13px;color:rgba(245,243,238,.6);margin-top:2px;}
+.streak-best{font-family:'DM Mono',monospace;font-size:11px;color:var(--gold-dim);margin-top:6px;}
+.streak-meta{margin-left:auto;position:relative;text-align:center;}
+.streak-meta-num{font-size:28px;font-family:'DM Mono',monospace;color:var(--gold);}
+.streak-meta-label{font-size:11px;color:rgba(245,243,238,.4);font-family:'DM Mono',monospace;}
 
-  .card-header {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 16px 20px;
-    cursor: pointer;
-    user-select: none;
-    transition: background 0.15s;
-  }
-  .card-header:hover { background: var(--cream); }
+.goal-card{padding:20px 24px;}
+.goal-card h3{font-size:14px;font-weight:600;margin-bottom:14px;}
+.goal-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.goal-row label{font-size:13px;flex:1;}
+.goal-row input[type=number]{width:60px;padding:4px 8px;border:1px solid var(--border);border-radius:6px;font-family:'DM Mono',monospace;font-size:13px;text-align:center;background:var(--paper);color:var(--ink);}
+.goal-bar{height:8px;background:var(--cream);border-radius:4px;overflow:hidden;margin-top:10px;}
+.goal-fill{height:100%;background:var(--green);border-radius:4px;transition:width .4s ease;}
+.goal-status{font-size:12px;color:var(--muted);margin-top:6px;font-family:'DM Mono',monospace;}
 
-  .card-icon {
-    width: 40px; height: 40px;
-    border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 18px; flex-shrink: 0;
-  }
-  .card-meta { flex: 1; }
-  .card-meta h3 { font-size: 15px; font-weight: 600; }
-  .card-info { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+.heatmap-card{grid-column:1/-1;padding:20px 24px;}
+.heatmap-card h3{font-size:14px;font-weight:600;margin-bottom:14px;}
+.heatmap{display:flex;gap:3px;flex-wrap:wrap;}
+.hm-day{width:14px;height:14px;border-radius:3px;background:var(--cream);position:relative;cursor:default;}
+.hm-day:hover .hm-tip{display:block;}
+.hm-day.s1{background:#b8dfc9;}
+.hm-day.s2{background:#72bf97;}
+.hm-day.s3{background:#2e9e65;}
+.hm-day.s4{background:var(--green);}
+.hm-day.today{outline:2px solid var(--gold);outline-offset:1px;}
+.hm-tip{display:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--ink);color:var(--paper);font-size:10px;font-family:'DM Mono',monospace;padding:4px 8px;border-radius:4px;white-space:nowrap;z-index:10;pointer-events:none;}
+.hm-legend{display:flex;align-items:center;gap:6px;margin-top:10px;font-size:10px;color:var(--muted);}
+.hm-sq{width:12px;height:12px;border-radius:2px;}
 
-  .pill {
-    font-size: 10px;
-    font-family: 'DM Mono', monospace;
-    padding: 2px 8px;
-    border-radius: 20px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-  }
-  .pill-q { background: #e8f0fd; color: var(--blue); }
-  .pill-peso { background: #fff8e1; color: var(--gold-dim); }
+.chart-card{grid-column:1/-1;padding:20px 24px;}
+.chart-card h3{font-size:14px;font-weight:600;margin-bottom:16px;}
+.bar-chart{display:flex;flex-direction:column;gap:10px;}
+.bar-row{display:flex;align-items:center;gap:10px;}
+.bar-label{font-size:12px;width:100px;flex-shrink:0;font-weight:500;}
+.bar-track{flex:1;height:10px;background:var(--cream);border-radius:5px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:5px;transition:width .6s ease;}
+.bar-val{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);min-width:36px;text-align:right;}
 
-  .card-pct {
-    font-family: 'DM Mono', monospace;
-    font-size: 13px;
-    color: var(--muted);
-    margin-right: 4px;
-    min-width: 36px;
-    text-align: right;
-  }
-  .mini-bar { width: 60px; height: 4px; background: var(--cream); border-radius: 2px; overflow: hidden; }
-  .mini-fill { height: 100%; border-radius: 2px; transition: width 0.4s ease; }
+/* ── CHECKLIST ── */
+.progress-section{padding:24px 20px;max-width:760px;margin:0 auto;}
+.progress-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.progress-header h2{font-family:'DM Serif Display',serif;font-size:20px;}
+.overall-progress{display:flex;align-items:center;gap:20px;background:white;border:1px solid var(--border);border-radius:12px;padding:20px 24px;box-shadow:0 2px 12px var(--shadow);}
+.ring-wrap{position:relative;flex-shrink:0;}
+.ring-wrap svg{display:block;}
+.ring-label{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.ring-pct{font-family:'DM Mono',monospace;font-size:20px;font-weight:500;color:var(--ink);}
+.ring-sub{font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;}
+.progress-info h3{font-size:16px;font-weight:600;margin-bottom:4px;}
+.progress-info p{font-size:13px;color:var(--muted);}
+.progress-info p span{font-family:'DM Mono',monospace;}
 
-  .chevron { font-size: 14px; color: var(--muted); transition: transform 0.25s; flex-shrink: 0; }
-  .card-inner.open .chevron { transform: rotate(180deg); }
+.discipline-card{max-width:760px;margin:0 auto 16px;padding:0 20px;}
+.card-inner{background:white;border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px var(--shadow);transition:box-shadow .2s;}
+.card-inner:hover{box-shadow:0 4px 20px var(--shadow);}
+.card-header{display:flex;align-items:center;gap:14px;padding:16px 20px;cursor:pointer;user-select:none;transition:background .15s;}
+.card-header:hover{background:var(--cream);}
+.card-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.card-meta{flex:1;}
+.card-meta h3{font-size:15px;font-weight:600;}
+.card-info{display:flex;align-items:center;gap:8px;margin-top:4px;}
+.pill{font-size:10px;font-family:'DM Mono',monospace;padding:2px 8px;border-radius:20px;font-weight:500;letter-spacing:.5px;}
+.pill-q{background:#e8f0fd;color:var(--blue);}
+.pill-peso{background:#fff8e1;color:var(--gold-dim);}
+.card-pct{font-family:'DM Mono',monospace;font-size:13px;color:var(--muted);margin-right:4px;min-width:36px;text-align:right;}
+.mini-bar{width:60px;height:4px;background:var(--cream);border-radius:2px;overflow:hidden;}
+.mini-fill{height:100%;border-radius:2px;transition:width .4s ease;}
+.chevron{font-size:14px;color:var(--muted);transition:transform .25s;flex-shrink:0;}
+.card-inner.open .chevron{transform:rotate(180deg);}
+.topics-list{display:none;border-top:1px solid var(--border);padding:0 20px 16px;}
+.card-inner.open .topics-list{display:block;}
+.topic-item{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px dashed var(--border);cursor:pointer;transition:opacity .15s;}
+.topic-item:last-child{border-bottom:none;}
+.topic-item:hover{opacity:.8;}
+.topic-check{width:20px;height:20px;border:2px solid var(--border);border-radius:5px;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .15s;background:white;}
+.topic-item.done .topic-check{background:var(--green);border-color:var(--green);}
+.topic-item.done .topic-check::after{content:'✓';color:white;font-size:12px;font-weight:700;}
+.topic-text{flex:1;}
+.topic-name{font-size:13px;font-weight:500;line-height:1.4;}
+.topic-item.done .topic-name{text-decoration:line-through;color:var(--muted);}
+.topic-tag{font-size:10px;font-family:'DM Mono',monospace;color:var(--muted);margin-top:2px;}
+.hot-tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;background:#fff0f0;color:var(--red);border:1px solid #f5c6c0;border-radius:3px;padding:1px 5px;margin-left:6px;vertical-align:middle;}
 
-  /* ── TOPICS ── */
-  .topics-list { display: none; border-top: 1px solid var(--border); padding: 0 20px 16px; }
-  .card-inner.open .topics-list { display: block; }
+/* ── AGENDA ── */
+.agenda-wrap{max-width:760px;margin:0 auto;padding:0 20px 20px;}
+.week-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-top:4px;}
+.week-nav h3{font-family:'DM Serif Display',serif;font-size:18px;}
+.week-btn{background:white;border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:13px;cursor:pointer;transition:all .15s;color:var(--ink);font-family:'Outfit',sans-serif;}
+.week-btn:hover{background:var(--cream);}
+.week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;}
+@media(max-width:600px){.week-grid{grid-template-columns:repeat(4,1fr);}}
+@media(max-width:400px){.week-grid{grid-template-columns:repeat(2,1fr);}}
+.day-col{background:white;border:1px solid var(--border);border-radius:10px;padding:12px 10px;min-height:110px;transition:box-shadow .2s;}
+.day-col.today-col{border-color:var(--gold);box-shadow:0 0 0 2px rgba(201,168,76,.2);}
+.day-name{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:3px;}
+.day-date{font-family:'DM Mono',monospace;font-size:18px;font-weight:500;color:var(--ink);margin-bottom:8px;}
+.day-col.today-col .day-date{color:var(--gold);}
+.day-tasks{display:flex;flex-direction:column;gap:4px;}
+.day-task{display:flex;align-items:flex-start;gap:5px;font-size:11px;line-height:1.3;padding:4px 6px;border-radius:4px;cursor:pointer;background:var(--cream);transition:all .15s;border:none;text-align:left;width:100%;font-family:'Outfit',sans-serif;color:var(--ink);}
+.day-task:hover{filter:brightness(.95);}
+.day-task.task-done{opacity:.5;text-decoration:line-through;}
+.task-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:3px;}
+.add-task-btn{margin-top:6px;width:100%;font-size:11px;color:var(--muted);border:1px dashed var(--border);background:none;border-radius:4px;padding:5px;cursor:pointer;transition:all .15s;font-family:'Outfit',sans-serif;}
+.add-task-btn:hover{color:var(--gold);border-color:var(--gold);}
 
-  .topic-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 10px 0;
-    border-bottom: 1px dashed var(--border);
-    cursor: pointer;
-    transition: opacity 0.15s;
-  }
-  .topic-item:last-child { border-bottom: none; }
-  .topic-item:hover { opacity: 0.8; }
+/* MODAL */
+.modal-backdrop{position:fixed;inset:0;background:rgba(15,15,20,.5);z-index:200;display:none;align-items:center;justify-content:center;padding:20px;}
+.modal-backdrop.show{display:flex;}
+.modal{background:white;border-radius:16px;padding:28px;width:100%;max-width:400px;box-shadow:0 20px 60px rgba(15,15,20,.25);}
+.modal h3{font-family:'DM Serif Display',serif;font-size:20px;margin-bottom:20px;}
+.modal label{display:block;font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.modal input,.modal select{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-family:'Outfit',sans-serif;font-size:13px;color:var(--ink);background:var(--paper);margin-bottom:16px;}
+.modal-btns{display:flex;gap:10px;justify-content:flex-end;}
+.btn-cancel{padding:9px 18px;border:1px solid var(--border);border-radius:8px;background:white;font-size:13px;cursor:pointer;color:var(--muted);transition:all .15s;font-family:'Outfit',sans-serif;}
+.btn-cancel:hover{background:var(--cream);}
+.btn-save{padding:9px 18px;border:none;border-radius:8px;background:var(--gold);color:var(--ink);font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;font-family:'Outfit',sans-serif;}
+.btn-save:hover{background:var(--gold-light);}
+.btn-del{padding:9px 14px;border:1px solid var(--red);border-radius:8px;background:white;color:var(--red);font-size:13px;cursor:pointer;transition:all .15s;margin-right:auto;font-family:'Outfit',sans-serif;}
+.btn-del:hover{background:#fff0f0;}
 
-  .topic-check {
-    width: 20px; height: 20px;
-    border: 2px solid var(--border);
-    border-radius: 5px;
-    flex-shrink: 0;
-    margin-top: 1px;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.15s;
-    background: white;
-    position: relative;
-  }
-  .topic-item.done .topic-check {
-    background: var(--green);
-    border-color: var(--green);
-  }
-  .topic-item.done .topic-check::after {
-    content: '✓';
-    color: white;
-    font-size: 12px;
-    font-weight: 700;
-  }
-  .topic-text { flex: 1; }
-  .topic-name { font-size: 13px; font-weight: 500; line-height: 1.4; }
-  .topic-item.done .topic-name { text-decoration: line-through; color: var(--muted); }
-  .topic-tag { font-size: 10px; font-family: 'DM Mono', monospace; color: var(--muted); margin-top: 2px; }
-  .hot-tag {
-    display: inline-block;
-    font-size: 9px; font-weight: 700;
-    letter-spacing: 0.5px; text-transform: uppercase;
-    background: #fff0f0; color: var(--red);
-    border: 1px solid #f5c6c0;
-    border-radius: 3px;
-    padding: 1px 5px;
-    margin-left: 6px;
-    vertical-align: middle;
-  }
-
-  /* ── TIMELINE ── */
-  .timeline-section { padding: 0 20px; max-width: 760px; margin: 0 auto; }
-  .phase-block {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    margin-bottom: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px var(--shadow);
-  }
-  .phase-header {
-    display: flex; align-items: center; gap: 14px;
-    padding: 14px 20px;
-    background: var(--ink); color: var(--paper);
-  }
-  .phase-num { font-family: 'DM Mono', monospace; font-size: 20px; font-weight: 500; color: var(--gold); min-width: 28px; }
-  .phase-header h3 { font-size: 14px; font-weight: 600; }
-  .phase-header span { font-size: 11px; color: rgba(245,243,238,0.5); margin-left: auto; font-family: 'DM Mono', monospace; }
-  .phase-body { padding: 16px 20px; }
-  .phase-rows { display: flex; flex-direction: column; gap: 8px; }
-  .phase-row { display: flex; align-items: center; gap: 10px; font-size: 13px; }
-  .phase-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-
-  /* ── TIPS ── */
-  .tips-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    padding: 0 20px;
-    max-width: 760px;
-    margin: 0 auto;
-  }
-  @media (max-width: 520px) { .tips-grid { grid-template-columns: 1fr; } }
-  .tip-card {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 16px 18px;
-    box-shadow: 0 2px 8px var(--shadow);
-  }
-  .tip-card h4 { font-size: 13px; font-weight: 700; margin-bottom: 8px; }
-  .tip-card ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
-  .tip-card li {
-    font-size: 12px; color: var(--muted);
-    padding-left: 12px; position: relative; line-height: 1.5;
-  }
-  .tip-card li::before { content: '→'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 2px; }
-
-  /* ── FOOTER ── */
-  .footer {
-    text-align: center;
-    padding: 28px 20px 0;
-    font-size: 11px; color: var(--muted);
-    font-family: 'DM Mono', monospace;
-    letter-spacing: 0.5px;
-  }
-
-  ::-webkit-scrollbar { width: 6px; height: 6px; }
-  ::-webkit-scrollbar-track { background: var(--cream); }
-  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+/* ── CRONOGRAMA ── */
+.timeline-section{padding:0 20px;max-width:760px;margin:0 auto;}
+.phase-block{background:white;border:1px solid var(--border);border-radius:12px;margin-bottom:12px;overflow:hidden;box-shadow:0 2px 8px var(--shadow);}
+.phase-header{display:flex;align-items:center;gap:14px;padding:14px 20px;background:var(--ink);color:var(--paper);}
+.phase-num{font-family:'DM Mono',monospace;font-size:20px;font-weight:500;color:var(--gold);min-width:28px;}
+.phase-header h3{font-size:14px;font-weight:600;}
+.phase-header span{font-size:11px;color:rgba(245,243,238,.5);margin-left:auto;font-family:'DM Mono',monospace;}
+.phase-body{padding:16px 20px;}
+.phase-rows{display:flex;flex-direction:column;gap:8px;}
+.phase-row{display:flex;align-items:center;gap:10px;font-size:13px;}
+.phase-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.tips-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 20px;max-width:760px;margin:0 auto;}
+@media(max-width:520px){.tips-grid{grid-template-columns:1fr;}}
+.tip-card{background:white;border:1px solid var(--border);border-radius:12px;padding:16px 18px;box-shadow:0 2px 8px var(--shadow);}
+.tip-card h4{font-size:13px;font-weight:700;margin-bottom:8px;}
+.tip-card ul{list-style:none;display:flex;flex-direction:column;gap:6px;}
+.tip-card li{font-size:12px;color:var(--muted);padding-left:12px;position:relative;line-height:1.5;}
+.tip-card li::before{content:'→';position:absolute;left:0;color:var(--gold);font-size:10px;top:2px;}
+.footer{text-align:center;padding:28px 20px 0;font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;letter-spacing:.5px;}
+::-webkit-scrollbar{width:6px;height:6px;}
+::-webkit-scrollbar-track{background:var(--cream);}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
 </style>
 </head>
 <body>
 
-<!-- SAVE TOAST -->
-<div id="save-toast">✓ progresso salvo</div>
+<div id="save-toast">✓ salvo</div>
 
-<!-- HEADER -->
+<!-- MODAL -->
+<div class="modal-backdrop" id="task-modal">
+  <div class="modal">
+    <h3 id="modal-title">Nova tarefa</h3>
+    <label>Tarefa</label>
+    <input type="text" id="task-input" placeholder="Ex: Estudar CPC arts. 319-340" maxlength="60">
+    <label>Disciplina</label>
+    <select id="task-color">
+      <option value="#1d4e8f">📘 Língua Portuguesa</option>
+      <option value="#1a7a4a">⚖️ Direito</option>
+      <option value="#c9a84c">🗞️ Atualidades</option>
+      <option value="#c0392b">🔢 Matemática / Lógica</option>
+      <option value="#5b2d8e">💻 Informática</option>
+      <option value="#0f0f14">✍️ Redação</option>
+    </select>
+    <div class="modal-btns">
+      <button class="btn-del" id="modal-del" style="display:none" onclick="deleteTask()">Excluir</button>
+      <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
+      <button class="btn-save" onclick="saveTask()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
 <div class="hero">
   <div class="hero-inner">
     <div class="badge">Banca VUNESP · Nível Médio</div>
     <h1>Plano de Estudos<br><em>TJ-SP Escrevente</em></h1>
-    <p>Checklist interativo baseado no edital. Seu progresso é salvo automaticamente no navegador.</p>
+    <p>Dashboard · Streak · Agenda semanal · Checklist completo. Tudo salvo no seu navegador.</p>
   </div>
 </div>
-
 <div class="stats-bar">
   <div class="stat"><span class="stat-num">3</span><span class="stat-label">Blocos</span></div>
   <div class="stat"><span class="stat-num">70</span><span class="stat-label">Questões</span></div>
@@ -422,50 +257,99 @@
   <div class="stat"><span class="stat-num">5,0</span><span class="stat-label">Mínimo obj.</span></div>
 </div>
 
-<!-- PROGRESS -->
-<div class="progress-section">
-  <div class="progress-header">
-    <h2>Seu progresso</h2>
-    <button class="reset-btn" onclick="confirmReset()">⟳ Resetar</button>
-  </div>
-  <div class="overall-progress">
-    <div class="ring-wrap">
-      <svg width="80" height="80" viewBox="0 0 80 80">
-        <circle cx="40" cy="40" r="32" fill="none" stroke="#ede9e1" stroke-width="8"/>
-        <circle id="progress-ring" cx="40" cy="40" r="32" fill="none" stroke="#c9a84c" stroke-width="8"
-          stroke-dasharray="201.06" stroke-dashoffset="201.06"
-          stroke-linecap="round" transform="rotate(-90 40 40)"
-          style="transition: stroke-dashoffset 0.6s ease;"/>
-      </svg>
-      <div class="ring-label">
-        <span class="ring-pct" id="ring-pct">0%</span>
-        <span class="ring-sub">done</span>
+<!-- NAV -->
+<nav class="nav-tabs">
+  <button class="nav-tab active" onclick="switchTab('dashboard',this)">📊 Dashboard</button>
+  <button class="nav-tab" onclick="switchTab('checklist',this)">✅ Checklist</button>
+  <button class="nav-tab" onclick="switchTab('agenda',this)">🗓️ Agenda</button>
+  <button class="nav-tab" onclick="switchTab('cronograma',this)">📅 Cronograma</button>
+</nav>
+
+<!-- ══ DASHBOARD ══ -->
+<div class="page active" id="page-dashboard">
+  <div class="section-title">🏆 Desempenho</div>
+  <div class="dash-grid">
+
+    <div class="card streak-card">
+      <div class="streak-fire" id="streak-fire">💤</div>
+      <div class="streak-info">
+        <div class="streak-num" id="streak-num">0</div>
+        <div class="streak-label">dias de sequência</div>
+        <div class="streak-best" id="streak-best">recorde: 0 dias</div>
+      </div>
+      <div class="streak-meta" style="margin-left:auto;text-align:center;position:relative;">
+        <div style="font-size:10px;color:rgba(245,243,238,.4);font-family:'DM Mono',monospace;margin-bottom:4px;">HOJE</div>
+        <div class="streak-meta-num" id="daily-done-num">0</div>
+        <div class="streak-meta-label">/ <span id="daily-goal-show">5</span> tópicos</div>
       </div>
     </div>
-    <div class="progress-info">
-      <h3>Tópicos concluídos</h3>
-      <p><span id="topics-done">0</span> de <span id="topics-total">0</span> tópicos marcados</p>
-      <p style="margin-top:6px;font-size:12px;">Clique em qualquer tópico para marcar como estudado.</p>
+
+    <div class="card goal-card">
+      <h3>🎯 Meta Diária</h3>
+      <div class="goal-row">
+        <label>Tópicos por dia</label>
+        <input type="number" id="goal-input" min="1" max="30" value="5" onchange="saveGoal()">
+      </div>
+      <div class="goal-bar"><div class="goal-fill" id="goal-fill" style="width:0%"></div></div>
+      <div class="goal-status" id="goal-status">0 / 5 marcados hoje</div>
     </div>
+
+    <div class="card heatmap-card">
+      <h3>📅 Atividade — últimos 90 dias</h3>
+      <div class="heatmap" id="heatmap"></div>
+      <div class="hm-legend">
+        menos
+        <div class="hm-sq" style="background:var(--cream)"></div>
+        <div class="hm-sq" style="background:#b8dfc9"></div>
+        <div class="hm-sq" style="background:#2e9e65"></div>
+        <div class="hm-sq" style="background:var(--green)"></div>
+        mais
+      </div>
+    </div>
+
+    <div class="card chart-card">
+      <h3>📈 Progresso por disciplina</h3>
+      <div class="bar-chart" id="bar-chart"></div>
+    </div>
+
   </div>
+  <div class="footer" style="padding-top:20px;">Dados salvos no navegador · localStorage + cookie 365 dias</div>
 </div>
 
-<!-- ═══ BLOCO I — PORTUGUÊS ═══ -->
-<div class="section-title">📘 Bloco I — Língua Portuguesa</div>
-<div class="discipline-card">
-  <div class="card-inner" id="card-lp">
-    <div class="card-header" onclick="toggleCard('card-lp')">
-      <div class="card-icon" style="background:#e8f0fd;">📝</div>
-      <div class="card-meta">
-        <h3>Língua Portuguesa</h3>
-        <div class="card-info">
-          <span class="pill pill-q">20 questões</span>
-          <span class="pill pill-peso">⭐ Alta relevância</span>
+<!-- ══ CHECKLIST ══ -->
+<div class="page" id="page-checklist">
+  <div class="progress-section">
+    <div class="progress-header">
+      <h2>Seu progresso</h2>
+      <button class="reset-btn" onclick="confirmReset()">⟳ Resetar tudo</button>
+    </div>
+    <div class="overall-progress">
+      <div class="ring-wrap">
+        <svg width="80" height="80" viewBox="0 0 80 80">
+          <circle cx="40" cy="40" r="32" fill="none" stroke="#ede9e1" stroke-width="8"/>
+          <circle id="progress-ring" cx="40" cy="40" r="32" fill="none" stroke="#c9a84c" stroke-width="8"
+            stroke-dasharray="201.06" stroke-dashoffset="201.06" stroke-linecap="round" transform="rotate(-90 40 40)"
+            style="transition:stroke-dashoffset .6s ease;"/>
+        </svg>
+        <div class="ring-label">
+          <span class="ring-pct" id="ring-pct">0%</span>
+          <span class="ring-sub">done</span>
         </div>
       </div>
-      <span class="card-pct" id="pct-lp">0%</span>
-      <div class="mini-bar"><div class="mini-fill" id="bar-lp" style="width:0%;background:#1d4e8f;"></div></div>
-      <span class="chevron">▼</span>
+      <div class="progress-info">
+        <h3>Tópicos concluídos</h3>
+        <p><span id="topics-done">0</span> de <span id="topics-total">0</span> tópicos</p>
+        <p style="margin-top:6px;font-size:12px;">Clique para marcar como estudado.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">📘 Bloco I — Língua Portuguesa</div>
+  <div class="discipline-card"><div class="card-inner" id="card-lp">
+    <div class="card-header" onclick="toggleCard('card-lp')">
+      <div class="card-icon" style="background:#e8f0fd;">📝</div>
+      <div class="card-meta"><h3>Língua Portuguesa</h3><div class="card-info"><span class="pill pill-q">20 questões</span><span class="pill pill-peso">⭐ Alta relevância</span></div></div>
+      <span class="card-pct" id="pct-lp">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-lp" style="width:0%;background:#1d4e8f;"></div></div><span class="chevron">▼</span>
     </div>
     <div class="topics-list" id="list-lp">
       <div class="topic-item" data-key="lp-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Leitura e compreensão de textos <span class="hot-tag">🔥 mais cobrado</span></div><div class="topic-tag">Interpretação, inferência, coesão e coerência</div></div></div>
@@ -473,375 +357,438 @@
       <div class="topic-item" data-key="lp-03"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Acentuação gráfica</div><div class="topic-tag">Regras de acentuação, monossílabos tônicos</div></div></div>
       <div class="topic-item" data-key="lp-04"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Classes de palavras: morfologia <span class="hot-tag">🔥</span></div><div class="topic-tag">Substantivo, adjetivo, verbo, pronomes, numerais, advérbios</div></div></div>
       <div class="topic-item" data-key="lp-05"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Concordância verbal e nominal <span class="hot-tag">🔥</span></div><div class="topic-tag">Casos especiais, sujeito composto, partitivo</div></div></div>
-      <div class="topic-item" data-key="lp-06"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Regência verbal e nominal</div><div class="topic-tag">Verbos com mais de uma regência, crase</div></div></div>
+      <div class="topic-item" data-key="lp-06"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Regência verbal e nominal</div><div class="topic-tag">Verbos com mais de uma regência</div></div></div>
       <div class="topic-item" data-key="lp-07"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Crase</div><div class="topic-tag">Casos de uso obrigatório, facultativo e proibido</div></div></div>
       <div class="topic-item" data-key="lp-08"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Pontuação</div><div class="topic-tag">Vírgula, ponto e vírgula, dois-pontos, travessão</div></div></div>
       <div class="topic-item" data-key="lp-09"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Colocação pronominal</div><div class="topic-tag">Ênclise, próclise, mesóclise</div></div></div>
       <div class="topic-item" data-key="lp-10"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Reescrita de frases e equivalência</div><div class="topic-tag">Voz ativa/passiva, transformações sintáticas</div></div></div>
-      <div class="topic-item" data-key="lp-11"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Redação oficial e técnica <span class="hot-tag">🔥</span></div><div class="topic-tag">Clareza, objetividade, adequação à situação comunicativa</div></div></div>
+      <div class="topic-item" data-key="lp-11"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Redação oficial e técnica <span class="hot-tag">🔥</span></div><div class="topic-tag">Clareza, objetividade, adequação comunicativa</div></div></div>
     </div>
-  </div>
-</div>
+  </div></div>
 
-<!-- ═══ BLOCO II — DIREITO + ATUALIDADES ═══ -->
-<div class="section-title">⚖️ Bloco II — Direito &amp; Atualidades</div>
-<div class="discipline-card">
-  <div class="card-inner" id="card-dir">
+  <div class="section-title">⚖️ Bloco II — Direito &amp; Atualidades</div>
+  <div class="discipline-card"><div class="card-inner" id="card-dir">
     <div class="card-header" onclick="toggleCard('card-dir')">
       <div class="card-icon" style="background:#f0fdf4;">⚖️</div>
-      <div class="card-meta">
-        <h3>Conhecimentos em Direito</h3>
-        <div class="card-info">
-          <span class="pill pill-q">20 questões</span>
-          <span class="pill pill-peso">⭐ Alta relevância</span>
-        </div>
-      </div>
-      <span class="card-pct" id="pct-dir">0%</span>
-      <div class="mini-bar"><div class="mini-fill" id="bar-dir" style="width:0%;background:#1a7a4a;"></div></div>
-      <span class="chevron">▼</span>
+      <div class="card-meta"><h3>Conhecimentos em Direito</h3><div class="card-info"><span class="pill pill-q">20 questões</span><span class="pill pill-peso">⭐ Alta relevância</span></div></div>
+      <span class="card-pct" id="pct-dir">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-dir" style="width:0%;background:#1a7a4a;"></div></div><span class="chevron">▼</span>
     </div>
     <div class="topics-list" id="list-dir">
-      <div class="topic-item" data-key="dir-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">CF — Título II: Direitos e Garantias Fundamentais <span class="hot-tag">🔥</span></div><div class="topic-tag">Arts. 1º ao 17; direitos individuais, coletivos, sociais</div></div></div>
+      <div class="topic-item" data-key="dir-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">CF — Direitos e Garantias Fundamentais <span class="hot-tag">🔥</span></div><div class="topic-tag">Arts. 1º ao 17; individuais, coletivos, sociais</div></div></div>
       <div class="topic-item" data-key="dir-02"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Organização do Poder Judiciário (CF arts. 92–126) <span class="hot-tag">🔥</span></div><div class="topic-tag">Estrutura, competências, STF, STJ, TJs</div></div></div>
-      <div class="topic-item" data-key="dir-03"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">CPC — Normas fundamentais e partes gerais <span class="hot-tag">🔥</span></div><div class="topic-tag">Livro I: arts. 1º ao 12; princípios processuais</div></div></div>
-      <div class="topic-item" data-key="dir-04"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">CPC — Petição inicial, citação e intimação <span class="hot-tag">🔥</span></div><div class="topic-tag">Arts. 319 a 340; prazos, formas de comunicação</div></div></div>
+      <div class="topic-item" data-key="dir-03"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">CPC — Normas fundamentais (arts. 1º ao 12) <span class="hot-tag">🔥</span></div><div class="topic-tag">Princípios processuais</div></div></div>
+      <div class="topic-item" data-key="dir-04"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">CPC — Petição inicial, citação e intimação <span class="hot-tag">🔥</span></div><div class="topic-tag">Arts. 319 a 340; prazos, comunicação</div></div></div>
       <div class="topic-item" data-key="dir-05"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">CPC — Recursos: apelação, agravo, embargos</div><div class="topic-tag">Arts. 994 a 1044</div></div></div>
-      <div class="topic-item" data-key="dir-06"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Estatuto dos Funcionários Públicos SP (Lei 10.261/68) <span class="hot-tag">🔥</span></div><div class="topic-tag">Deveres, direitos, regime disciplinar, responsabilidades</div></div></div>
+      <div class="topic-item" data-key="dir-06"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Estatuto dos Funcionários Públicos SP (Lei 10.261/68) <span class="hot-tag">🔥</span></div><div class="topic-tag">Deveres, direitos, regime disciplinar</div></div></div>
       <div class="topic-item" data-key="dir-07"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Regulamento Interno dos Servidores TJSP <span class="hot-tag">🔥</span></div><div class="topic-tag">Tomo I, Capítulo XI: Seções I a VII</div></div></div>
-      <div class="topic-item" data-key="dir-08"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Estatuto da Pessoa com Deficiência (Lei 13.146/2015) <span class="hot-tag">🔥</span></div><div class="topic-tag">Arts. 1º ao 13 e arts. 34 ao 38</div></div></div>
+      <div class="topic-item" data-key="dir-08"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Estatuto da Pessoa com Deficiência (Lei 13.146/2015) <span class="hot-tag">🔥</span></div><div class="topic-tag">Arts. 1º ao 13 e 34 ao 38</div></div></div>
       <div class="topic-item" data-key="dir-09"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Lei de Acesso à Informação (Lei 12.527/2011)</div><div class="topic-tag">Transparência ativa/passiva, sigilo, recursos</div></div></div>
-      <div class="topic-item" data-key="dir-10"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">LGPD — Lei Geral de Proteção de Dados (Lei 13.709/2018)</div><div class="topic-tag">Conceitos, base legal, direitos do titular</div></div></div>
-      <div class="topic-item" data-key="dir-11"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Direito Penal — Parte Geral (arts. 1º ao 120 CP)</div><div class="topic-tag">Crimes, penas, causas excludentes, prescrição</div></div></div>
+      <div class="topic-item" data-key="dir-10"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">LGPD (Lei 13.709/2018)</div><div class="topic-tag">Conceitos, base legal, direitos do titular</div></div></div>
+      <div class="topic-item" data-key="dir-11"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Direito Penal — Parte Geral (arts. 1º ao 120 CP)</div><div class="topic-tag">Crimes, penas, excludentes, prescrição</div></div></div>
       <div class="topic-item" data-key="dir-12"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Código de Ética dos Servidores do TJSP</div><div class="topic-tag">Resolução TJSP sobre conduta funcional</div></div></div>
     </div>
-  </div>
-</div>
+  </div></div>
 
-<div class="discipline-card">
-  <div class="card-inner" id="card-atu">
+  <div class="discipline-card"><div class="card-inner" id="card-atu">
     <div class="card-header" onclick="toggleCard('card-atu')">
       <div class="card-icon" style="background:#fdf6e8;">🗞️</div>
-      <div class="card-meta">
-        <h3>Atualidades</h3>
-        <div class="card-info">
-          <span class="pill pill-q">5 questões</span>
-          <span class="pill pill-peso">⚡ Dinâmico</span>
-        </div>
-      </div>
-      <span class="card-pct" id="pct-atu">0%</span>
-      <div class="mini-bar"><div class="mini-fill" id="bar-atu" style="width:0%;background:#c9a84c;"></div></div>
-      <span class="chevron">▼</span>
+      <div class="card-meta"><h3>Atualidades</h3><div class="card-info"><span class="pill pill-q">5 questões</span><span class="pill pill-peso">⚡ Dinâmico</span></div></div>
+      <span class="card-pct" id="pct-atu">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-atu" style="width:0%;background:#c9a84c;"></div></div><span class="chevron">▼</span>
     </div>
     <div class="topics-list" id="list-atu">
-      <div class="topic-item" data-key="atu-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Fatos nacionais: política, economia, saúde, educação <span class="hot-tag">🔥</span></div><div class="topic-tag">Eventos relevantes a partir de 2025</div></div></div>
-      <div class="topic-item" data-key="atu-02"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Fatos internacionais: geopolítica, crises, acordos <span class="hot-tag">🔥</span></div><div class="topic-tag">Conflitos, eleições mundiais, clima</div></div></div>
-      <div class="topic-item" data-key="atu-03"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Meio ambiente e sustentabilidade</div><div class="topic-tag">COPs, desastres climáticos, políticas ambientais</div></div></div>
+      <div class="topic-item" data-key="atu-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Fatos nacionais: política, economia, saúde <span class="hot-tag">🔥</span></div><div class="topic-tag">Eventos relevantes a partir de 2025</div></div></div>
+      <div class="topic-item" data-key="atu-02"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Fatos internacionais: geopolítica, crises <span class="hot-tag">🔥</span></div><div class="topic-tag">Conflitos, eleições mundiais, clima</div></div></div>
+      <div class="topic-item" data-key="atu-03"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Meio ambiente e sustentabilidade</div><div class="topic-tag">COPs, desastres climáticos, políticas</div></div></div>
       <div class="topic-item" data-key="atu-04"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Ciência, tecnologia e inovação</div><div class="topic-tag">Inteligência artificial, avanços científicos</div></div></div>
       <div class="topic-item" data-key="atu-05"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Direitos humanos e questões sociais</div><div class="topic-tag">Desigualdade, diversidade, legislação social</div></div></div>
     </div>
-  </div>
-</div>
+  </div></div>
 
-<!-- ═══ BLOCO III — EXATAS ═══ -->
-<div class="section-title">🔢 Bloco III — Matemática &amp; Informática</div>
-<div class="discipline-card">
-  <div class="card-inner" id="card-mat">
+  <div class="section-title">🔢 Bloco III — Matemática &amp; Informática</div>
+  <div class="discipline-card"><div class="card-inner" id="card-mat">
     <div class="card-header" onclick="toggleCard('card-mat')">
       <div class="card-icon" style="background:#fdf0f0;">🔢</div>
-      <div class="card-meta">
-        <h3>Matemática &amp; Raciocínio Lógico</h3>
-        <div class="card-info">
-          <span class="pill pill-q">15 questões</span>
-          <span class="pill pill-peso">⭐ Classificatório</span>
-        </div>
-      </div>
-      <span class="card-pct" id="pct-mat">0%</span>
-      <div class="mini-bar"><div class="mini-fill" id="bar-mat" style="width:0%;background:#c0392b;"></div></div>
-      <span class="chevron">▼</span>
+      <div class="card-meta"><h3>Matemática &amp; Raciocínio Lógico</h3><div class="card-info"><span class="pill pill-q">15 questões</span><span class="pill pill-peso">⭐ Classificatório</span></div></div>
+      <span class="card-pct" id="pct-mat">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-mat" style="width:0%;background:#c0392b;"></div></div><span class="chevron">▼</span>
     </div>
     <div class="topics-list" id="list-mat">
       <div class="topic-item" data-key="mat-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Operações com números reais e frações <span class="hot-tag">🔥</span></div><div class="topic-tag">Potências, raízes, operações básicas</div></div></div>
       <div class="topic-item" data-key="mat-02"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Razão, proporção e regra de três <span class="hot-tag">🔥</span></div><div class="topic-tag">Regra de três simples e composta</div></div></div>
-      <div class="topic-item" data-key="mat-03"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Porcentagem <span class="hot-tag">🔥</span></div><div class="topic-tag">Cálculo de porcentagem, aumento/desconto</div></div></div>
-      <div class="topic-item" data-key="mat-04"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Médias aritmética simples e ponderada</div><div class="topic-tag">Cálculo e interpretação de médias</div></div></div>
+      <div class="topic-item" data-key="mat-03"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Porcentagem <span class="hot-tag">🔥</span></div><div class="topic-tag">Cálculo, aumento/desconto</div></div></div>
+      <div class="topic-item" data-key="mat-04"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Médias aritmética simples e ponderada</div><div class="topic-tag">Cálculo e interpretação</div></div></div>
       <div class="topic-item" data-key="mat-05"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Juros simples</div><div class="topic-tag">Montante, capital, taxa, tempo</div></div></div>
       <div class="topic-item" data-key="mat-06"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Equações de 1º e 2º grau + sistemas <span class="hot-tag">🔥</span></div><div class="topic-tag">Equações lineares e quadráticas</div></div></div>
-      <div class="topic-item" data-key="mat-07"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Leitura de tabelas e gráficos <span class="hot-tag">🔥</span></div><div class="topic-tag">Barras, setores, linhas — interpretação</div></div></div>
-      <div class="topic-item" data-key="mat-08"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Geometria: área, perímetro, volume, ângulos</div><div class="topic-tag">Figuras planas, sólidos, teorema de Pitágoras</div></div></div>
+      <div class="topic-item" data-key="mat-07"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Leitura de tabelas e gráficos <span class="hot-tag">🔥</span></div><div class="topic-tag">Barras, setores, linhas</div></div></div>
+      <div class="topic-item" data-key="mat-08"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Geometria: área, perímetro, volume</div><div class="topic-tag">Figuras planas, sólidos, Pitágoras</div></div></div>
       <div class="topic-item" data-key="mat-09"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Raciocínio lógico: proposições e conectivos <span class="hot-tag">🔥</span></div><div class="topic-tag">Conjunção, disjunção, condicional, bicondicional</div></div></div>
-      <div class="topic-item" data-key="mat-10"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Raciocínio lógico: sequências e padrões <span class="hot-tag">🔥</span></div><div class="topic-tag">Progressões, séries numéricas, figuras</div></div></div>
+      <div class="topic-item" data-key="mat-10"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Raciocínio lógico: sequências e padrões <span class="hot-tag">🔥</span></div><div class="topic-tag">Progressões, séries numéricas</div></div></div>
       <div class="topic-item" data-key="mat-11"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Situações-problema contextualizadas <span class="hot-tag">🔥</span></div><div class="topic-tag">Resolução de problemas do cotidiano</div></div></div>
     </div>
-  </div>
-</div>
+  </div></div>
 
-<div class="discipline-card">
-  <div class="card-inner" id="card-inf">
+  <div class="discipline-card"><div class="card-inner" id="card-inf">
     <div class="card-header" onclick="toggleCard('card-inf')">
       <div class="card-icon" style="background:#f3e8ff;">💻</div>
-      <div class="card-meta">
-        <h3>Informática</h3>
-        <div class="card-info">
-          <span class="pill pill-q">10 questões</span>
-          <span class="pill pill-peso">💡 Pontos fáceis</span>
-        </div>
-      </div>
-      <span class="card-pct" id="pct-inf">0%</span>
-      <div class="mini-bar"><div class="mini-fill" id="bar-inf" style="width:0%;background:#5b2d8e;"></div></div>
-      <span class="chevron">▼</span>
+      <div class="card-meta"><h3>Informática</h3><div class="card-info"><span class="pill pill-q">10 questões</span><span class="pill pill-peso">💡 Pontos fáceis</span></div></div>
+      <span class="card-pct" id="pct-inf">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-inf" style="width:0%;background:#5b2d8e;"></div></div><span class="chevron">▼</span>
     </div>
     <div class="topics-list" id="list-inf">
-      <div class="topic-item" data-key="inf-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Windows 10/11: pastas, arquivos, atalhos <span class="hot-tag">🔥</span></div><div class="topic-tag">Área de trabalho, área de transferência, gerenciador</div></div></div>
-      <div class="topic-item" data-key="inf-02"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Microsoft Word (Microsoft 365) <span class="hot-tag">🔥</span></div><div class="topic-tag">Formatação, estilos, mala direta, revisão</div></div></div>
-      <div class="topic-item" data-key="inf-03"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Microsoft Excel (Microsoft 365) <span class="hot-tag">🔥</span></div><div class="topic-tag">Fórmulas (SOMA, SE, MÉDIA, PROCV), gráficos</div></div></div>
-      <div class="topic-item" data-key="inf-04"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Microsoft PowerPoint (Microsoft 365)</div><div class="topic-tag">Slides, transições, animações básicas</div></div></div>
-      <div class="topic-item" data-key="inf-05"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Internet: navegadores, pesquisa e segurança <span class="hot-tag">🔥</span></div><div class="topic-tag">Chrome/Edge, favoritos, guias, HTTPS, phishing</div></div></div>
-      <div class="topic-item" data-key="inf-06"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">E-mail: Outlook e webmail</div><div class="topic-tag">Envio, CC, CCO, anexos, pastas, assinatura</div></div></div>
-      <div class="topic-item" data-key="inf-07"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Segurança digital: vírus, antivírus, firewall, backup</div><div class="topic-tag">Proteção de dados e boas práticas</div></div></div>
-      <div class="topic-item" data-key="inf-08"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Conceitos básicos de hardware e redes</div><div class="topic-tag">Processador, memória, armazenamento; LAN, WAN, Wi-Fi</div></div></div>
+      <div class="topic-item" data-key="inf-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Windows 10/11: pastas, arquivos, atalhos <span class="hot-tag">🔥</span></div><div class="topic-tag">Área de trabalho, gerenciador de arquivos</div></div></div>
+      <div class="topic-item" data-key="inf-02"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Microsoft Word (M365) <span class="hot-tag">🔥</span></div><div class="topic-tag">Formatação, estilos, mala direta, revisão</div></div></div>
+      <div class="topic-item" data-key="inf-03"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Microsoft Excel (M365) <span class="hot-tag">🔥</span></div><div class="topic-tag">Fórmulas (SOMA, SE, MÉDIA, PROCV), gráficos</div></div></div>
+      <div class="topic-item" data-key="inf-04"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Microsoft PowerPoint (M365)</div><div class="topic-tag">Slides, transições, animações básicas</div></div></div>
+      <div class="topic-item" data-key="inf-05"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Internet: navegadores e segurança <span class="hot-tag">🔥</span></div><div class="topic-tag">Chrome/Edge, HTTPS, phishing</div></div></div>
+      <div class="topic-item" data-key="inf-06"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">E-mail: Outlook e webmail</div><div class="topic-tag">Envio, CC, CCO, anexos, pastas</div></div></div>
+      <div class="topic-item" data-key="inf-07"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Segurança digital: vírus, antivírus, backup</div><div class="topic-tag">Proteção de dados e boas práticas</div></div></div>
+      <div class="topic-item" data-key="inf-08"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Hardware e redes básico</div><div class="topic-tag">Processador, memória; LAN, WAN, Wi-Fi</div></div></div>
     </div>
-  </div>
-</div>
+  </div></div>
 
-<!-- ═══ REDAÇÃO ═══ -->
-<div class="section-title">✍️ Redação</div>
-<div class="discipline-card">
-  <div class="card-inner" id="card-red">
+  <div class="section-title">✍️ Redação</div>
+  <div class="discipline-card"><div class="card-inner" id="card-red">
     <div class="card-header" onclick="toggleCard('card-red')">
       <div class="card-icon" style="background:#e8f0fd;">✍️</div>
-      <div class="card-meta">
-        <h3>Prova Discursiva (Redação)</h3>
-        <div class="card-info">
-          <span class="pill pill-q">0 a 40 pts</span>
-          <span class="pill pill-peso">⛔ Eliminatório</span>
-        </div>
-      </div>
-      <span class="card-pct" id="pct-red">0%</span>
-      <div class="mini-bar"><div class="mini-fill" id="bar-red" style="width:0%;background:#1d4e8f;"></div></div>
-      <span class="chevron">▼</span>
+      <div class="card-meta"><h3>Prova Discursiva (Redação)</h3><div class="card-info"><span class="pill pill-q">0 a 40 pts</span><span class="pill pill-peso">⛔ Eliminatório</span></div></div>
+      <span class="card-pct" id="pct-red">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-red" style="width:0%;background:#1d4e8f;"></div></div><span class="chevron">▼</span>
     </div>
     <div class="topics-list" id="list-red">
-      <div class="topic-item" data-key="red-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Estrutura do texto dissertativo-argumentativo <span class="hot-tag">🔥</span></div><div class="topic-tag">Introdução (tese), desenvolvimento, conclusão (proposta)</div></div></div>
-      <div class="topic-item" data-key="red-02"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Coesão textual: conectivos e referenciação <span class="hot-tag">🔥</span></div><div class="topic-tag">Pronomes, conjunções, advérbios para articular ideias</div></div></div>
+      <div class="topic-item" data-key="red-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Estrutura dissertativo-argumentativa <span class="hot-tag">🔥</span></div><div class="topic-tag">Introdução (tese), desenvolvimento, conclusão</div></div></div>
+      <div class="topic-item" data-key="red-02"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Coesão textual: conectivos e referenciação <span class="hot-tag">🔥</span></div><div class="topic-tag">Pronomes, conjunções, advérbios</div></div></div>
       <div class="topic-item" data-key="red-03"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Coerência e clareza na exposição de ideias</div><div class="topic-tag">Progressão temática, objetividade</div></div></div>
-      <div class="topic-item" data-key="red-04"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Norma culta e adequação vocabular</div><div class="topic-tag">Registro formal, evitar coloquialismo excessivo</div></div></div>
-      <div class="topic-item" data-key="red-05"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Prática: escrever 1 redação por semana <span class="hot-tag">🔥</span></div><div class="topic-tag">Temas de atualidade e direitos sociais</div></div></div>
+      <div class="topic-item" data-key="red-04"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Norma culta e adequação vocabular</div><div class="topic-tag">Registro formal, evitar coloquialismo</div></div></div>
+      <div class="topic-item" data-key="red-05"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Prática: 1 redação por semana <span class="hot-tag">🔥</span></div><div class="topic-tag">Temas de atualidade e direitos sociais</div></div></div>
+    </div>
+  </div></div>
+</div>
+
+<!-- ══ AGENDA ══ -->
+<div class="page" id="page-agenda">
+  <div class="section-title">🗓️ Agenda Semanal</div>
+  <div class="agenda-wrap">
+    <div class="week-nav">
+      <button class="week-btn" onclick="shiftWeek(-1)">← Anterior</button>
+      <h3 id="week-label">Esta semana</h3>
+      <button class="week-btn" onclick="shiftWeek(1)">Próxima →</button>
+    </div>
+    <div class="week-grid" id="week-grid"></div>
+    <div style="margin-top:16px;font-size:12px;color:var(--muted);font-family:'DM Mono',monospace;">
+      clique para editar · duplo clique para marcar como concluída
     </div>
   </div>
 </div>
 
-<!-- ═══ CRONOGRAMA ═══ -->
-<div class="section-title">📅 Cronograma de Estudos</div>
-<div class="timeline-section">
-  <div class="phase-block">
-    <div class="phase-header">
-      <span class="phase-num">01</span>
-      <div><h3>Fase Base — Fundamentos</h3><div style="font-size:11px;color:rgba(245,243,238,0.5);">Meses 1 e 2</div></div>
-      <span>~60h</span>
+<!-- ══ CRONOGRAMA ══ -->
+<div class="page" id="page-cronograma">
+  <div class="section-title">📅 Cronograma de Estudos</div>
+  <div class="timeline-section">
+    <div class="phase-block">
+      <div class="phase-header"><span class="phase-num">01</span><div><h3>Fase Base — Fundamentos</h3><div style="font-size:11px;color:rgba(245,243,238,.5);">Meses 1 e 2</div></div><span>~60h</span></div>
+      <div class="phase-body"><div class="phase-rows">
+        <div class="phase-row"><div class="phase-dot" style="background:#1d4e8f;"></div><strong>Português:</strong>&nbsp;gramática base, ortografia, concordância</div>
+        <div class="phase-row"><div class="phase-dot" style="background:#c0392b;"></div><strong>Matemática:</strong>&nbsp;operações, porcentagem, razão e proporção</div>
+        <div class="phase-row"><div class="phase-dot" style="background:#1a7a4a;"></div><strong>Direito:</strong>&nbsp;Constituição Federal, organização do Judiciário</div>
+        <div class="phase-row"><div class="phase-dot" style="background:#5b2d8e;"></div><strong>Informática:</strong>&nbsp;Windows + Word + Excel</div>
+        <div class="phase-row"><div class="phase-dot" style="background:#c9a84c;"></div><strong>Meta semanal:</strong>&nbsp;10h de estudo + 30 questões VUNESP antigas</div>
+      </div></div>
     </div>
-    <div class="phase-body"><div class="phase-rows">
-      <div class="phase-row"><div class="phase-dot" style="background:#1d4e8f;"></div><strong>Português:</strong>&nbsp;gramática base, ortografia, concordância</div>
-      <div class="phase-row"><div class="phase-dot" style="background:#c0392b;"></div><strong>Matemática:</strong>&nbsp;operações, porcentagem, razão e proporção</div>
-      <div class="phase-row"><div class="phase-dot" style="background:#1a7a4a;"></div><strong>Direito:</strong>&nbsp;Constituição Federal, organização do Judiciário</div>
-      <div class="phase-row"><div class="phase-dot" style="background:#5b2d8e;"></div><strong>Informática:</strong>&nbsp;Windows + Word + Excel</div>
-      <div class="phase-row"><div class="phase-dot" style="background:#c9a84c;"></div><strong>Meta semanal:</strong>&nbsp;10h de estudo + 30 questões VUNESP antigas</div>
-    </div></div>
-  </div>
-  <div class="phase-block">
-    <div class="phase-header">
-      <span class="phase-num">02</span>
-      <div><h3>Fase Aprofundamento</h3><div style="font-size:11px;color:rgba(245,243,238,0.5);">Meses 3 e 4</div></div>
-      <span>~80h</span>
+    <div class="phase-block">
+      <div class="phase-header"><span class="phase-num">02</span><div><h3>Fase Aprofundamento</h3><div style="font-size:11px;color:rgba(245,243,238,.5);">Meses 3 e 4</div></div><span>~80h</span></div>
+      <div class="phase-body"><div class="phase-rows">
+        <div class="phase-row"><div class="phase-dot" style="background:#1d4e8f;"></div><strong>Português:</strong>&nbsp;interpretação avançada + redação 1x/semana</div>
+        <div class="phase-row"><div class="phase-dot" style="background:#1a7a4a;"></div><strong>Direito:</strong>&nbsp;CPC, Estatuto Funcionário, legislações específicas</div>
+        <div class="phase-row"><div class="phase-dot" style="background:#c0392b;"></div><strong>Mat. + Lógica:</strong>&nbsp;equações, geometria, raciocínio lógico</div>
+        <div class="phase-row"><div class="phase-dot" style="background:#c9a84c;"></div><strong>Atualidades:</strong>&nbsp;ler 1 jornal/dia (G1, Agência Brasil)</div>
+        <div class="phase-row"><div class="phase-dot" style="background:#c9a84c;"></div><strong>Meta semanal:</strong>&nbsp;12h + resolução de simulado completo</div>
+      </div></div>
     </div>
-    <div class="phase-body"><div class="phase-rows">
-      <div class="phase-row"><div class="phase-dot" style="background:#1d4e8f;"></div><strong>Português:</strong>&nbsp;interpretação avançada + redação (1x/semana)</div>
-      <div class="phase-row"><div class="phase-dot" style="background:#1a7a4a;"></div><strong>Direito:</strong>&nbsp;CPC, Estatuto Funcionário, legislações específicas</div>
-      <div class="phase-row"><div class="phase-dot" style="background:#c0392b;"></div><strong>Mat. + Lógica:</strong>&nbsp;equações, geometria, raciocínio lógico</div>
-      <div class="phase-row"><div class="phase-dot" style="background:#c9a84c;"></div><strong>Atualidades:</strong>&nbsp;ler 1 jornal/dia (G1, Agência Brasil)</div>
-      <div class="phase-row"><div class="phase-dot" style="background:#c9a84c;"></div><strong>Meta semanal:</strong>&nbsp;12h + resolução de simulado completo</div>
-    </div></div>
-  </div>
-  <div class="phase-block">
-    <div class="phase-header">
-      <span class="phase-num">03</span>
-      <div><h3>Fase Revisão Intensiva</h3><div style="font-size:11px;color:rgba(245,243,238,0.5);">Último mês antes da prova</div></div>
-      <span>~60h</span>
+    <div class="phase-block">
+      <div class="phase-header"><span class="phase-num">03</span><div><h3>Fase Revisão Intensiva</h3><div style="font-size:11px;color:rgba(245,243,238,.5);">Último mês antes da prova</div></div><span>~60h</span></div>
+      <div class="phase-body"><div class="phase-rows">
+        <div class="phase-row"><div class="phase-dot" style="background:#c9a84c;"></div><strong>Simulados:</strong>&nbsp;2 por semana no tempo real (3h)</div>
+        <div class="phase-row"><div class="phase-dot" style="background:#1d4e8f;"></div><strong>Português:</strong>&nbsp;revisar concordância e crase</div>
+        <div class="phase-row"><div class="phase-dot" style="background:#1a7a4a;"></div><strong>Direito:</strong>&nbsp;reler arts. fundamentais + Regulamento TJSP</div>
+        <div class="phase-row"><div class="phase-dot" style="background:#c0392b;"></div><strong>Lógica:</strong>&nbsp;maratonar questões de anos anteriores</div>
+        <div class="phase-row"><div class="phase-dot" style="background:#5b2d8e;"></div><strong>Redação:</strong>&nbsp;1 por semana + revisão com gabarito</div>
+      </div></div>
     </div>
-    <div class="phase-body"><div class="phase-rows">
-      <div class="phase-row"><div class="phase-dot" style="background:#c9a84c;"></div><strong>Simulados:</strong>&nbsp;2 por semana no tempo real (3h)</div>
-      <div class="phase-row"><div class="phase-dot" style="background:#1d4e8f;"></div><strong>Português:</strong>&nbsp;revisar regras de concordância e crase</div>
-      <div class="phase-row"><div class="phase-dot" style="background:#1a7a4a;"></div><strong>Direito:</strong>&nbsp;reler arts. fundamentais + Regulamento TJSP</div>
-      <div class="phase-row"><div class="phase-dot" style="background:#c0392b;"></div><strong>Lógica:</strong>&nbsp;maratonar questões de anos anteriores</div>
-      <div class="phase-row"><div class="phase-dot" style="background:#5b2d8e;"></div><strong>Redação:</strong>&nbsp;1 por semana + revisão com gabarito</div>
-    </div></div>
   </div>
-</div>
-
-<!-- ═══ DICAS ═══ -->
-<div class="section-title" style="margin-top:28px;">💡 Dicas da Banca VUNESP</div>
-<div class="tips-grid">
-  <div class="tip-card">
-    <h4>📝 Português VUNESP</h4>
-    <ul>
-      <li>Foco total em interpretação — sempre cai 4+ questões</li>
-      <li>Concordância com casos especiais (sujeito coletivo, partitivo)</li>
-      <li>Sempre cobra crase e pontuação com vírgula</li>
-      <li>Prefere textos jornalísticos e literários como base</li>
-    </ul>
+  <div class="section-title" style="margin-top:28px;">💡 Dicas da Banca VUNESP</div>
+  <div class="tips-grid">
+    <div class="tip-card"><h4>📝 Português VUNESP</h4><ul><li>Foco total em interpretação — 4+ questões sempre</li><li>Concordância com casos especiais (coletivo, partitivo)</li><li>Sempre cobra crase e pontuação com vírgula</li><li>Prefere textos jornalísticos e literários</li></ul></div>
+    <div class="tip-card"><h4>⚖️ Direito VUNESP</h4><ul><li>Cobra a letra fria da lei — decorar artigos é essencial</li><li>CPC peso enorme: petição inicial, prazos, recursos</li><li>Regulamento Interno do TJSP cai todos os anos</li><li>Atenção a leis novas até a data do edital</li></ul></div>
+    <div class="tip-card"><h4>🔢 Matemática VUNESP</h4><ul><li>Questões contextualizadas — leia o enunciado todo</li><li>Porcentagem + regra de três = 50%+ das questões</li><li>Lógica: atenção a silogismos e tabela-verdade</li><li>Geometria: área/perímetro de retângulo e triângulo</li></ul></div>
+    <div class="tip-card"><h4>✍️ Redação VUNESP</h4><ul><li>Mínimo 20/40 para não ser eliminado — prioridade!</li><li>Dissertativo-argumentativo com proposta de intervenção</li><li>Extensão ideal: 25 a 30 linhas</li><li>Evite clichês, gírias e frases longas demais</li></ul></div>
   </div>
-  <div class="tip-card">
-    <h4>⚖️ Direito VUNESP</h4>
-    <ul>
-      <li>Cobra a letra fria da lei — decorar artigos é essencial</li>
-      <li>CPC tem peso enorme: petição inicial, prazos, recursos</li>
-      <li>Regulamento Interno do TJSP cai todos os anos</li>
-      <li>Atenção a leis novas publicadas até a data do edital</li>
-    </ul>
-  </div>
-  <div class="tip-card">
-    <h4>🔢 Matemática VUNESP</h4>
-    <ul>
-      <li>Questões contextualizadas — leia o enunciado todo</li>
-      <li>Porcentagem + regra de três = mais de 50% das questões</li>
-      <li>Lógica: atenção a silogismos e tabela-verdade</li>
-      <li>Geometria básica: área/perímetro de retângulo e triângulo</li>
-    </ul>
-  </div>
-  <div class="tip-card">
-    <h4>✍️ Redação VUNESP</h4>
-    <ul>
-      <li>Mínimo 20/40 para não ser eliminado — prioridade!</li>
-      <li>Dissertativo-argumentativo com proposta de intervenção</li>
-      <li>Extensão ideal: 25 a 30 linhas</li>
-      <li>Evite clichês, gírias e frases longas demais</li>
-    </ul>
-  </div>
-</div>
-
-<div class="footer">
-  Plano baseado no edital TJ-SP 2025 · Banca VUNESP · Progresso salvo localmente no seu navegador
+  <div class="footer">Plano baseado no edital TJ-SP 2025 · Banca VUNESP · Progresso salvo localmente no navegador</div>
 </div>
 
 <script>
-// ════════════════════════════════════════════════════════
-//  PERSISTÊNCIA: localStorage (primário) + cookie (fallback)
-//  Cada tópico tem data-key único — imune a reordenações
-// ════════════════════════════════════════════════════════
+/* ══ STORAGE ══ */
+const SK='tjsp_v4',CK='tjsp_v4_ck',DAYS=365;
+function setCookie(n,v,d){const e=new Date();e.setTime(e.getTime()+d*864e5);document.cookie=n+'='+encodeURIComponent(v)+';expires='+e.toUTCString()+';path=/;SameSite=Lax';}
+function getCookie(n){const p=n+'=';for(const x of document.cookie.split(';')){const t=x.trim();if(t.startsWith(p))return decodeURIComponent(t.slice(p.length));}return null;}
+function loadData(){try{return JSON.parse(localStorage.getItem(SK)||getCookie(CK)||'{}');}catch{return{};}}
+function saveData(d){const j=JSON.stringify(d);try{localStorage.setItem(SK,j);}catch(_){}setCookie(CK,j,DAYS);flashToast();}
+let _tt=null;
+function flashToast(){const t=document.getElementById('save-toast');t.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>t.classList.remove('show'),1600);}
 
-const STORAGE_KEY = 'tjsp_v3';
-const COOKIE_KEY  = 'tjsp_v3_ck';
-const COOKIE_DAYS = 365;
-
-// ── cookie helpers ──
-function setCookie(name, value, days) {
-  const d = new Date();
-  d.setTime(d.getTime() + days * 86400000);
-  document.cookie = name + '=' + encodeURIComponent(value) + ';expires=' + d.toUTCString() + ';path=/;SameSite=Lax';
-}
-function getCookie(name) {
-  const prefix = name + '=';
-  for (const part of document.cookie.split(';')) {
-    const p = part.trim();
-    if (p.startsWith(prefix)) return decodeURIComponent(p.slice(prefix.length));
-  }
-  return null;
+/* ══ TABS ══ */
+function switchTab(name,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  btn.classList.add('active');
+  if(name==='dashboard')renderDashboard();
+  if(name==='agenda')renderWeek();
 }
 
-// ── load / save state ──
-function loadState() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY) || getCookie(COOKIE_KEY) || '{}';
-    return JSON.parse(raw);
-  } catch { return {}; }
-}
+/* ══ CHECKLIST ══ */
+const GROUPS=['lp','dir','atu','mat','inf','red'];
+const GROUP_LABELS={lp:'Português',dir:'Direito',atu:'Atualidades',mat:'Matemática',inf:'Informática',red:'Redação'};
+const GROUP_COLORS={lp:'#1d4e8f',dir:'#1a7a4a',atu:'#c9a84c',mat:'#c0392b',inf:'#5b2d8e',red:'#0f0f14'};
 
-let _toastTimer = null;
-function saveState(state) {
-  const json = JSON.stringify(state);
-  try { localStorage.setItem(STORAGE_KEY, json); } catch (_) {}
-  setCookie(COOKIE_KEY, json, COOKIE_DAYS);
-  showToast();
-}
+function toggleCard(id){document.getElementById(id).classList.toggle('open');}
 
-function showToast() {
-  const t = document.getElementById('save-toast');
-  t.classList.add('show');
-  clearTimeout(_toastTimer);
-  _toastTimer = setTimeout(() => t.classList.remove('show'), 1800);
-}
-
-// ── card toggle ──
-function toggleCard(id) {
-  document.getElementById(id).classList.toggle('open');
-}
-
-// ── topic toggle ──
-function toggleTopic(el) {
-  const state = loadState();
-  const key = el.dataset.key;
+function toggleTopic(el){
+  const d=loadData();
+  const key=el.dataset.key;
   el.classList.toggle('done');
-  state[key] = el.classList.contains('done');
-  saveState(state);
-  updateGroup(el.closest('.topics-list').id.replace('list-', ''));
+  const isDone=el.classList.contains('done');
+  d.topics=d.topics||{};
+  d.topics[key]=isDone;
+  const today=todayStr();
+  d.daily=d.daily||{};
+  if(isDone) d.daily[today]=(d.daily[today]||0)+1;
+  else d.daily[today]=Math.max(0,(d.daily[today]||1)-1);
+  saveData(d);
+  const g=el.closest('.topics-list').id.replace('list-','');
+  updateGroup(g);
   updateOverall();
+  updateDailyGoal();
+  updateStreak();
 }
 
-// ── attach click events ──
-function attachTopics() {
-  document.querySelectorAll('.topic-item').forEach(item => {
-    item.addEventListener('click', () => toggleTopic(item));
+function attachTopics(){
+  document.querySelectorAll('.topic-item').forEach(el=>{
+    el.addEventListener('click',()=>toggleTopic(el));
   });
 }
 
-// ── restore state ──
-function restoreState() {
-  const state = loadState();
-  document.querySelectorAll('.topic-item').forEach(item => {
-    if (state[item.dataset.key]) item.classList.add('done');
+function restoreTopics(){
+  const topics=(loadData().topics)||{};
+  document.querySelectorAll('.topic-item').forEach(el=>{
+    if(topics[el.dataset.key])el.classList.add('done');
   });
 }
 
-// ── group progress ──
-function updateGroup(group) {
-  const list = document.getElementById('list-' + group);
-  if (!list) return;
-  const total = list.querySelectorAll('.topic-item').length;
-  const done  = list.querySelectorAll('.topic-item.done').length;
-  const pct   = total ? Math.round(done / total * 100) : 0;
-  const pctEl = document.getElementById('pct-' + group);
-  const barEl = document.getElementById('bar-' + group);
-  if (pctEl) pctEl.textContent = pct + '%';
-  if (barEl) barEl.style.width = pct + '%';
+function updateGroup(g){
+  const list=document.getElementById('list-'+g);if(!list)return;
+  const total=list.querySelectorAll('.topic-item').length;
+  const done=list.querySelectorAll('.topic-item.done').length;
+  const pct=total?Math.round(done/total*100):0;
+  const pe=document.getElementById('pct-'+g),be=document.getElementById('bar-'+g);
+  if(pe)pe.textContent=pct+'%';
+  if(be)be.style.width=pct+'%';
 }
 
-// ── overall progress ──
-function updateOverall() {
-  const total = document.querySelectorAll('.topic-item').length;
-  const done  = document.querySelectorAll('.topic-item.done').length;
-  const pct   = total ? Math.round(done / total * 100) : 0;
-  document.getElementById('topics-done').textContent  = done;
-  document.getElementById('topics-total').textContent = total;
-  document.getElementById('ring-pct').textContent     = pct + '%';
-  const offset = 201.06 - (pct / 100) * 201.06;
-  document.getElementById('progress-ring').style.strokeDashoffset = offset;
+function updateOverall(){
+  const total=document.querySelectorAll('.topic-item').length;
+  const done=document.querySelectorAll('.topic-item.done').length;
+  const pct=total?Math.round(done/total*100):0;
+  document.getElementById('topics-done').textContent=done;
+  document.getElementById('topics-total').textContent=total;
+  document.getElementById('ring-pct').textContent=pct+'%';
+  document.getElementById('progress-ring').style.strokeDashoffset=201.06-(pct/100)*201.06;
 }
 
-// ── reset ──
-function confirmReset() {
-  if (!confirm('Resetar todo o progresso? Essa ação não pode ser desfeita.')) return;
-  try { localStorage.removeItem(STORAGE_KEY); } catch (_) {}
-  setCookie(COOKIE_KEY, '{}', COOKIE_DAYS);
-  document.querySelectorAll('.topic-item.done').forEach(el => el.classList.remove('done'));
-  ['lp','dir','atu','mat','inf','red'].forEach(g => updateGroup(g));
-  updateOverall();
+function confirmReset(){
+  if(!confirm('Resetar todo o progresso? Essa ação não pode ser desfeita.'))return;
+  const d=loadData();d.topics={};d.daily={};saveData(d);
+  document.querySelectorAll('.topic-item.done').forEach(el=>el.classList.remove('done'));
+  GROUPS.forEach(g=>updateGroup(g));updateOverall();renderDashboard();
 }
 
-// ── INIT ──
-document.addEventListener('DOMContentLoaded', () => {
-  restoreState();
-  attachTopics();
-  ['lp','dir','atu','mat','inf','red'].forEach(g => updateGroup(g));
-  updateOverall();
+/* ══ STREAK ══ */
+function todayStr(){return new Date().toISOString().slice(0,10);}
+
+function computeStreak(daily){
+  if(!Object.keys(daily).length)return{streak:0,best:0};
+  const today=todayStr();
+  const hasTodayActivity=(daily[today]||0)>0;
+  const ptr=new Date((hasTodayActivity?today:new Date(new Date().setDate(new Date().getDate()-1)).toISOString().slice(0,10))+'T12:00:00');
+  let streak=0;
+  while((daily[ptr.toISOString().slice(0,10)]||0)>0){streak++;ptr.setDate(ptr.getDate()-1);}
+  const sorted=Object.keys(daily).filter(k=>(daily[k]||0)>0).sort();
+  let best=0,cur=0;
+  for(let i=0;i<sorted.length;i++){
+    if(i===0){cur=1;}
+    else{
+      const prev=new Date(sorted[i-1]+'T12:00:00'),curr=new Date(sorted[i]+'T12:00:00');
+      cur=((curr-prev)/864e5<=1.5)?cur+1:1;
+    }
+    best=Math.max(best,cur);
+  }
+  return{streak,best};
+}
+
+function updateStreak(){
+  const d=loadData();
+  const{streak,best}=computeStreak(d.daily||{});
+  document.getElementById('streak-num').textContent=streak;
+  document.getElementById('streak-best').textContent='recorde: '+best+' dia'+(best!==1?'s':'');
+  document.getElementById('streak-fire').textContent=streak>=14?'🔥':streak>=7?'✨':streak>=3?'⚡':'💤';
+}
+
+function saveGoal(){
+  const v=Math.max(1,parseInt(document.getElementById('goal-input').value)||5);
+  const d=loadData();d.goal=v;saveData(d);updateDailyGoal();
+}
+
+function updateDailyGoal(){
+  const d=loadData();
+  const goal=d.goal||5;
+  const todayDone=(d.daily||{})[todayStr()]||0;
+  const pct=Math.min(100,Math.round(todayDone/goal*100));
+  document.getElementById('goal-input').value=goal;
+  document.getElementById('goal-fill').style.width=pct+'%';
+  document.getElementById('goal-status').textContent=todayDone+' / '+goal+' tópicos hoje'+(pct>=100?' 🎉':'');
+  document.getElementById('daily-done-num').textContent=todayDone;
+  document.getElementById('daily-goal-show').textContent=goal;
+}
+
+/* ══ HEATMAP ══ */
+function buildHeatmap(){
+  const daily=(loadData().daily)||{};
+  const container=document.getElementById('heatmap');container.innerHTML='';
+  const today=new Date();
+  for(let i=89;i>=0;i--){
+    const dt=new Date(today);dt.setDate(dt.getDate()-i);
+    const s=dt.toISOString().slice(0,10);
+    const count=daily[s]||0;
+    let cls='hm-day';
+    if(count>=8)cls+=' s4';else if(count>=5)cls+=' s3';else if(count>=2)cls+=' s2';else if(count>=1)cls+=' s1';
+    if(i===0)cls+=' today';
+    const el=document.createElement('div');el.className=cls;
+    const tip=document.createElement('div');tip.className='hm-tip';
+    tip.textContent=s+': '+count+' tópico'+(count!==1?'s':'');
+    el.appendChild(tip);container.appendChild(el);
+  }
+}
+
+/* ══ BAR CHART ══ */
+function buildBarChart(){
+  const chart=document.getElementById('bar-chart');chart.innerHTML='';
+  GROUPS.forEach(g=>{
+    const list=document.getElementById('list-'+g);if(!list)return;
+    const total=list.querySelectorAll('.topic-item').length;
+    const done=list.querySelectorAll('.topic-item.done').length;
+    const pct=total?Math.round(done/total*100):0;
+    const row=document.createElement('div');row.className='bar-row';
+    row.innerHTML=`<div class="bar-label">${GROUP_LABELS[g]}</div><div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${GROUP_COLORS[g]};"></div></div><div class="bar-val">${done}/${total}</div>`;
+    chart.appendChild(row);
+  });
+}
+
+function renderDashboard(){updateStreak();updateDailyGoal();buildHeatmap();buildBarChart();}
+
+/* ══ AGENDA ══ */
+const DAY_NAMES=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+let weekOffset=0,editingTask=null;
+
+function getWeekDates(offset){
+  const today=new Date();
+  const dow=today.getDay();
+  const monday=new Date(today);
+  monday.setDate(today.getDate()-dow+1+(offset*7));
+  return Array.from({length:7},(_,i)=>{const d=new Date(monday);d.setDate(monday.getDate()+i);return d;});
+}
+
+function getWeekKey(date){
+  const d=new Date(date);d.setHours(12,0,0,0);
+  const jan4=new Date(d.getFullYear(),0,4);
+  const week=Math.ceil(((d-jan4)/864e5+jan4.getDay()+1)/7);
+  return d.getFullYear()+'-W'+String(week).padStart(2,'0');
+}
+
+function shiftWeek(dir){weekOffset+=dir;renderWeek();}
+
+function renderWeek(){
+  const days=getWeekDates(weekOffset);
+  const wk=getWeekKey(days[0]);
+  const d=loadData();
+  const weekData=(d.agenda||{})[wk]||{};
+  const todayISO=new Date().toISOString().slice(0,10);
+  const fmt=dt=>dt.toLocaleDateString('pt-BR',{day:'2-digit',month:'short'});
+  document.getElementById('week-label').textContent=fmt(days[0])+' – '+fmt(days[6]);
+  const grid=document.getElementById('week-grid');grid.innerHTML='';
+  days.forEach((dt,i)=>{
+    const iso=dt.toISOString().slice(0,10);
+    const isToday=iso===todayISO;
+    const tasks=weekData[i]||[];
+    const col=document.createElement('div');
+    col.className='day-col'+(isToday?' today-col':'');
+    col.innerHTML=`<div class="day-name">${DAY_NAMES[dt.getDay()]}</div><div class="day-date">${dt.getDate()}</div><div class="day-tasks" id="dt-${i}"></div><button class="add-task-btn" onclick="openModal('${wk}',${i},null)">+ tarefa</button>`;
+    grid.appendChild(col);
+    const tc=col.querySelector('#dt-'+i);
+    tasks.forEach((task,ti)=>{
+      const btn=document.createElement('button');
+      btn.className='day-task'+(task.done?' task-done':'');
+      btn.innerHTML=`<div class="task-dot" style="background:${task.color||'#c9a84c'};"></div><span>${task.text}</span>`;
+      btn.addEventListener('click',e=>{e.stopPropagation();openModal(wk,i,ti);});
+      btn.addEventListener('dblclick',e=>{e.stopPropagation();e.preventDefault();toggleTaskDone(wk,i,ti);});
+      tc.appendChild(btn);
+    });
+  });
+}
+
+function openModal(wk,dayIdx,taskIdx){
+  editingTask={wk,dayIdx,taskIdx};
+  const d=loadData();
+  const tasks=((d.agenda||{})[wk]||{})[dayIdx]||[];
+  const isEdit=taskIdx!==null&&taskIdx!==undefined;
+  document.getElementById('modal-title').textContent=isEdit?'Editar tarefa':'Nova tarefa';
+  document.getElementById('task-input').value=isEdit?(tasks[taskIdx]?.text||''):'';
+  document.getElementById('task-color').value=isEdit?(tasks[taskIdx]?.color||'#c9a84c'):'#c9a84c';
+  document.getElementById('modal-del').style.display=isEdit?'block':'none';
+  document.getElementById('task-modal').classList.add('show');
+  setTimeout(()=>document.getElementById('task-input').focus(),50);
+}
+
+function closeModal(){document.getElementById('task-modal').classList.remove('show');editingTask=null;}
+
+function saveTask(){
+  const text=document.getElementById('task-input').value.trim();if(!text)return;
+  const color=document.getElementById('task-color').value;
+  const d=loadData();const{wk,dayIdx,taskIdx}=editingTask;
+  d.agenda=d.agenda||{};d.agenda[wk]=d.agenda[wk]||{};d.agenda[wk][dayIdx]=d.agenda[wk][dayIdx]||[];
+  if(taskIdx!==null&&taskIdx!==undefined){d.agenda[wk][dayIdx][taskIdx]={...d.agenda[wk][dayIdx][taskIdx],text,color};}
+  else{d.agenda[wk][dayIdx].push({text,color,done:false});}
+  saveData(d);closeModal();renderWeek();
+}
+
+function deleteTask(){
+  if(!editingTask)return;const{wk,dayIdx,taskIdx}=editingTask;
+  const d=loadData();
+  if(d.agenda?.[wk]?.[dayIdx]){d.agenda[wk][dayIdx].splice(taskIdx,1);saveData(d);}
+  closeModal();renderWeek();
+}
+
+function toggleTaskDone(wk,dayIdx,taskIdx){
+  const d=loadData();
+  if(d.agenda?.[wk]?.[dayIdx]?.[taskIdx]!==undefined){
+    d.agenda[wk][dayIdx][taskIdx].done=!d.agenda[wk][dayIdx][taskIdx].done;
+    saveData(d);renderWeek();
+  }
+}
+
+document.getElementById('task-modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+document.getElementById('task-input').addEventListener('keydown',e=>{if(e.key==='Enter')saveTask();if(e.key==='Escape')closeModal();});
+
+/* ══ INIT ══ */
+document.addEventListener('DOMContentLoaded',()=>{
+  restoreTopics();attachTopics();
+  GROUPS.forEach(g=>updateGroup(g));updateOverall();
+  renderDashboard();
 });
 </script>
 </body>
