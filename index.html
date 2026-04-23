@@ -22,7 +22,7 @@
   --muted:#6b6660;--border:#d4cfc6;--shadow:rgba(15,15,20,0.12);
 }
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Outfit',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;padding-bottom:80px;}
+body{font-family:'Outfit',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;padding-bottom:80px;transition: background 0.3s, color 0.3s;}
 
 /* NAV */
 .nav-tabs{position:sticky;top:0;z-index:100;background:var(--ink);display:flex;overflow-x:auto;border-bottom:2px solid var(--gold-dim);}
@@ -32,8 +32,9 @@ body{font-family:'Outfit',sans-serif;background:var(--paper);color:var(--ink);mi
 .nav-tab:hover{color:rgba(245,243,238,.8);}
 
 /* PAGES */
-.page{display:none;}
+.page{display:none;transition:opacity .18s ease;}
 .page.active{display:block;}
+.page.slide-out{opacity:0;pointer-events:none;}
 
 /* TOAST */
 #save-toast{position:fixed;bottom:24px;right:24px;background:var(--ink);color:var(--gold);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1px;padding:10px 16px;border-radius:8px;border:1px solid var(--gold-dim);opacity:0;transform:translateY(8px);transition:opacity .25s,transform .25s;pointer-events:none;z-index:999;}
@@ -61,7 +62,7 @@ body{font-family:'Outfit',sans-serif;background:var(--paper);color:var(--ink);mi
 .card{background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:0 2px 8px var(--shadow);}
 
 /* RESET BTN */
-.reset-btn{display:inline-flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);border:1px solid var(--border);background:white;padding:6px 12px;border-radius:6px;cursor:pointer;transition:all .15s;}
+.reset-btn{display:inline-flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);border:1px solid var(--border);background:transparent;padding:6px 12px;border-radius:6px;cursor:pointer;transition:all .15s;}
 .reset-btn:hover{color:var(--red);border-color:var(--red);}
 
 /* ── DASHBOARD ── */
@@ -73,7 +74,7 @@ body{font-family:'Outfit',sans-serif;background:var(--paper);color:var(--ink);mi
 .streak-fire{font-size:52px;line-height:1;position:relative;flex-shrink:0;}
 .streak-info{position:relative;}
 .streak-num{font-family:'DM Mono',monospace;font-size:48px;font-weight:500;color:var(--gold);line-height:1;}
-.streak-label{font-size:13px;color:rgba(245,243,238,.6);margin-top:2px;}
+.streak-label{font-size:13px;color:rgba(245,243,238,.6);margin-top:2px; line-height:1.4;}
 .streak-best{font-family:'DM Mono',monospace;font-size:11px;color:var(--gold-dim);margin-top:6px;}
 .streak-meta{margin-left:auto;position:relative;text-align:center;}
 .streak-meta-num{font-size:28px;font-family:'DM Mono',monospace;color:var(--gold);}
@@ -136,9 +137,15 @@ body{font-family:'Outfit',sans-serif;background:var(--paper);color:var(--ink);mi
 .progress-info p{font-size:13px;color:var(--muted);}
 .progress-info p span{font-family:'DM Mono',monospace;}
 
-/* Alerta de eliminatório */
 .elim-note{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-family:'DM Mono',monospace;background:#fff3e0;color:#7a4800;border:1px solid #e6a023;border-radius:4px;padding:3px 8px;margin-top:6px;}
 .elim-note-red{background:#fff0f0;color:var(--red);border-color:#f5c6c0;}
+
+/* CONTROLES DO CHECKLIST (Busca e Ordenação) */
+.checklist-controls { max-width: 760px; margin: 0 auto 16px; padding: 0 20px; display: flex; gap: 10px; flex-wrap: wrap; }
+.checklist-controls input { flex: 1; min-width: 200px; padding: 12px 16px; border-radius: 10px; border: 1px solid var(--border); font-family: 'Outfit', sans-serif; font-size: 14px; background: white; color: var(--ink); box-shadow: 0 2px 8px var(--shadow); transition: border-color 0.2s; }
+.checklist-controls input:focus { outline: none; border-color: var(--gold); }
+.checklist-controls button { padding: 10px 16px; border-radius: 10px; border: 1px solid var(--border); background: white; color: var(--ink); font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 2px 8px var(--shadow); transition: all 0.2s; }
+.checklist-controls button.active { background: var(--gold); border-color: var(--gold); }
 
 .discipline-card{max-width:760px;margin:0 auto 16px;padding:0 20px;}
 .card-inner{background:white;border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px var(--shadow);transition:box-shadow .2s;}
@@ -159,13 +166,13 @@ body{font-family:'Outfit',sans-serif;background:var(--paper);color:var(--ink);mi
 .mini-fill{height:100%;border-radius:2px;transition:width .4s ease;}
 .chevron{font-size:14px;color:var(--muted);transition:transform .25s;flex-shrink:0;}
 .card-inner.open .chevron{transform:rotate(180deg);}
-.topics-list{display:none;border-top:1px solid var(--border);padding:0 20px 16px;}
-.card-inner.open .topics-list{display:block;}
+.topics-list{display:none;border-top:1px solid var(--border);padding:0 20px 16px; display: flex; flex-direction: column;}
+.card-inner:not(.open) .topics-list{display:none !important;} /* Force hide when closed */
 .topic-item{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px dashed var(--border);cursor:pointer;transition:opacity .15s;}
 .topic-item:last-child{border-bottom:none;}
 .topic-item:hover{opacity:.8;}
 .topic-check{width:20px;height:20px;border:2px solid var(--border);border-radius:5px;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .15s;background:white;}
-.topic-item.done .topic-check{background:var(--green);border-color:var(--green);}
+.topic-item.done .topic-check{background:var(--green) !important;border-color:var(--green) !important;}
 .topic-item.done .topic-check::after{content:'✓';color:white;font-size:12px;font-weight:700;}
 .topic-text{flex:1;}
 .topic-name{font-size:13px;font-weight:500;line-height:1.4;}
@@ -173,7 +180,6 @@ body{font-family:'Outfit',sans-serif;background:var(--paper);color:var(--ink);mi
 .topic-tag{font-size:10px;font-family:'DM Mono',monospace;color:var(--muted);margin-top:2px;}
 .hot-tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;background:#fff0f0;color:var(--red);border:1px solid #f5c6c0;border-radius:3px;padding:1px 5px;margin-left:6px;vertical-align:middle;}
 
-/* Bloco info banner */
 .bloco-info{max-width:760px;margin:0 auto 8px;padding:0 20px;}
 .bloco-info-inner{background:#fffbf0;border:1px solid #e6c84c;border-radius:8px;padding:10px 14px;font-size:12px;color:#7a5a00;display:flex;gap:8px;align-items:flex-start;}
 .bloco-info-inner b{white-space:nowrap;}
@@ -208,12 +214,12 @@ body{font-family:'Outfit',sans-serif;background:var(--paper);color:var(--ink);mi
 .modal label{display:block;font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
 .modal input,.modal select{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-family:'Outfit',sans-serif;font-size:13px;color:var(--ink);background:var(--paper);margin-bottom:16px;}
 .modal-btns{display:flex;gap:10px;justify-content:flex-end;}
-.btn-cancel{padding:9px 18px;border:1px solid var(--border);border-radius:8px;background:white;font-size:13px;cursor:pointer;color:var(--muted);transition:all .15s;font-family:'Outfit',sans-serif;}
+.btn-cancel{padding:9px 18px;border:1px solid var(--border);border-radius:8px;background:transparent;font-size:13px;cursor:pointer;color:var(--muted);transition:all .15s;font-family:'Outfit',sans-serif;}
 .btn-cancel:hover{background:var(--cream);}
 .btn-save{padding:9px 18px;border:none;border-radius:8px;background:var(--gold);color:var(--ink);font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;font-family:'Outfit',sans-serif;}
 .btn-save:hover{background:var(--gold-light);}
-.btn-del{padding:9px 14px;border:1px solid var(--red);border-radius:8px;background:white;color:var(--red);font-size:13px;cursor:pointer;transition:all .15s;margin-right:auto;font-family:'Outfit',sans-serif;}
-.btn-del:hover{background:#fff0f0;}
+.btn-del{padding:9px 14px;border:1px solid var(--red);border-radius:8px;background:transparent;color:var(--red);font-size:13px;cursor:pointer;transition:all .15s;margin-right:auto;font-family:'Outfit',sans-serif;}
+.btn-del:hover{background:rgba(192,57,43,0.1);}
 
 /* ── CRONOGRAMA ── */
 .timeline-section{padding:0 20px;max-width:760px;margin:0 auto;}
@@ -235,7 +241,6 @@ body{font-family:'Outfit',sans-serif;background:var(--paper);color:var(--ink);mi
 .tip-card li::before{content:'→';position:absolute;left:0;color:var(--gold);font-size:10px;top:2px;}
 .footer{text-align:center;padding:28px 20px 0;font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;letter-spacing:.5px;}
 
-/* Cronograma tabela */
 .crono-table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:16px;}
 .crono-table th{background:var(--ink);color:var(--gold);padding:8px 12px;text-align:left;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.5px;}
 .crono-table td{padding:8px 12px;border-bottom:1px solid var(--border);vertical-align:top;}
@@ -302,14 +307,28 @@ body{font-family:'Outfit',sans-serif;background:var(--paper);color:var(--ink);mi
   .reset-btn{font-size:9px;padding:5px 10px;}
 }
 
-.page{transition:opacity .18s ease;}
-.page.slide-out{opacity:0;pointer-events:none;}
 @media(hover:none){
   .topic-item:active{opacity:.6;background:var(--cream);border-radius:6px;}
   .card-header:active{background:var(--cream);}
   .day-task:active{filter:brightness(.88);}
   .bn-tab:active{color:var(--gold-light);}
 }
+
+/* ── MODO ESCURO ── */
+.theme-toggle { position: absolute; top: 0; right: 0; background: transparent; border: 1px solid rgba(245,243,238,.2); border-radius: 8px; font-size: 16px; padding: 6px; cursor: pointer; transition: background 0.2s; }
+.theme-toggle:hover { background: rgba(255,255,255,0.1); }
+body.dark-theme { --ink: #f5f3ee; --paper: #0a0a0d; --cream: #1c1c24; --border: #2a2a35; --shadow: rgba(0,0,0,0.6); }
+body.dark-theme .card, body.dark-theme .card-inner, body.dark-theme .overall-progress, body.dark-theme .day-col, body.dark-theme .tip-card, body.dark-theme .modal, body.dark-theme .phase-block, body.dark-theme .crono-table-wrap, body.dark-theme .pix-card, body.dark-theme .week-btn, body.dark-theme .checklist-controls input, body.dark-theme .checklist-controls button { background: #14141a !important; }
+body.dark-theme .topic-check { background: transparent; }
+body.dark-theme .day-task { background: var(--cream); color: var(--ink); }
+body.dark-theme .bloco-info-inner { background: #1f1906; border-color: var(--gold-dim); color: var(--gold-light); }
+body.dark-theme .elim-note { background: #2b1804; color: #f2aa46; border-color: #a86c1c; }
+body.dark-theme .elim-note-red { background: #2e0e0e; color: #ff6b6b; border-color: #8c2626; }
+body.dark-theme .pill-q { background: #112240; color: #6495ed; }
+body.dark-theme .pill-peso { background: #2b2510; color: var(--gold-light); }
+body.dark-theme .pill-elim { background: #2e0e0e; color: #ff6b6b; }
+body.dark-theme .pill-class { background: #0f2918; color: #4ade80; }
+body.dark-theme .hot-tag { background: #2e0e0e; color: #ff6b6b; border-color: #8c2626; }
 </style>
 </head>
 <body>
@@ -366,6 +385,7 @@ body{font-family:'Outfit',sans-serif;background:var(--paper);color:var(--ink);mi
 
 <div class="hero">
   <div class="hero-inner">
+    <button onclick="toggleTheme()" class="theme-toggle" title="Alternar Modo Escuro">🌓</button>
     <div class="badge">Edital 02/2025 · Banca VUNESP · Nível Médio</div>
     <h1>Plano de Estudos<br><em>TJ-SP Escrevente</em></h1>
     <p>Conteúdo programático conforme Anexo VI do edital. Dashboard · Streak · Agenda · Checklist completo.</p>
@@ -435,13 +455,10 @@ body{font-family:'Outfit',sans-serif;background:var(--paper);color:var(--ink);mi
     <div class="card pix-card">
       <h3>☕ Apoie o Projeto</h3>
       <p>Gostou do plano de estudos? Contribua pagando um café para o criador!</p>
-      
       <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=00020126330014br.gov.bcb.pix0111076417496745204000053039865802BR5925RODRIGO_GONCALVES_DO_VALE6013Para_de_Minas610935661-29262290525TQ3D03269540177686204840563040DCC" alt="QR Code Pix" class="pix-qr">
-      
       <div class="pix-input-wrap">
         <input type="text" id="pix-code" class="pix-input" value="00020126330014br.gov.bcb.pix0111076417496745204000053039865802BR5925RODRIGO_GONCALVES_DO_VALE6013Para_de_Minas610935661-29262290525TQ3D03269540177686204840563040DCC" readonly>
       </div>
-      
       <button class="pix-btn" onclick="copyPixCode()">Copiar Código Pix</button>
       <div id="pix-toast" class="pix-msg">Código copiado com sucesso!</div>
     </div>
@@ -476,6 +493,13 @@ body{font-family:'Outfit',sans-serif;background:var(--paper);color:var(--ink);mi
         <div class="elim-note">⚠️ Blocos I e II: eliminatório (mín. 50% cada)</div>
       </div>
     </div>
+  </div>
+
+  <div class="checklist-controls">
+    <input type="text" id="search-input" placeholder="🔍 Buscar tópico (ex: crase, peculato...)" onkeyup="filterTopics()">
+    <button id="sort-btn" onclick="toggleSort()">
+      <span style="font-size:14px;">🔥</span> Mais Cobrados
+    </button>
   </div>
 
   <div class="section-title">📘 Bloco I — Língua Portuguesa</div>
@@ -657,7 +681,7 @@ body{font-family:'Outfit',sans-serif;background:var(--paper);color:var(--ink);mi
     <div class="topics-list" id="list-inf">
       <div class="topic-item" data-key="inf-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Windows 10 ou superior <span class="hot-tag">🔥</span></div><div class="topic-tag">Pastas, diretórios, arquivos, atalhos, área de trabalho, área de transferência, menus, aplicativos</div></div></div>
       <div class="topic-item" data-key="inf-02"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Microsoft Word (M365) <span class="hot-tag">🔥</span></div><div class="topic-tag">Edição e formatação, cabeçalhos, parágrafos, fontes, colunas, tabelas, índices, impressão, controle de quebras, campos</div></div></div>
-      <div class="topic-item" data-key="inf-03"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Microsoft Excel (M365) <span class="hot-tag">🔥</span></div><div class="topic-tag">Células, linhas, colunas, pastas, gráficos, fórmulas, funções, macros, impressão, dados externos, classificação</div></div></div>
+      <div class="topic-item" data-key="inf-03"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Microsoft Excel (M365) <span class="hot-tag">🔥</span></div><div class="topic-tag">Células, linhas, colunas, pastas, gráficos, formulas, funções, macros, impressão, dados externos, classificação</div></div></div>
       <div class="topic-item" data-key="inf-04"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Correio Eletrônico</div><div class="topic-tag">Uso de e-mail, preparo e envio de mensagens, anexação de arquivos</div></div></div>
       <div class="topic-item" data-key="inf-05"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Internet: navegação e busca <span class="hot-tag">🔥</span></div><div class="topic-tag">Conceitos de URL, links, sites, busca e impressão de páginas</div></div></div>
       <div class="topic-item" data-key="inf-06"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">MS Teams <span class="hot-tag">🔥</span></div><div class="topic-tag">Chats, chamadas de áudio/vídeo, grupos, Word/Excel/PowerPoint/SharePoint/OneNote, agendamento, gravação</div></div></div>
@@ -932,6 +956,14 @@ function updateStreak(){
   document.getElementById('streak-num').textContent=streak;
   document.getElementById('streak-best').textContent='recorde: '+best+' dia'+(best!==1?'s':'');
   document.getElementById('streak-fire').textContent=streak>=14?'🔥':streak>=7?'✨':streak>=3?'⚡':'💤';
+
+  // UX: Feedback de streak quebrado
+  const labelEl = document.querySelector('.streak-label');
+  if (streak === 0 && best > 0) {
+    labelEl.innerHTML = "Quebrou a sequência...<br><span style='color:var(--gold); font-weight:600; font-size:14px;'>Recomece hoje! 🚀</span>";
+  } else {
+    labelEl.innerHTML = "dias de sequência";
+  }
 }
 
 function saveGoal(){
@@ -1091,6 +1123,61 @@ function copyPixCode() {
 document.getElementById('task-modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
 document.getElementById('task-input').addEventListener('keydown',e=>{if(e.key==='Enter')saveTask();if(e.key==='Escape')closeModal();});
 
+/* ══ BUSCA E ORDENAÇÃO (CHECKLIST) ══ */
+function filterTopics() {
+  const term = document.getElementById('search-input').value.toLowerCase();
+  document.querySelectorAll('.discipline-card').forEach(card => {
+    let hasVisible = false;
+    card.querySelectorAll('.topic-item').forEach(item => {
+      // Busca pelo nome do tópico e pelas tags/palavras-chave
+      const text = item.querySelector('.topic-name').textContent.toLowerCase() + " " + (item.querySelector('.topic-tag') ? item.querySelector('.topic-tag').textContent.toLowerCase() : "");
+      if (text.includes(term)) {
+        item.style.display = 'flex';
+        hasVisible = true;
+      } else {
+        item.style.display = 'none';
+      }
+    });
+    // UX: Se estiver buscando e achar algo, abre o card automaticamente
+    if (term.length > 0 && hasVisible) {
+      card.querySelector('.card-inner').classList.add('open');
+    }
+  });
+}
+
+let isSorted = false;
+function toggleSort() {
+  isSorted = !isSorted;
+  const btn = document.getElementById('sort-btn');
+  isSorted ? btn.classList.add('active') : btn.classList.remove('active');
+
+  document.querySelectorAll('.topics-list').forEach(list => {
+    const items = Array.from(list.querySelectorAll('.topic-item'));
+    items.sort((a, b) => {
+      const aHot = a.querySelector('.hot-tag') ? 1 : 0;
+      const bHot = b.querySelector('.hot-tag') ? 1 : 0;
+      
+      if (isSorted) {
+        return bHot - aHot; // Joga os "hot" para o topo
+      } else {
+        // Volta para a ordem original baseada no data-key (ex: lp-01, lp-02)
+        return a.dataset.key.localeCompare(b.dataset.key);
+      }
+    });
+    // Reanexa os itens na nova ordem
+    items.forEach(item => list.appendChild(item));
+  });
+}
+
+/* ══ MODO ESCURO ══ */
+function toggleTheme() {
+  document.body.classList.toggle('dark-theme');
+  const isDark = document.body.classList.contains('dark-theme');
+  const d = loadData();
+  d.theme = isDark ? 'dark' : 'light';
+  saveData(d);
+}
+
 /* ══ SWIPE ══ */
 (function(){
   let sx=0,sy=0,moved=false;
@@ -1119,6 +1206,9 @@ document.getElementById('task-input').addEventListener('keydown',e=>{if(e.key===
 
 /* ══ INIT ══ */
 document.addEventListener('DOMContentLoaded',()=>{
+  // Checa se o modo escuro estava ativado
+  if(loadData().theme === 'dark') document.body.classList.add('dark-theme');
+  
   restoreTopics();attachTopics();
   GROUPS.forEach(g=>updateGroup(g));updateOverall();
   renderDashboard();
