@@ -162,7 +162,7 @@ body{font-family:'Outfit',sans-serif;background:var(--paper);color:var(--ink);mi
 .elim-note{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-family:'DM Mono',monospace;background:#fef3c7;color:#b45309;border:1px solid #fcd34d;border-radius:6px;padding:4px 8px;margin-top:6px;}
 .elim-note-red{background:#fee2e2;color:var(--red);border-color:#fca5a5;}
 
-/* CONTROLES DO CHECKLIST */
+/* CONTROLES DO CHECKLIST (Busca e Ordenação) */
 .checklist-controls { max-width: 760px; margin: 0 auto 16px; padding: 0 20px; display: flex; gap: 10px; flex-wrap: wrap; }
 .checklist-controls input { flex: 1; min-width: 200px; padding: 12px 16px; border-radius: 10px; border: 1px solid var(--border); font-family: 'Outfit', sans-serif; font-size: 14px; background: white; color: var(--ink); box-shadow: 0 2px 8px var(--shadow); transition: border-color 0.2s; }
 .checklist-controls input:focus { outline: none; border-color: var(--gold); }
@@ -335,7 +335,7 @@ body{font-family:'Outfit',sans-serif;background:var(--paper);color:var(--ink);mi
   .bn-tab:active{color:var(--gold);}
 }
 
-/* ── MODO ESCURO MELHORADO (LEITURABILIDADE) ── */
+/* ── MODO ESCURO MELHORADO (LEITURABILIDADE & TOPO) ── */
 .theme-toggle { position: absolute; top: 0; right: 0; background: transparent; border: 1px solid rgba(248,250,252,.2); border-radius: 8px; font-size: 16px; padding: 6px; cursor: pointer; transition: background 0.2s; }
 .theme-toggle:hover { background: rgba(255,255,255,0.1); }
 
@@ -358,6 +358,19 @@ body.dark-theme .phase-block,
 body.dark-theme .crono-table-wrap { 
   background: var(--cream) !important; 
 }
+
+/* CORREÇÃO DO TOPO E MENU (HERO) */
+body.dark-theme .hero, 
+body.dark-theme .nav-tabs,
+body.dark-theme .bottom-nav { 
+  background: #020617 !important; 
+  color: var(--ink) !important;
+}
+body.dark-theme .hero p { color: var(--muted) !important; }
+body.dark-theme .nav-tab, body.dark-theme .bn-tab { color: var(--muted) !important; }
+body.dark-theme .nav-tab.active, body.dark-theme .bn-tab.active,
+body.dark-theme .nav-tab:hover, body.dark-theme .bn-tab:hover { color: var(--gold-light) !important; }
+body.dark-theme .nav-tabs { border-bottom-color: var(--border) !important; }
 
 /* Inputs e Botões (Checklist e Modal) */
 body.dark-theme input, 
