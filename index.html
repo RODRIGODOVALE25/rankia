@@ -16,7 +16,7 @@
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <style>
 :root{
-  /* Nova Paleta Light (Slate & Amber) */
+  /* Paleta Light (Slate & Amber) */
   --ink: #1e293b;
   --paper: #f8fafc;
   --cream: #f1f5f9;
@@ -162,7 +162,7 @@ body{font-family:'Outfit',sans-serif;background:var(--paper);color:var(--ink);mi
 .elim-note{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-family:'DM Mono',monospace;background:#fef3c7;color:#b45309;border:1px solid #fcd34d;border-radius:6px;padding:4px 8px;margin-top:6px;}
 .elim-note-red{background:#fee2e2;color:var(--red);border-color:#fca5a5;}
 
-/* CONTROLES DO CHECKLIST (Busca e Ordenação) */
+/* CONTROLES DO CHECKLIST */
 .checklist-controls { max-width: 760px; margin: 0 auto 16px; padding: 0 20px; display: flex; gap: 10px; flex-wrap: wrap; }
 .checklist-controls input { flex: 1; min-width: 200px; padding: 12px 16px; border-radius: 10px; border: 1px solid var(--border); font-family: 'Outfit', sans-serif; font-size: 14px; background: white; color: var(--ink); box-shadow: 0 2px 8px var(--shadow); transition: border-color 0.2s; }
 .checklist-controls input:focus { outline: none; border-color: var(--gold); }
@@ -335,22 +335,59 @@ body{font-family:'Outfit',sans-serif;background:var(--paper);color:var(--ink);mi
   .bn-tab:active{color:var(--gold);}
 }
 
-/* ── MODO ESCURO ── */
+/* ── MODO ESCURO MELHORADO (LEITURABILIDADE) ── */
 .theme-toggle { position: absolute; top: 0; right: 0; background: transparent; border: 1px solid rgba(248,250,252,.2); border-radius: 8px; font-size: 16px; padding: 6px; cursor: pointer; transition: background 0.2s; }
 .theme-toggle:hover { background: rgba(255,255,255,0.1); }
-body.dark-theme { --ink: #f8fafc; --paper: #0f172a; --cream: #1e293b; --border: #334155; --shadow: rgba(0,0,0,0.4); }
-body.dark-theme .card, body.dark-theme .card-inner, body.dark-theme .overall-progress, body.dark-theme .day-col, body.dark-theme .tip-card, body.dark-theme .modal, body.dark-theme .phase-block, body.dark-theme .crono-table-wrap, body.dark-theme .week-btn, body.dark-theme .checklist-controls input, body.dark-theme .checklist-controls button { background: #1e293b !important; }
+
+body.dark-theme { 
+  --ink: #f1f5f9;       /* Texto principal mais claro */
+  --paper: #0f172a;     /* Fundo principal da página */
+  --cream: #1e293b;     /* Fundo secundário/Cards */
+  --border: #334155;    /* Bordas sutis */
+  --muted: #94a3b8;     /* Textos secundários e tópicos riscados BEM mais visíveis */
+  --shadow: rgba(0,0,0,0.6); 
+}
+
+body.dark-theme .card, 
+body.dark-theme .card-inner, 
+body.dark-theme .overall-progress, 
+body.dark-theme .day-col, 
+body.dark-theme .tip-card, 
+body.dark-theme .modal, 
+body.dark-theme .phase-block, 
+body.dark-theme .crono-table-wrap { 
+  background: var(--cream) !important; 
+}
+
+/* Inputs e Botões (Checklist e Modal) */
+body.dark-theme input, 
+body.dark-theme select,
+body.dark-theme .checklist-controls input, 
+body.dark-theme .checklist-controls button,
+body.dark-theme .week-btn { 
+  background: #0f172a !important; 
+  color: #f1f5f9 !important; 
+  border-color: #334155 !important;
+}
+body.dark-theme input::placeholder { color: #64748b !important; }
+
+/* Tabela de Cronograma */
+body.dark-theme .crono-table th { background: #020617; color: var(--gold-light); }
+body.dark-theme .crono-table tr:nth-child(even) td { background: #0f172a; }
+
+/* Destaques e Pílulas */
 body.dark-theme .pix-card { background: #422006 !important; border-color: var(--gold-dim); }
 body.dark-theme .topic-check { background: transparent; }
 body.dark-theme .day-task { background: #0f172a; color: var(--ink); }
 body.dark-theme .bloco-info-inner { background: #422006; border-color: var(--gold-dim); color: var(--gold-light); }
-body.dark-theme .elim-note { background: #422006; color: #fbbf24; border-color: #b45309; }
-body.dark-theme .elim-note-red { background: #450a0a; color: #f87171; border-color: #991b1b; }
+body.dark-theme .elim-note { background: #422006; color: #fcd34d; border-color: #b45309; }
+body.dark-theme .elim-note-red { background: #450a0a; color: #fca5a5; border-color: #991b1b; }
 body.dark-theme .pill-q { background: #1e3a8a; color: #93c5fd; }
 body.dark-theme .pill-peso { background: #422006; color: var(--gold-light); }
-body.dark-theme .pill-elim { background: #450a0a; color: #f87171; }
-body.dark-theme .pill-class { background: #064e3b; color: #34d399; }
-body.dark-theme .hot-tag { background: #450a0a; color: #f87171; border-color: #991b1b; }
+body.dark-theme .pill-elim { background: #450a0a; color: #fca5a5; }
+body.dark-theme .pill-class { background: #064e3b; color: #6ee7b7; }
+body.dark-theme .hot-tag { background: #450a0a; color: #fca5a5; border-color: #991b1b; }
+body.dark-theme .tip-card h4 { color: var(--gold-light); }
 </style>
 </head>
 <body>
@@ -477,8 +514,8 @@ body.dark-theme .hot-tag { background: #450a0a; color: #f87171; border-color: #9
         menos
         <div class="hm-sq" style="background:var(--cream)"></div>
         <div class="hm-sq" style="background:#a7f3d0"></div>
+        <div class="hm-sq" style="background:#34d399"></div>
         <div class="hm-sq" style="background:#10b981"></div>
-        <div class="hm-sq" style="background:#059669"></div>
         mais
       </div>
     </div>
