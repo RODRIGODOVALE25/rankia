@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Plano de estudos interativo TJ-SP Escrevente Técnico Judiciário — banca VUNESP — Edital 02/2025.">
-<meta name="theme-color" content="#0f0f14">
+<meta name="theme-color" content="#0f172a">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -13,23 +13,34 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <style>
 :root{
-  --ink:#0f0f14;--paper:#f5f3ee;--cream:#ede9e1;
-  --gold:#c9a84c;--gold-light:#f0d990;--gold-dim:#8a6f2e;
-  --red:#c0392b;--green:#1a7a4a;--blue:#1d4e8f;--purple:#5b2d8e;
-  --orange:#c0672b;
-  --muted:#6b6660;--border:#d4cfc6;--shadow:rgba(15,15,20,0.12);
+  /* Nova Paleta Light (Slate & Amber) */
+  --ink: #1e293b;
+  --paper: #f8fafc;
+  --cream: #f1f5f9;
+  --gold: #d97706;
+  --gold-light: #fcd34d;
+  --gold-dim: #b45309;
+  --red: #ef4444;
+  --green: #10b981;
+  --blue: #3b82f6;
+  --purple: #8b5cf6;
+  --orange: #f97316;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --shadow: rgba(15, 23, 42, 0.08);
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Outfit',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;padding-bottom:80px;transition: background 0.3s, color 0.3s;}
 
 /* NAV */
 .nav-tabs{position:sticky;top:0;z-index:100;background:var(--ink);display:flex;overflow-x:auto;border-bottom:2px solid var(--gold-dim);}
-.nav-tab{flex-shrink:0;padding:14px 20px;font-size:12px;font-weight:600;letter-spacing:.5px;color:rgba(245,243,238,.45);cursor:pointer;border:none;background:transparent;transition:color .2s;white-space:nowrap;position:relative;}
-.nav-tab.active{color:var(--gold);}
-.nav-tab.active::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:2px;background:var(--gold);}
-.nav-tab:hover{color:rgba(245,243,238,.8);}
+.nav-tab{flex-shrink:0;padding:14px 20px;font-size:12px;font-weight:600;letter-spacing:.5px;color:rgba(248,250,252,.5);cursor:pointer;border:none;background:transparent;transition:color .2s;white-space:nowrap;position:relative;}
+.nav-tab.active{color:var(--gold-light);}
+.nav-tab.active::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:2px;background:var(--gold-light);}
+.nav-tab:hover{color:rgba(248,250,252,.9);}
 
 /* PAGES */
 .page{display:none;transition:opacity .18s ease;}
@@ -37,29 +48,29 @@ body{font-family:'Outfit',sans-serif;background:var(--paper);color:var(--ink);mi
 .page.slide-out{opacity:0;pointer-events:none;}
 
 /* TOAST */
-#save-toast{position:fixed;bottom:24px;right:24px;background:var(--ink);color:var(--gold);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1px;padding:10px 16px;border-radius:8px;border:1px solid var(--gold-dim);opacity:0;transform:translateY(8px);transition:opacity .25s,transform .25s;pointer-events:none;z-index:999;}
+#save-toast{position:fixed;bottom:24px;right:24px;background:var(--ink);color:var(--gold-light);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1px;padding:10px 16px;border-radius:8px;border:1px solid var(--gold-dim);opacity:0;transform:translateY(8px);transition:opacity .25s,transform .25s;pointer-events:none;z-index:999;}
 #save-toast.show{opacity:1;transform:translateY(0);}
 
 /* HERO */
 .hero{background:var(--ink);color:var(--paper);padding:48px 32px 40px;position:relative;overflow:hidden;}
-.hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 18px,rgba(201,168,76,.06) 18px,rgba(201,168,76,.06) 19px);}
+.hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 18px,rgba(252,211,77,.04) 18px,rgba(252,211,77,.04) 19px);}
 .hero-inner{position:relative;max-width:760px;margin:0 auto;}
-.badge{display:inline-block;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold-dim);padding:4px 10px;border-radius:2px;margin-bottom:16px;}
+.badge{display:inline-block;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-light);border:1px solid var(--gold-dim);padding:4px 10px;border-radius:6px;margin-bottom:16px;}
 .hero h1{font-family:'DM Serif Display',serif;font-size:clamp(28px,5vw,48px);line-height:1.1;margin-bottom:8px;}
-.hero h1 em{color:var(--gold);font-style:normal;}
-.hero p{font-size:14px;color:rgba(245,243,238,.6);font-weight:300;max-width:480px;line-height:1.6;margin-top:4px;}
+.hero h1 em{color:var(--gold-light);font-style:normal;}
+.hero p{font-size:14px;color:rgba(248,250,252,.7);font-weight:300;max-width:480px;line-height:1.6;margin-top:4px;}
 
 /* STATS BAR */
 .stats-bar{background:var(--gold);display:flex;overflow-x:auto;}
 .stat{flex:1;min-width:110px;padding:14px 20px;text-align:center;border-right:1px solid var(--gold-dim);}
 .stat:last-child{border-right:none;}
-.stat-num{font-family:'DM Mono',monospace;font-size:22px;font-weight:500;color:var(--ink);display:block;}
-.stat-label{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--gold-dim);}
+.stat-num{font-family:'DM Mono',monospace;font-size:22px;font-weight:600;color:white;display:block;}
+.stat-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.8);}
 
 /* SHARED */
 .section-title{font-family:'DM Serif Display',serif;font-size:22px;padding:28px 20px 12px;max-width:760px;margin:0 auto;display:flex;align-items:center;gap:10px;}
 .section-title::after{content:'';flex:1;height:1px;background:var(--border);}
-.card{background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:0 2px 8px var(--shadow);}
+.card{background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:0 4px 12px var(--shadow);}
 
 /* RESET BTN */
 .reset-btn{display:inline-flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);border:1px solid var(--border);background:transparent;padding:6px 12px;border-radius:6px;cursor:pointer;transition:all .15s;}
@@ -69,16 +80,27 @@ body{font-family:'Outfit',sans-serif;background:var(--paper);color:var(--ink);mi
 .dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:0 20px;max-width:760px;margin:0 auto;}
 @media(max-width:520px){.dash-grid{grid-template-columns:1fr;}}
 
-.streak-card{grid-column:1/-1;padding:24px 28px;display:flex;align-items:center;gap:24px;background:var(--ink);color:var(--paper);border-radius:12px;position:relative;overflow:hidden;}
-.streak-card::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 14px,rgba(201,168,76,.05) 14px,rgba(201,168,76,.05) 15px);}
+/* GAMIFICAÇÃO CARD */
+.gamification-card { grid-column: 1 / -1; padding: 20px 24px; display: flex; align-items: center; gap: 20px; background: linear-gradient(135deg, var(--gold) 0%, #92400e 100%); color: white; border: none; }
+.level-circle { width: 64px; height: 64px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; flex-direction: column; align-items: center; justify-content: center; border: 2px solid rgba(255,255,255,0.4); flex-shrink: 0; box-shadow: 0 4px 10px rgba(0,0,0,0.2);}
+.level-circle span:first-child { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; opacity: 0.9; }
+.level-circle span:last-child { font-size: 26px; font-weight: 700; font-family: 'DM Mono', monospace; line-height: 1; }
+.xp-info { flex: 1; }
+.xp-title { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+.xp-bar-bg { background: rgba(0,0,0,0.2); border-radius: 6px; height: 10px; overflow: hidden; margin-bottom: 6px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); }
+.xp-fill { background: var(--gold-light); height: 100%; transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1); border-radius: 6px; }
+.xp-text { font-size: 11px; font-family: 'DM Mono', monospace; opacity: 0.8; }
+
+.streak-card{grid-column:1/-1;padding:24px 28px;display:flex;align-items:center;gap:24px;background:var(--ink);color:var(--paper);border-radius:12px;position:relative;overflow:hidden; border:none;}
+.streak-card::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 14px,rgba(255,255,255,.03) 14px,rgba(255,255,255,.03) 15px);}
 .streak-fire{font-size:52px;line-height:1;position:relative;flex-shrink:0;}
 .streak-info{position:relative;}
-.streak-num{font-family:'DM Mono',monospace;font-size:48px;font-weight:500;color:var(--gold);line-height:1;}
-.streak-label{font-size:13px;color:rgba(245,243,238,.6);margin-top:2px; line-height:1.4;}
-.streak-best{font-family:'DM Mono',monospace;font-size:11px;color:var(--gold-dim);margin-top:6px;}
+.streak-num{font-family:'DM Mono',monospace;font-size:48px;font-weight:600;color:var(--gold-light);line-height:1;}
+.streak-label{font-size:13px;color:rgba(248,250,252,.7);margin-top:2px; line-height:1.4;}
+.streak-best{font-family:'DM Mono',monospace;font-size:11px;color:rgba(248,250,252,.5);margin-top:6px;}
 .streak-meta{margin-left:auto;position:relative;text-align:center;}
-.streak-meta-num{font-size:28px;font-family:'DM Mono',monospace;color:var(--gold);}
-.streak-meta-label{font-size:11px;color:rgba(245,243,238,.4);font-family:'DM Mono',monospace;}
+.streak-meta-num{font-size:28px;font-family:'DM Mono',monospace;color:var(--gold-light);}
+.streak-meta-label{font-size:11px;color:rgba(248,250,252,.5);font-family:'DM Mono',monospace;}
 
 .goal-card{padding:20px 24px;}
 .goal-card h3{font-size:14px;font-weight:600;margin-bottom:14px;}
@@ -94,10 +116,10 @@ body{font-family:'Outfit',sans-serif;background:var(--paper);color:var(--ink);mi
 .heatmap{display:flex;gap:3px;flex-wrap:wrap;}
 .hm-day{width:14px;height:14px;border-radius:3px;background:var(--cream);position:relative;cursor:default;}
 .hm-day:hover .hm-tip{display:block;}
-.hm-day.s1{background:#b8dfc9;}
-.hm-day.s2{background:#72bf97;}
-.hm-day.s3{background:#2e9e65;}
-.hm-day.s4{background:var(--green);}
+.hm-day.s1{background:#a7f3d0;}
+.hm-day.s2{background:#34d399;}
+.hm-day.s3{background:#10b981;}
+.hm-day.s4{background:#059669;}
 .hm-day.today{outline:2px solid var(--gold);outline-offset:1px;}
 .hm-tip{display:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--ink);color:var(--paper);font-size:10px;font-family:'DM Mono',monospace;padding:4px 8px;border-radius:4px;white-space:nowrap;z-index:10;pointer-events:none;}
 .hm-legend{display:flex;align-items:center;gap:6px;margin-top:10px;font-size:10px;color:var(--muted);}
@@ -113,43 +135,43 @@ body{font-family:'Outfit',sans-serif;background:var(--paper);color:var(--ink);mi
 .bar-val{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);min-width:36px;text-align:right;}
 
 /* PIX CARD */
-.pix-card { grid-column: 1 / -1; padding: 24px; text-align: center; border-color: var(--gold); background: #fffbf0; }
+.pix-card { grid-column: 1 / -1; padding: 24px; text-align: center; border-color: var(--gold-light); background: #fef3c7; }
 .pix-card h3 { font-size: 16px; margin-bottom: 8px; color: var(--ink); }
 .pix-card p { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
-.pix-qr { border-radius: 8px; margin-bottom: 16px; border: 4px solid white; box-shadow: 0 2px 8px var(--shadow); width: 150px; height: 150px; }
+.pix-qr { border-radius: 8px; margin-bottom: 16px; border: 4px solid white; box-shadow: 0 4px 12px var(--shadow); width: 150px; height: 150px; }
 .pix-input-wrap { display: flex; justify-content: center; margin-bottom: 12px; }
 .pix-input { width: 100%; max-width: 320px; padding: 10px; font-family: 'DM Mono', monospace; font-size: 10px; border: 1px solid var(--border); border-radius: 6px; background: white; color: var(--muted); text-align: center; }
-.pix-btn { background: var(--gold); color: var(--ink); border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; font-family: 'Outfit', sans-serif; transition: background 0.2s; font-size: 13px; }
-.pix-btn:hover { background: var(--gold-light); }
+.pix-btn { background: var(--gold); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; font-family: 'Outfit', sans-serif; transition: background 0.2s; font-size: 13px; }
+.pix-btn:hover { background: var(--gold-dim); }
 .pix-msg { font-size: 11px; color: var(--green); margin-top: 10px; font-weight: 500; opacity: 0; transition: opacity 0.3s; height: 14px; }
 
 /* ── CHECKLIST ── */
 .progress-section{padding:24px 20px;max-width:760px;margin:0 auto;}
 .progress-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
 .progress-header h2{font-family:'DM Serif Display',serif;font-size:20px;}
-.overall-progress{display:flex;align-items:center;gap:20px;background:white;border:1px solid var(--border);border-radius:12px;padding:20px 24px;box-shadow:0 2px 12px var(--shadow);}
+.overall-progress{display:flex;align-items:center;gap:20px;background:white;border:1px solid var(--border);border-radius:12px;padding:20px 24px;box-shadow:0 4px 12px var(--shadow);}
 .ring-wrap{position:relative;flex-shrink:0;}
 .ring-wrap svg{display:block;}
 .ring-label{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-.ring-pct{font-family:'DM Mono',monospace;font-size:20px;font-weight:500;color:var(--ink);}
+.ring-pct{font-family:'DM Mono',monospace;font-size:20px;font-weight:600;color:var(--ink);}
 .ring-sub{font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;}
 .progress-info h3{font-size:16px;font-weight:600;margin-bottom:4px;}
 .progress-info p{font-size:13px;color:var(--muted);}
 .progress-info p span{font-family:'DM Mono',monospace;}
 
-.elim-note{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-family:'DM Mono',monospace;background:#fff3e0;color:#7a4800;border:1px solid #e6a023;border-radius:4px;padding:3px 8px;margin-top:6px;}
-.elim-note-red{background:#fff0f0;color:var(--red);border-color:#f5c6c0;}
+.elim-note{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-family:'DM Mono',monospace;background:#fef3c7;color:#b45309;border:1px solid #fcd34d;border-radius:6px;padding:4px 8px;margin-top:6px;}
+.elim-note-red{background:#fee2e2;color:var(--red);border-color:#fca5a5;}
 
 /* CONTROLES DO CHECKLIST (Busca e Ordenação) */
 .checklist-controls { max-width: 760px; margin: 0 auto 16px; padding: 0 20px; display: flex; gap: 10px; flex-wrap: wrap; }
 .checklist-controls input { flex: 1; min-width: 200px; padding: 12px 16px; border-radius: 10px; border: 1px solid var(--border); font-family: 'Outfit', sans-serif; font-size: 14px; background: white; color: var(--ink); box-shadow: 0 2px 8px var(--shadow); transition: border-color 0.2s; }
 .checklist-controls input:focus { outline: none; border-color: var(--gold); }
 .checklist-controls button { padding: 10px 16px; border-radius: 10px; border: 1px solid var(--border); background: white; color: var(--ink); font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 2px 8px var(--shadow); transition: all 0.2s; }
-.checklist-controls button.active { background: var(--gold); border-color: var(--gold); }
+.checklist-controls button.active { background: var(--gold); color: white; border-color: var(--gold); }
 
 .discipline-card{max-width:760px;margin:0 auto 16px;padding:0 20px;}
-.card-inner{background:white;border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px var(--shadow);transition:box-shadow .2s;}
-.card-inner:hover{box-shadow:0 4px 20px var(--shadow);}
+.card-inner{background:white;border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 4px 12px var(--shadow);transition:box-shadow .2s;}
+.card-inner:hover{box-shadow:0 6px 20px var(--shadow);}
 .card-header{display:flex;align-items:center;gap:14px;padding:16px 20px;cursor:pointer;user-select:none;transition:background .15s;}
 .card-header:hover{background:var(--cream);}
 .card-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
@@ -157,123 +179,128 @@ body{font-family:'Outfit',sans-serif;background:var(--paper);color:var(--ink);mi
 .card-meta h3{font-size:15px;font-weight:600;}
 .card-info{display:flex;align-items:center;gap:8px;margin-top:4px;flex-wrap:wrap;}
 .pill{font-size:10px;font-family:'DM Mono',monospace;padding:2px 8px;border-radius:20px;font-weight:500;letter-spacing:.5px;}
-.pill-q{background:#e8f0fd;color:var(--blue);}
-.pill-peso{background:#fff8e1;color:var(--gold-dim);}
-.pill-elim{background:#fff0f0;color:var(--red);}
-.pill-class{background:#f0fdf4;color:var(--green);}
+.pill-q{background:#e0f2fe;color:var(--blue);}
+.pill-peso{background:#fef3c7;color:var(--gold-dim);}
+.pill-elim{background:#fee2e2;color:var(--red);}
+.pill-class{background:#d1fae5;color:var(--green);}
 .card-pct{font-family:'DM Mono',monospace;font-size:13px;color:var(--muted);margin-right:4px;min-width:36px;text-align:right;}
 .mini-bar{width:60px;height:4px;background:var(--cream);border-radius:2px;overflow:hidden;}
 .mini-fill{height:100%;border-radius:2px;transition:width .4s ease;}
 .chevron{font-size:14px;color:var(--muted);transition:transform .25s;flex-shrink:0;}
 .card-inner.open .chevron{transform:rotate(180deg);}
 .topics-list{display:none;border-top:1px solid var(--border);padding:0 20px 16px; display: flex; flex-direction: column;}
-.card-inner:not(.open) .topics-list{display:none !important;} /* Force hide when closed */
-.topic-item{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px dashed var(--border);cursor:pointer;transition:opacity .15s;}
+.card-inner:not(.open) .topics-list{display:none !important;}
+.topic-item{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px dashed var(--border);cursor:pointer;transition:opacity .15s;}
 .topic-item:last-child{border-bottom:none;}
 .topic-item:hover{opacity:.8;}
-.topic-check{width:20px;height:20px;border:2px solid var(--border);border-radius:5px;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .15s;background:white;}
+.topic-check{width:22px;height:22px;border:2px solid var(--border);border-radius:6px;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .2s;background:white;}
 .topic-item.done .topic-check{background:var(--green) !important;border-color:var(--green) !important;}
-.topic-item.done .topic-check::after{content:'✓';color:white;font-size:12px;font-weight:700;}
+.topic-item.done .topic-check::after{content:'✓';color:white;font-size:13px;font-weight:700;}
 .topic-text{flex:1;}
-.topic-name{font-size:13px;font-weight:500;line-height:1.4;}
+.topic-name{font-size:14px;font-weight:500;line-height:1.4;}
 .topic-item.done .topic-name{text-decoration:line-through;color:var(--muted);}
-.topic-tag{font-size:10px;font-family:'DM Mono',monospace;color:var(--muted);margin-top:2px;}
-.hot-tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;background:#fff0f0;color:var(--red);border:1px solid #f5c6c0;border-radius:3px;padding:1px 5px;margin-left:6px;vertical-align:middle;}
+.topic-tag{font-size:11px;font-family:'DM Mono',monospace;color:var(--muted);margin-top:4px;}
+.hot-tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;background:#fee2e2;color:var(--red);border:1px solid #fca5a5;border-radius:4px;padding:2px 6px;margin-left:6px;vertical-align:middle;}
 
 .bloco-info{max-width:760px;margin:0 auto 8px;padding:0 20px;}
-.bloco-info-inner{background:#fffbf0;border:1px solid #e6c84c;border-radius:8px;padding:10px 14px;font-size:12px;color:#7a5a00;display:flex;gap:8px;align-items:flex-start;}
+.bloco-info-inner{background:#fef3c7;border:1px solid #fde68a;border-radius:8px;padding:12px 16px;font-size:12px;color:#92400e;display:flex;gap:8px;align-items:flex-start;}
 .bloco-info-inner b{white-space:nowrap;}
 
 /* ── AGENDA ── */
 .agenda-wrap{max-width:760px;margin:0 auto;padding:0 20px 20px;}
 .week-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-top:4px;}
 .week-nav h3{font-family:'DM Serif Display',serif;font-size:18px;}
-.week-btn{background:white;border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:13px;cursor:pointer;transition:all .15s;color:var(--ink);font-family:'Outfit',sans-serif;}
+.week-btn{background:white;border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:13px;cursor:pointer;transition:all .15s;color:var(--ink);font-family:'Outfit',sans-serif;font-weight:500;}
 .week-btn:hover{background:var(--cream);}
-.week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;}
+.week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;}
 @media(max-width:600px){.week-grid{grid-template-columns:repeat(4,1fr);}}
 @media(max-width:400px){.week-grid{grid-template-columns:repeat(2,1fr);}}
-.day-col{background:white;border:1px solid var(--border);border-radius:10px;padding:12px 10px;min-height:110px;transition:box-shadow .2s;}
-.day-col.today-col{border-color:var(--gold);box-shadow:0 0 0 2px rgba(201,168,76,.2);}
-.day-name{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:3px;}
-.day-date{font-family:'DM Mono',monospace;font-size:18px;font-weight:500;color:var(--ink);margin-bottom:8px;}
+.day-col{background:white;border:1px solid var(--border);border-radius:10px;padding:14px 12px;min-height:120px;transition:box-shadow .2s; box-shadow:0 2px 6px var(--shadow);}
+.day-col.today-col{border-color:var(--gold);box-shadow:0 0 0 2px rgba(217, 119, 6, 0.2);}
+.day-name{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.day-date{font-family:'DM Mono',monospace;font-size:20px;font-weight:600;color:var(--ink);margin-bottom:10px;}
 .day-col.today-col .day-date{color:var(--gold);}
-.day-tasks{display:flex;flex-direction:column;gap:4px;}
-.day-task{display:flex;align-items:flex-start;gap:5px;font-size:11px;line-height:1.3;padding:4px 6px;border-radius:4px;cursor:pointer;background:var(--cream);transition:all .15s;border:none;text-align:left;width:100%;font-family:'Outfit',sans-serif;color:var(--ink);}
+.day-tasks{display:flex;flex-direction:column;gap:6px;}
+.day-task{display:flex;align-items:flex-start;gap:6px;font-size:12px;line-height:1.3;padding:6px 8px;border-radius:6px;cursor:pointer;background:var(--cream);transition:all .15s;border:none;text-align:left;width:100%;font-family:'Outfit',sans-serif;color:var(--ink);}
 .day-task:hover{filter:brightness(.95);}
-.day-task.task-done{opacity:.5;text-decoration:line-through;}
-.task-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:3px;}
-.add-task-btn{margin-top:6px;width:100%;font-size:11px;color:var(--muted);border:1px dashed var(--border);background:none;border-radius:4px;padding:5px;cursor:pointer;transition:all .15s;font-family:'Outfit',sans-serif;}
+.day-task.task-done{opacity:.5;text-decoration:line-through; background: transparent; border: 1px dashed var(--border);}
+.task-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:3px;}
+.add-task-btn{margin-top:8px;width:100%;font-size:12px;color:var(--muted);border:1px dashed var(--border);background:transparent;border-radius:6px;padding:6px;cursor:pointer;transition:all .15s;font-family:'Outfit',sans-serif;font-weight:500;}
 .add-task-btn:hover{color:var(--gold);border-color:var(--gold);}
 
 /* MODAL */
-.modal-backdrop{position:fixed;inset:0;background:rgba(15,15,20,.5);z-index:200;display:none;align-items:center;justify-content:center;padding:20px;}
+.modal-backdrop{position:fixed;inset:0;background:rgba(15,23,42,.6);backdrop-filter: blur(2px); z-index:200;display:none;align-items:center;justify-content:center;padding:20px;}
 .modal-backdrop.show{display:flex;}
-.modal{background:white;border-radius:16px;padding:28px;width:100%;max-width:400px;box-shadow:0 20px 60px rgba(15,15,20,.25);}
+.modal{background:white;border-radius:16px;padding:28px;width:100%;max-width:400px;box-shadow:0 20px 60px rgba(0,0,0,.25);}
 .modal h3{font-family:'DM Serif Display',serif;font-size:20px;margin-bottom:20px;}
 .modal label{display:block;font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
-.modal input,.modal select{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-family:'Outfit',sans-serif;font-size:13px;color:var(--ink);background:var(--paper);margin-bottom:16px;}
+.modal input,.modal select{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-family:'Outfit',sans-serif;font-size:14px;color:var(--ink);background:var(--paper);margin-bottom:16px;}
+.modal input:focus, .modal select:focus { outline: none; border-color: var(--gold); }
 .modal-btns{display:flex;gap:10px;justify-content:flex-end;}
-.btn-cancel{padding:9px 18px;border:1px solid var(--border);border-radius:8px;background:transparent;font-size:13px;cursor:pointer;color:var(--muted);transition:all .15s;font-family:'Outfit',sans-serif;}
+.btn-cancel{padding:10px 18px;border:1px solid var(--border);border-radius:8px;background:transparent;font-size:13px;cursor:pointer;color:var(--muted);transition:all .15s;font-family:'Outfit',sans-serif;font-weight:500;}
 .btn-cancel:hover{background:var(--cream);}
-.btn-save{padding:9px 18px;border:none;border-radius:8px;background:var(--gold);color:var(--ink);font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;font-family:'Outfit',sans-serif;}
-.btn-save:hover{background:var(--gold-light);}
-.btn-del{padding:9px 14px;border:1px solid var(--red);border-radius:8px;background:transparent;color:var(--red);font-size:13px;cursor:pointer;transition:all .15s;margin-right:auto;font-family:'Outfit',sans-serif;}
-.btn-del:hover{background:rgba(192,57,43,0.1);}
+.btn-save{padding:10px 18px;border:none;border-radius:8px;background:var(--gold);color:white;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;font-family:'Outfit',sans-serif;}
+.btn-save:hover{background:var(--gold-dim);}
+.btn-del{padding:10px 14px;border:1px solid var(--red);border-radius:8px;background:transparent;color:var(--red);font-size:13px;cursor:pointer;transition:all .15s;margin-right:auto;font-family:'Outfit',sans-serif;font-weight:500;}
+.btn-del:hover{background:rgba(239, 68, 68, 0.1);}
 
 /* ── CRONOGRAMA ── */
 .timeline-section{padding:0 20px;max-width:760px;margin:0 auto;}
-.phase-block{background:white;border:1px solid var(--border);border-radius:12px;margin-bottom:12px;overflow:hidden;box-shadow:0 2px 8px var(--shadow);}
-.phase-header{display:flex;align-items:center;gap:14px;padding:14px 20px;background:var(--ink);color:var(--paper);}
-.phase-num{font-family:'DM Mono',monospace;font-size:20px;font-weight:500;color:var(--gold);min-width:28px;}
-.phase-header h3{font-size:14px;font-weight:600;}
-.phase-header span{font-size:11px;color:rgba(245,243,238,.5);margin-left:auto;font-family:'DM Mono',monospace;}
-.phase-body{padding:16px 20px;}
-.phase-rows{display:flex;flex-direction:column;gap:8px;}
-.phase-row{display:flex;align-items:center;gap:10px;font-size:13px;}
-.phase-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
-.tips-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 20px;max-width:760px;margin:0 auto;}
+.phase-block{background:white;border:1px solid var(--border);border-radius:12px;margin-bottom:16px;overflow:hidden;box-shadow:0 4px 12px var(--shadow);}
+.phase-header{display:flex;align-items:center;gap:14px;padding:16px 20px;background:var(--ink);color:var(--paper);}
+.phase-num{font-family:'DM Mono',monospace;font-size:22px;font-weight:600;color:var(--gold-light);min-width:32px;}
+.phase-header h3{font-size:15px;font-weight:600;}
+.phase-header span{font-size:11px;color:rgba(248,250,252,.5);margin-left:auto;font-family:'DM Mono',monospace;}
+.phase-body{padding:20px;}
+.phase-rows{display:flex;flex-direction:column;gap:10px;}
+.phase-row{display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.4;}
+.phase-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0; margin-top: 5px;}
+.tips-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:0 20px;max-width:760px;margin:0 auto;}
 @media(max-width:520px){.tips-grid{grid-template-columns:1fr;}}
-.tip-card{background:white;border:1px solid var(--border);border-radius:12px;padding:16px 18px;box-shadow:0 2px 8px var(--shadow);}
-.tip-card h4{font-size:13px;font-weight:700;margin-bottom:8px;}
-.tip-card ul{list-style:none;display:flex;flex-direction:column;gap:6px;}
-.tip-card li{font-size:12px;color:var(--muted);padding-left:12px;position:relative;line-height:1.5;}
-.tip-card li::before{content:'→';position:absolute;left:0;color:var(--gold);font-size:10px;top:2px;}
-.footer{text-align:center;padding:28px 20px 0;font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;letter-spacing:.5px;}
+.tip-card{background:white;border:1px solid var(--border);border-radius:12px;padding:20px;box-shadow:0 4px 12px var(--shadow);}
+.tip-card h4{font-size:14px;font-weight:700;margin-bottom:12px; color:var(--ink);}
+.tip-card ul{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.tip-card li{font-size:13px;color:var(--muted);padding-left:14px;position:relative;line-height:1.5;}
+.tip-card li::before{content:'→';position:absolute;left:0;color:var(--gold);font-size:12px;top:1px;}
+.footer{text-align:center;padding:32px 20px 16px;font-size:11px;color:var(--muted);line-height:1.6;}
+.lgpd-badge{display:inline-block; background:rgba(16, 185, 129, 0.1); color:var(--green); border:1px solid rgba(16, 185, 129, 0.3); padding:4px 10px; border-radius:6px; margin-top:8px; font-weight:500;}
 
-.crono-table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:16px;}
-.crono-table th{background:var(--ink);color:var(--gold);padding:8px 12px;text-align:left;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.5px;}
-.crono-table td{padding:8px 12px;border-bottom:1px solid var(--border);vertical-align:top;}
+.crono-table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:20px;}
+.crono-table th{background:var(--ink);color:var(--gold-light);padding:10px 14px;text-align:left;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.5px;}
+.crono-table td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:top;}
 .crono-table tr:nth-child(even) td{background:var(--cream);}
-.crono-table-wrap{background:white;border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px var(--shadow);margin-bottom:16px;}
+.crono-table-wrap{background:white;border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 4px 12px var(--shadow);margin-bottom:24px;}
 
 ::-webkit-scrollbar{width:6px;height:6px;}
 ::-webkit-scrollbar-track{background:var(--cream);}
-::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+::-webkit-scrollbar-thumb{background:var(--muted);border-radius:3px;}
 
 /* MOBILE */
-.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:150;background:var(--ink);border-top:1px solid rgba(255,255,255,.08);padding:0 0 env(safe-area-inset-bottom,0);box-shadow:0 -4px 24px rgba(15,15,20,.35);}
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:150;background:var(--ink);border-top:1px solid rgba(255,255,255,.08);padding:0 0 env(safe-area-inset-bottom,0);box-shadow:0 -4px 24px rgba(0,0,0,.4);}
 .bottom-nav-inner{display:flex;}
-.bn-tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 4px 8px;gap:3px;border:none;background:transparent;cursor:pointer;color:rgba(245,243,238,.38);transition:color .18s;-webkit-tap-highlight-color:transparent;min-height:56px;}
-.bn-tab.active{color:var(--gold);}
+.bn-tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 4px 8px;gap:3px;border:none;background:transparent;cursor:pointer;color:rgba(248,250,252,.4);transition:color .18s;-webkit-tap-highlight-color:transparent;min-height:56px;}
+.bn-tab.active{color:var(--gold-light);}
 .bn-tab svg,.bn-tab .bn-icon{font-size:20px;line-height:1;}
 .bn-label{font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;font-family:'Outfit',sans-serif;}
-.bn-tab.active .bn-dot{width:4px;height:4px;border-radius:50%;background:var(--gold);margin-top:2px;}
+.bn-tab.active .bn-dot{width:4px;height:4px;border-radius:50%;background:var(--gold-light);margin-top:2px;}
 
 @media(max-width:600px){
   .hero{padding:28px 20px 24px;}
   .hero h1{font-size:26px;}
-  .hero p{font-size:12px;margin-top:6px;}
+  .hero p{font-size:13px;margin-top:8px;}
   .badge{font-size:9px;}
   .nav-tabs{display:none;}
   .bottom-nav{display:block;}
   body{padding-bottom:calc(64px + env(safe-area-inset-bottom,0));}
-  .stat{min-width:80px;padding:10px 12px;}
+  .stat{min-width:80px;padding:12px;}
   .stat-num{font-size:18px;}
   .stat-label{font-size:9px;}
-  .section-title{font-size:18px;padding:20px 16px 10px;}
+  .section-title{font-size:20px;padding:24px 16px 12px;}
   .dash-grid{grid-template-columns:1fr;padding:0 12px;gap:12px;}
-  .streak-card{padding:18px 20px;gap:16px;}
+  .gamification-card{padding:16px; gap: 16px;}
+  .level-circle{width: 54px; height: 54px;}
+  .level-circle span:last-child { font-size: 22px; }
+  .streak-card{padding:20px;gap:16px;}
   .streak-fire{font-size:40px;}
   .streak-num{font-size:38px;}
   .hm-day{width:12px;height:12px;}
@@ -283,52 +310,47 @@ body{font-family:'Outfit',sans-serif;background:var(--paper);color:var(--ink);mi
   .topics-list{padding:0 14px 12px;}
   .topic-item{padding:12px 0;gap:10px;}
   .topic-check{width:24px;height:24px;border-radius:6px;flex-shrink:0;}
-  .topic-name{font-size:14px;}
-  .topic-tag{font-size:11px;}
   .progress-section{padding:16px 12px;}
   .overall-progress{padding:16px 18px;gap:16px;}
   .agenda-wrap{padding:0 12px 12px;}
   .week-grid{grid-template-columns:1fr !important;}
   .day-col{min-height:auto;display:flex;flex-direction:row;align-items:flex-start;gap:12px;flex-wrap:wrap;}
   .day-col .day-name,.day-col .day-date{flex-shrink:0;}
-  .day-col .day-date{font-size:22px;min-width:32px;}
+  .day-col .day-date{font-size:22px;min-width:32px;margin-bottom:0;}
   .day-col .day-tasks{flex:1;}
-  .day-col .add-task-btn{width:auto;padding:5px 12px;}
-  .day-task{font-size:13px;padding:7px 10px;}
-  .add-task-btn{font-size:13px;padding:8px;}
+  .day-col .add-task-btn{width:auto;padding:6px 12px;}
   .timeline-section{padding:0 12px;}
-  .phase-body{padding:14px 16px;}
-  .phase-row{font-size:12px;}
+  .phase-body{padding:16px;}
   .tips-grid{padding:0 12px;grid-template-columns:1fr;}
   .modal-backdrop{align-items:flex-end;padding:0;}
   .modal{border-radius:20px 20px 0 0;padding:24px 24px calc(24px + env(safe-area-inset-bottom,0));max-width:100%;animation:slideUp .28s cubic-bezier(.32,1,.36,1);}
   @keyframes slideUp{from{transform:translateY(100%);}to{transform:translateY(0);}}
   #save-toast{bottom:calc(72px + env(safe-area-inset-bottom,0));right:16px;}
-  .reset-btn{font-size:9px;padding:5px 10px;}
 }
 
 @media(hover:none){
-  .topic-item:active{opacity:.6;background:var(--cream);border-radius:6px;}
+  .topic-item:active{opacity:.6;background:var(--cream);border-radius:8px;}
   .card-header:active{background:var(--cream);}
   .day-task:active{filter:brightness(.88);}
-  .bn-tab:active{color:var(--gold-light);}
+  .bn-tab:active{color:var(--gold);}
 }
 
 /* ── MODO ESCURO ── */
-.theme-toggle { position: absolute; top: 0; right: 0; background: transparent; border: 1px solid rgba(245,243,238,.2); border-radius: 8px; font-size: 16px; padding: 6px; cursor: pointer; transition: background 0.2s; }
+.theme-toggle { position: absolute; top: 0; right: 0; background: transparent; border: 1px solid rgba(248,250,252,.2); border-radius: 8px; font-size: 16px; padding: 6px; cursor: pointer; transition: background 0.2s; }
 .theme-toggle:hover { background: rgba(255,255,255,0.1); }
-body.dark-theme { --ink: #f5f3ee; --paper: #0a0a0d; --cream: #1c1c24; --border: #2a2a35; --shadow: rgba(0,0,0,0.6); }
-body.dark-theme .card, body.dark-theme .card-inner, body.dark-theme .overall-progress, body.dark-theme .day-col, body.dark-theme .tip-card, body.dark-theme .modal, body.dark-theme .phase-block, body.dark-theme .crono-table-wrap, body.dark-theme .pix-card, body.dark-theme .week-btn, body.dark-theme .checklist-controls input, body.dark-theme .checklist-controls button { background: #14141a !important; }
+body.dark-theme { --ink: #f8fafc; --paper: #0f172a; --cream: #1e293b; --border: #334155; --shadow: rgba(0,0,0,0.4); }
+body.dark-theme .card, body.dark-theme .card-inner, body.dark-theme .overall-progress, body.dark-theme .day-col, body.dark-theme .tip-card, body.dark-theme .modal, body.dark-theme .phase-block, body.dark-theme .crono-table-wrap, body.dark-theme .week-btn, body.dark-theme .checklist-controls input, body.dark-theme .checklist-controls button { background: #1e293b !important; }
+body.dark-theme .pix-card { background: #422006 !important; border-color: var(--gold-dim); }
 body.dark-theme .topic-check { background: transparent; }
-body.dark-theme .day-task { background: var(--cream); color: var(--ink); }
-body.dark-theme .bloco-info-inner { background: #1f1906; border-color: var(--gold-dim); color: var(--gold-light); }
-body.dark-theme .elim-note { background: #2b1804; color: #f2aa46; border-color: #a86c1c; }
-body.dark-theme .elim-note-red { background: #2e0e0e; color: #ff6b6b; border-color: #8c2626; }
-body.dark-theme .pill-q { background: #112240; color: #6495ed; }
-body.dark-theme .pill-peso { background: #2b2510; color: var(--gold-light); }
-body.dark-theme .pill-elim { background: #2e0e0e; color: #ff6b6b; }
-body.dark-theme .pill-class { background: #0f2918; color: #4ade80; }
-body.dark-theme .hot-tag { background: #2e0e0e; color: #ff6b6b; border-color: #8c2626; }
+body.dark-theme .day-task { background: #0f172a; color: var(--ink); }
+body.dark-theme .bloco-info-inner { background: #422006; border-color: var(--gold-dim); color: var(--gold-light); }
+body.dark-theme .elim-note { background: #422006; color: #fbbf24; border-color: #b45309; }
+body.dark-theme .elim-note-red { background: #450a0a; color: #f87171; border-color: #991b1b; }
+body.dark-theme .pill-q { background: #1e3a8a; color: #93c5fd; }
+body.dark-theme .pill-peso { background: #422006; color: var(--gold-light); }
+body.dark-theme .pill-elim { background: #450a0a; color: #f87171; }
+body.dark-theme .pill-class { background: #064e3b; color: #34d399; }
+body.dark-theme .hot-tag { background: #450a0a; color: #f87171; border-color: #991b1b; }
 </style>
 </head>
 <body>
@@ -367,13 +389,13 @@ body.dark-theme .hot-tag { background: #2e0e0e; color: #ff6b6b; border-color: #8
     <input type="text" id="task-input" placeholder="Ex: Estudar CPC arts. 319-340" maxlength="60">
     <label>Disciplina</label>
     <select id="task-color">
-      <option value="#1d4e8f">📘 Língua Portuguesa</option>
-      <option value="#1a7a4a">⚖️ Direito</option>
-      <option value="#c9a84c">🗞️ Atualidades</option>
-      <option value="#c0392b">🔢 Matemática</option>
-      <option value="#5b2d8e">💻 Informática</option>
-      <option value="#c0672b">🧩 Raciocínio Lógico</option>
-      <option value="#0f0f14">✍️ Redação</option>
+      <option value="#3b82f6">📘 Língua Portuguesa</option>
+      <option value="#10b981">⚖️ Direito</option>
+      <option value="#d97706">🗞️ Atualidades</option>
+      <option value="#ef4444">🔢 Matemática</option>
+      <option value="#8b5cf6">💻 Informática</option>
+      <option value="#f97316">🧩 Raciocínio Lógico</option>
+      <option value="#1e293b">✍️ Redação</option>
     </select>
     <div class="modal-btns">
       <button class="btn-del" id="modal-del" style="display:none" onclick="deleteTask()">Excluir</button>
@@ -388,7 +410,7 @@ body.dark-theme .hot-tag { background: #2e0e0e; color: #ff6b6b; border-color: #8
     <button onclick="toggleTheme()" class="theme-toggle" title="Alternar Modo Escuro">🌓</button>
     <div class="badge">Edital 02/2025 · Banca VUNESP · Nível Médio</div>
     <h1>Plano de Estudos<br><em>TJ-SP Escrevente</em></h1>
-    <p>Conteúdo programático conforme Anexo VI do edital. Dashboard · Streak · Agenda · Checklist completo.</p>
+    <p>Conteúdo programático conforme Anexo VI do edital. Dashboard · Streak · Agenda · Gamificação.</p>
   </div>
 </div>
 <div class="stats-bar">
@@ -410,6 +432,20 @@ body.dark-theme .hot-tag { background: #2e0e0e; color: #ff6b6b; border-color: #8
   <div class="section-title">🏆 Desempenho</div>
   <div class="dash-grid">
 
+    <div class="card gamification-card">
+      <div class="level-circle">
+        <span>Lvl</span>
+        <span id="level-num">1</span>
+      </div>
+      <div class="xp-info">
+        <div class="xp-title" id="level-title">Novato</div>
+        <div class="xp-bar-bg">
+          <div class="xp-fill" id="xp-fill" style="width: 0%;"></div>
+        </div>
+        <div class="xp-text" id="xp-text">0 / 100 XP para o Nível 2</div>
+      </div>
+    </div>
+
     <div class="card streak-card">
       <div class="streak-fire" id="streak-fire">💤</div>
       <div class="streak-info">
@@ -418,7 +454,7 @@ body.dark-theme .hot-tag { background: #2e0e0e; color: #ff6b6b; border-color: #8
         <div class="streak-best" id="streak-best">recorde: 0 dias</div>
       </div>
       <div class="streak-meta" style="margin-left:auto;text-align:center;position:relative;">
-        <div style="font-size:10px;color:rgba(245,243,238,.4);font-family:'DM Mono',monospace;margin-bottom:4px;">HOJE</div>
+        <div style="font-size:10px;color:rgba(248,250,252,.5);font-family:'DM Mono',monospace;margin-bottom:4px;">HOJE</div>
         <div class="streak-meta-num" id="daily-done-num">0</div>
         <div class="streak-meta-label">/ <span id="daily-goal-show">5</span> tópicos</div>
       </div>
@@ -440,9 +476,9 @@ body.dark-theme .hot-tag { background: #2e0e0e; color: #ff6b6b; border-color: #8
       <div class="hm-legend">
         menos
         <div class="hm-sq" style="background:var(--cream)"></div>
-        <div class="hm-sq" style="background:#b8dfc9"></div>
-        <div class="hm-sq" style="background:#2e9e65"></div>
-        <div class="hm-sq" style="background:var(--green)"></div>
+        <div class="hm-sq" style="background:#a7f3d0"></div>
+        <div class="hm-sq" style="background:#10b981"></div>
+        <div class="hm-sq" style="background:#059669"></div>
         mais
       </div>
     </div>
@@ -464,7 +500,10 @@ body.dark-theme .hot-tag { background: #2e0e0e; color: #ff6b6b; border-color: #8
     </div>
 
   </div>
-  <div class="footer" style="padding-top:20px;">Dados salvos no navegador · localStorage · Edital 02/2025 TJSP</div>
+  <div class="footer" style="padding-top:20px;">
+    Dados salvos no navegador · localStorage · Edital 02/2025 TJSP<br>
+    <span class="lgpd-badge">🔒 Em conformidade com a LGPD: Seus dados são salvos apenas no seu dispositivo.</span>
+  </div>
 </div>
 
 <div class="page" id="page-checklist">
@@ -476,8 +515,8 @@ body.dark-theme .hot-tag { background: #2e0e0e; color: #ff6b6b; border-color: #8
     <div class="overall-progress">
       <div class="ring-wrap">
         <svg width="80" height="80" viewBox="0 0 80 80">
-          <circle cx="40" cy="40" r="32" fill="none" stroke="#ede9e1" stroke-width="8"/>
-          <circle id="progress-ring" cx="40" cy="40" r="32" fill="none" stroke="#c9a84c" stroke-width="8"
+          <circle cx="40" cy="40" r="32" fill="none" stroke="var(--border)" stroke-width="8"/>
+          <circle id="progress-ring" cx="40" cy="40" r="32" fill="none" stroke="var(--gold)" stroke-width="8"
             stroke-dasharray="201.06" stroke-dashoffset="201.06" stroke-linecap="round" transform="rotate(-90 40 40)"
             style="transition:stroke-dashoffset .6s ease;"/>
         </svg>
@@ -489,7 +528,7 @@ body.dark-theme .hot-tag { background: #2e0e0e; color: #ff6b6b; border-color: #8
       <div class="progress-info">
         <h3>Tópicos concluídos</h3>
         <p><span id="topics-done">0</span> de <span id="topics-total">0</span> tópicos</p>
-        <p style="margin-top:6px;font-size:12px;">Clique para marcar como estudado.</p>
+        <p style="margin-top:6px;font-size:12px;">Clique para marcar como estudado (+10 XP)</p>
         <div class="elim-note">⚠️ Blocos I e II: eliminatório (mín. 50% cada)</div>
       </div>
     </div>
@@ -510,9 +549,9 @@ body.dark-theme .hot-tag { background: #2e0e0e; color: #ff6b6b; border-color: #8
   </div>
   <div class="discipline-card"><div class="card-inner" id="card-lp">
     <div class="card-header" onclick="toggleCard('card-lp')">
-      <div class="card-icon" style="background:#e8f0fd;">📝</div>
+      <div class="card-icon" style="background:#e0f2fe;">📝</div>
       <div class="card-meta"><h3>Língua Portuguesa</h3><div class="card-info"><span class="pill pill-q">16 questões</span><span class="pill pill-elim">⛔ Eliminatório</span><span class="pill pill-peso">mín. 8 acertos</span></div></div>
-      <span class="card-pct" id="pct-lp">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-lp" style="width:0%;background:#1d4e8f;"></div></div><span class="chevron">▼</span>
+      <span class="card-pct" id="pct-lp">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-lp" style="width:0%;background:var(--blue);"></div></div><span class="chevron">▼</span>
     </div>
     <div class="topics-list" id="list-lp">
       <div class="topic-item" data-key="lp-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Análise, compreensão e interpretação de textos <span class="hot-tag">🔥 mais cobrado</span></div><div class="topic-tag">Textos verbais, não verbais, literários e não literários · informações literais e inferências</div></div></div>
@@ -537,9 +576,9 @@ body.dark-theme .hot-tag { background: #2e0e0e; color: #ff6b6b; border-color: #8
 
   <div class="discipline-card"><div class="card-inner" id="card-dp">
     <div class="card-header" onclick="toggleCard('card-dp')">
-      <div class="card-icon" style="background:#fdf0f0;">🔴</div>
+      <div class="card-icon" style="background:#fee2e2;">🔴</div>
       <div class="card-meta"><h3>Direito Penal</h3><div class="card-info"><span class="pill pill-q">B.II · 30q total</span><span class="pill pill-elim">⛔ Eliminatório</span></div></div>
-      <span class="card-pct" id="pct-dp">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-dp" style="width:0%;background:#c0392b;"></div></div><span class="chevron">▼</span>
+      <span class="card-pct" id="pct-dp">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-dp" style="width:0%;background:var(--red);"></div></div><span class="chevron">▼</span>
     </div>
     <div class="topics-list" id="list-dp">
       <div class="topic-item" data-key="dp-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">CP arts. 293–305 — Falsidade documental <span class="hot-tag">🔥</span></div><div class="topic-tag">Falsificação de documentos públicos e particulares, moeda, selos</div></div></div>
@@ -554,9 +593,9 @@ body.dark-theme .hot-tag { background: #2e0e0e; color: #ff6b6b; border-color: #8
 
   <div class="discipline-card"><div class="card-inner" id="card-dpp">
     <div class="card-header" onclick="toggleCard('card-dpp')">
-      <div class="card-icon" style="background:#fdf6e8;">🔍</div>
+      <div class="card-icon" style="background:#fef3c7;">🔍</div>
       <div class="card-meta"><h3>Direito Processual Penal</h3><div class="card-info"><span class="pill pill-q">B.II · 30q total</span><span class="pill pill-elim">⛔ Eliminatório</span></div></div>
-      <span class="card-pct" id="pct-dpp">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-dpp" style="width:0%;background:#c9a84c;"></div></div><span class="chevron">▼</span>
+      <span class="card-pct" id="pct-dpp">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-dpp" style="width:0%;background:var(--gold);"></div></div><span class="chevron">▼</span>
     </div>
     <div class="topics-list" id="list-dpp">
       <div class="topic-item" data-key="dpp-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">CPP arts. 251–258, 261–267 — Juiz e defensor</div><div class="topic-tag">Poderes do juiz, suspeição, defesa técnica e defensoria</div></div></div>
@@ -571,9 +610,9 @@ body.dark-theme .hot-tag { background: #2e0e0e; color: #ff6b6b; border-color: #8
 
   <div class="discipline-card"><div class="card-inner" id="card-dpc">
     <div class="card-header" onclick="toggleCard('card-dpc')">
-      <div class="card-icon" style="background:#f0fdf4;">⚖️</div>
+      <div class="card-icon" style="background:#d1fae5;">⚖️</div>
       <div class="card-meta"><h3>Direito Processual Civil</h3><div class="card-info"><span class="pill pill-q">B.II · 30q total</span><span class="pill pill-elim">⛔ Eliminatório</span></div></div>
-      <span class="card-pct" id="pct-dpc">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-dpc" style="width:0%;background:#1a7a4a;"></div></div><span class="chevron">▼</span>
+      <span class="card-pct" id="pct-dpc">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-dpc" style="width:0%;background:var(--green);"></div></div><span class="chevron">▼</span>
     </div>
     <div class="topics-list" id="list-dpc">
       <div class="topic-item" data-key="dpc-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">CPC arts. 144–155 — Impedimento e suspeição do juiz <span class="hot-tag">🔥</span></div><div class="topic-tag">Hipóteses de impedimento, suspeição, arguição</div></div></div>
@@ -588,9 +627,9 @@ body.dark-theme .hot-tag { background: #2e0e0e; color: #ff6b6b; border-color: #8
 
   <div class="discipline-card"><div class="card-inner" id="card-dc">
     <div class="card-header" onclick="toggleCard('card-dc')">
-      <div class="card-icon" style="background:#e8f0fd;">🏛️</div>
+      <div class="card-icon" style="background:#e0f2fe;">🏛️</div>
       <div class="card-meta"><h3>Direito Constitucional</h3><div class="card-info"><span class="pill pill-q">B.II · 30q total</span><span class="pill pill-elim">⛔ Eliminatório</span></div></div>
-      <span class="card-pct" id="pct-dc">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-dc" style="width:0%;background:#1d4e8f;"></div></div><span class="chevron">▼</span>
+      <span class="card-pct" id="pct-dc">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-dc" style="width:0%;background:var(--blue);"></div></div><span class="chevron">▼</span>
     </div>
     <div class="topics-list" id="list-dc">
       <div class="topic-item" data-key="dc-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">CF Título II Cap. I — Direitos e Deveres Individuais e Coletivos <span class="hot-tag">🔥</span></div><div class="topic-tag">Art. 5º: rol dos direitos fundamentais, habeas corpus, mandado de segurança, etc.</div></div></div>
@@ -603,9 +642,9 @@ body.dark-theme .hot-tag { background: #2e0e0e; color: #ff6b6b; border-color: #8
 
   <div class="discipline-card"><div class="card-inner" id="card-da">
     <div class="card-header" onclick="toggleCard('card-da')">
-      <div class="card-icon" style="background:#f3e8ff;">📋</div>
+      <div class="card-icon" style="background:#ede9fe;">📋</div>
       <div class="card-meta"><h3>Direito Administrativo</h3><div class="card-info"><span class="pill pill-q">B.II · 30q total</span><span class="pill pill-elim">⛔ Eliminatório</span></div></div>
-      <span class="card-pct" id="pct-da">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-da" style="width:0%;background:#5b2d8e;"></div></div><span class="chevron">▼</span>
+      <span class="card-pct" id="pct-da">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-da" style="width:0%;background:var(--purple);"></div></div><span class="chevron">▼</span>
     </div>
     <div class="topics-list" id="list-da">
       <div class="topic-item" data-key="da-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Estatuto SP — Lei 10.261/68 arts. 1º–86 <span class="hot-tag">🔥</span></div><div class="topic-tag">Direitos, deveres, responsabilidades, vencimentos, licenças, férias</div></div></div>
@@ -617,9 +656,9 @@ body.dark-theme .hot-tag { background: #2e0e0e; color: #ff6b6b; border-color: #8
 
   <div class="discipline-card"><div class="card-inner" id="card-li">
     <div class="card-header" onclick="toggleCard('card-li')">
-      <div class="card-icon" style="background:#fff8e1;">🏢</div>
+      <div class="card-icon" style="background:#fef3c7;">🏢</div>
       <div class="card-meta"><h3>Legislação Interna TJSP</h3><div class="card-info"><span class="pill pill-q">B.II · 30q total</span><span class="pill pill-elim">⛔ Eliminatório</span></div></div>
-      <span class="card-pct" id="pct-li">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-li" style="width:0%;background:#c9a84c;"></div></div><span class="chevron">▼</span>
+      <span class="card-pct" id="pct-li">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-li" style="width:0%;background:var(--gold);"></div></div><span class="chevron">▼</span>
     </div>
     <div class="topics-list" id="list-li">
       <div class="topic-item" data-key="li-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Resolução TJSP 850/2021 — Teletrabalho <span class="hot-tag">🔥</span></div><div class="topic-tag">Modalidades, requisitos, direitos e deveres no teletrabalho judicial</div></div></div>
@@ -643,9 +682,9 @@ body.dark-theme .hot-tag { background: #2e0e0e; color: #ff6b6b; border-color: #8
 
   <div class="discipline-card"><div class="card-inner" id="card-atu">
     <div class="card-header" onclick="toggleCard('card-atu')">
-      <div class="card-icon" style="background:#fdf6e8;">🗞️</div>
+      <div class="card-icon" style="background:#fef3c7;">🗞️</div>
       <div class="card-meta"><h3>Atualidades</h3><div class="card-info"><span class="pill pill-q">4 questões</span><span class="pill pill-class">✅ Classificatório</span></div></div>
-      <span class="card-pct" id="pct-atu">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-atu" style="width:0%;background:#c9a84c;"></div></div><span class="chevron">▼</span>
+      <span class="card-pct" id="pct-atu">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-atu" style="width:0%;background:var(--gold);"></div></div><span class="chevron">▼</span>
     </div>
     <div class="topics-list" id="list-atu">
       <div class="topic-item" data-key="atu-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Fatos políticos, econômicos, sociais e culturais nacionais <span class="hot-tag">🔥</span></div><div class="topic-tag">Eventos relevantes a partir do 1º semestre de 2025 (mídia local e nacional)</div></div></div>
@@ -656,9 +695,9 @@ body.dark-theme .hot-tag { background: #2e0e0e; color: #ff6b6b; border-color: #8
 
   <div class="discipline-card"><div class="card-inner" id="card-mat">
     <div class="card-header" onclick="toggleCard('card-mat')">
-      <div class="card-icon" style="background:#fdf0f0;">🔢</div>
+      <div class="card-icon" style="background:#fee2e2;">🔢</div>
       <div class="card-meta"><h3>Matemática</h3><div class="card-info"><span class="pill pill-q">4 questões</span><span class="pill pill-class">✅ Classificatório</span></div></div>
-      <span class="card-pct" id="pct-mat">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-mat" style="width:0%;background:#c0392b;"></div></div><span class="chevron">▼</span>
+      <span class="card-pct" id="pct-mat">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-mat" style="width:0%;background:var(--red);"></div></div><span class="chevron">▼</span>
     </div>
     <div class="topics-list" id="list-mat">
       <div class="topic-item" data-key="mat-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Operações com números reais · MMC e MDC</div><div class="topic-tag">Potências, raízes, operações básicas, mínimo múltiplo comum, máximo divisor comum</div></div></div>
@@ -674,14 +713,14 @@ body.dark-theme .hot-tag { background: #2e0e0e; color: #ff6b6b; border-color: #8
 
   <div class="discipline-card"><div class="card-inner" id="card-inf">
     <div class="card-header" onclick="toggleCard('card-inf')">
-      <div class="card-icon" style="background:#f3e8ff;">💻</div>
+      <div class="card-icon" style="background:#ede9fe;">💻</div>
       <div class="card-meta"><h3>Informática</h3><div class="card-info"><span class="pill pill-q">9 questões</span><span class="pill pill-class">✅ Classificatório</span></div></div>
-      <span class="card-pct" id="pct-inf">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-inf" style="width:0%;background:#5b2d8e;"></div></div><span class="chevron">▼</span>
+      <span class="card-pct" id="pct-inf">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-inf" style="width:0%;background:var(--purple);"></div></div><span class="chevron">▼</span>
     </div>
     <div class="topics-list" id="list-inf">
       <div class="topic-item" data-key="inf-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Windows 10 ou superior <span class="hot-tag">🔥</span></div><div class="topic-tag">Pastas, diretórios, arquivos, atalhos, área de trabalho, área de transferência, menus, aplicativos</div></div></div>
       <div class="topic-item" data-key="inf-02"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Microsoft Word (M365) <span class="hot-tag">🔥</span></div><div class="topic-tag">Edição e formatação, cabeçalhos, parágrafos, fontes, colunas, tabelas, índices, impressão, controle de quebras, campos</div></div></div>
-      <div class="topic-item" data-key="inf-03"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Microsoft Excel (M365) <span class="hot-tag">🔥</span></div><div class="topic-tag">Células, linhas, colunas, pastas, gráficos, formulas, funções, macros, impressão, dados externos, classificação</div></div></div>
+      <div class="topic-item" data-key="inf-03"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Microsoft Excel (M365) <span class="hot-tag">🔥</span></div><div class="topic-tag">Células, linhas, colunas, pastas, gráficos, fórmulas, funções, macros, impressão, dados externos, classificação</div></div></div>
       <div class="topic-item" data-key="inf-04"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Correio Eletrônico</div><div class="topic-tag">Uso de e-mail, preparo e envio de mensagens, anexação de arquivos</div></div></div>
       <div class="topic-item" data-key="inf-05"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Internet: navegação e busca <span class="hot-tag">🔥</span></div><div class="topic-tag">Conceitos de URL, links, sites, busca e impressão de páginas</div></div></div>
       <div class="topic-item" data-key="inf-06"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">MS Teams <span class="hot-tag">🔥</span></div><div class="topic-tag">Chats, chamadas de áudio/vídeo, grupos, Word/Excel/PowerPoint/SharePoint/OneNote, agendamento, gravação</div></div></div>
@@ -691,9 +730,9 @@ body.dark-theme .hot-tag { background: #2e0e0e; color: #ff6b6b; border-color: #8
 
   <div class="discipline-card"><div class="card-inner" id="card-rl">
     <div class="card-header" onclick="toggleCard('card-rl')">
-      <div class="card-icon" style="background:#fff0e8;">🧩</div>
+      <div class="card-icon" style="background:#ffedd5;">🧩</div>
       <div class="card-meta"><h3>Raciocínio Lógico</h3><div class="card-info"><span class="pill pill-q">7 questões</span><span class="pill pill-class">✅ Classificatório</span></div></div>
-      <span class="card-pct" id="pct-rl">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-rl" style="width:0%;background:#c0672b;"></div></div><span class="chevron">▼</span>
+      <span class="card-pct" id="pct-rl">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-rl" style="width:0%;background:var(--orange);"></div></div><span class="chevron">▼</span>
     </div>
     <div class="topics-list" id="list-rl">
       <div class="topic-item" data-key="rl-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Estruturas lógicas e lógica de argumentação <span class="hot-tag">🔥</span></div><div class="topic-tag">Proposições, negação, conjunção, disjunção, condicional, bicondicional; tabela-verdade</div></div></div>
@@ -705,15 +744,15 @@ body.dark-theme .hot-tag { background: #2e0e0e; color: #ff6b6b; border-color: #8
 
   <div class="section-title">✍️ Prova Discursiva — Redação</div>
   <div class="bloco-info">
-    <div class="bloco-info-inner" style="background:#fff0f0;border-color:#f5c6c0;color:#7a0000;">
+    <div class="bloco-info-inner" style="background:#fee2e2;border-color:#fca5a5;color:#991b1b;">
       <b>⛔ Somente Eliminatório</b> — 0 a 40 pontos. Mínimo 20 pts (ampla concorrência) ou 16 pts (cotas). Não conta na classificação.
     </div>
   </div>
   <div class="discipline-card"><div class="card-inner" id="card-red">
     <div class="card-header" onclick="toggleCard('card-red')">
-      <div class="card-icon" style="background:#e8f0fd;">✍️</div>
+      <div class="card-icon" style="background:#e2e8f0;">✍️</div>
       <div class="card-meta"><h3>Prova Discursiva (Redação)</h3><div class="card-info"><span class="pill pill-q">0 a 40 pts</span><span class="pill pill-elim">⛔ Somente Eliminatório</span></div></div>
-      <span class="card-pct" id="pct-red">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-red" style="width:0%;background:#0f0f14;"></div></div><span class="chevron">▼</span>
+      <span class="card-pct" id="pct-red">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-red" style="width:0%;background:var(--ink);"></div></div><span class="chevron">▼</span>
     </div>
     <div class="topics-list" id="list-red">
       <div class="topic-item" data-key="red-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Tema (critério a) <span class="hot-tag">🔥</span></div><div class="topic-tag">Atender ao tema proposto; fuga total = nota 0 automática</div></div></div>
@@ -724,6 +763,9 @@ body.dark-theme .hot-tag { background: #2e0e0e; color: #ff6b6b; border-color: #8
       <div class="topic-item" data-key="red-06"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Prática: 1 redação por semana <span class="hot-tag">🔥</span></div><div class="topic-tag">Temas de atualidades e direitos sociais · revisar com os 4 critérios do edital</div></div></div>
     </div>
   </div></div>
+  <div class="footer">
+    <span class="lgpd-badge">🔒 Seus dados são salvos localmente e não são enviados para a internet (LGPD).</span>
+  </div>
 </div>
 
 <div class="page" id="page-agenda">
@@ -735,9 +777,12 @@ body.dark-theme .hot-tag { background: #2e0e0e; color: #ff6b6b; border-color: #8
       <button class="week-btn" onclick="shiftWeek(1)">Próxima →</button>
     </div>
     <div class="week-grid" id="week-grid"></div>
-    <div style="margin-top:16px;font-size:12px;color:var(--muted);font-family:'DM Mono',monospace;">
-      clique para editar · duplo clique para marcar como concluída
+    <div style="margin-top:16px;font-size:12px;color:var(--muted);font-family:'DM Mono',monospace;text-align:center;">
+      Clique para editar · Duplo clique para marcar como concluída (+5 XP)
     </div>
+  </div>
+  <div class="footer">
+    <span class="lgpd-badge">🔒 Seus dados são salvos localmente e não são enviados para a internet (LGPD).</span>
   </div>
 </div>
 
@@ -761,89 +806,107 @@ body.dark-theme .hot-tag { background: #2e0e0e; color: #ff6b6b; border-color: #8
     </div>
 
     <div class="phase-block">
-      <div class="phase-header"><span class="phase-num">01</span><div><h3>Fase Base — Fundamentos</h3><div style="font-size:11px;color:rgba(245,243,238,.5);">Agosto e Setembro</div></div><span>~60h</span></div>
+      <div class="phase-header"><span class="phase-num">01</span><div><h3>Fase Base — Fundamentos</h3><div style="font-size:11px;color:rgba(248,250,252,.5);">Agosto e Setembro</div></div><span>~60h</span></div>
       <div class="phase-body"><div class="phase-rows">
-        <div class="phase-row"><div class="phase-dot" style="background:#1d4e8f;"></div><strong>Português:</strong>&nbsp;interpretação de textos, classes de palavras, concordância</div>
-        <div class="phase-row"><div class="phase-dot" style="background:#c0392b;"></div><strong>Dir. Penal:</strong>&nbsp;arts. 293–359 CP (crimes contra a administração)</div>
-        <div class="phase-row"><div class="phase-dot" style="background:#1a7a4a;"></div><strong>Dir. Constitucional:</strong>&nbsp;Título II (Direitos Fundamentais) + art. 92</div>
-        <div class="phase-row"><div class="phase-dot" style="background:#5b2d8e;"></div><strong>Informática:</strong>&nbsp;Windows + Word + Excel + Teams + OneDrive</div>
-        <div class="phase-row"><div class="phase-dot" style="background:#c9a84c;"></div><strong>Meta:</strong>&nbsp;10h/semana + 30 questões VUNESP antigas</div>
+        <div class="phase-row"><div class="phase-dot" style="background:var(--blue);"></div><strong>Português:</strong>&nbsp;interpretação de textos, classes de palavras, concordância</div>
+        <div class="phase-row"><div class="phase-dot" style="background:var(--red);"></div><strong>Dir. Penal:</strong>&nbsp;arts. 293–359 CP (crimes contra a administração)</div>
+        <div class="phase-row"><div class="phase-dot" style="background:var(--blue);"></div><strong>Dir. Constitucional:</strong>&nbsp;Título II (Direitos Fundamentais) + art. 92</div>
+        <div class="phase-row"><div class="phase-dot" style="background:var(--purple);"></div><strong>Informática:</strong>&nbsp;Windows + Word + Excel + Teams + OneDrive</div>
+        <div class="phase-row"><div class="phase-dot" style="background:var(--gold);"></div><strong>Meta:</strong>&nbsp;10h/semana + 30 questões VUNESP antigas</div>
       </div></div>
     </div>
     <div class="phase-block">
-      <div class="phase-header"><span class="phase-num">02</span><div><h3>Fase Aprofundamento</h3><div style="font-size:11px;color:rgba(245,243,238,.5);">Outubro e Novembro</div></div><span>~80h</span></div>
+      <div class="phase-header"><span class="phase-num">02</span><div><h3>Fase Aprofundamento</h3><div style="font-size:11px;color:rgba(248,250,252,.5);">Outubro e Novembro</div></div><span>~80h</span></div>
       <div class="phase-body"><div class="phase-rows">
-        <div class="phase-row"><div class="phase-dot" style="background:#1d4e8f;"></div><strong>Português:</strong>&nbsp;crase, regência, colocação pronominal + redação 1x/semana</div>
-        <div class="phase-row"><div class="phase-dot" style="background:#1a7a4a;"></div><strong>Dir. Processual Civil:</strong>&nbsp;CPC arts. 188–538 + recursos arts. 994–1026</div>
-        <div class="phase-row"><div class="phase-dot" style="background:#c0392b;"></div><strong>Dir. Processual Penal:</strong>&nbsp;CPP arts. 351–667 + Lei 9.099/95</div>
-        <div class="phase-row"><div class="phase-dot" style="background:#5b2d8e;"></div><strong>Dir. Administrativo:</strong>&nbsp;Estatuto SP 10.261/68 + Lei 8.429/92</div>
-        <div class="phase-row"><div class="phase-dot" style="background:#c0672b;"></div><strong>Raciocínio Lógico:</strong>&nbsp;proposições, diagramas, sequências</div>
-        <div class="phase-row"><div class="phase-dot" style="background:#c9a84c;"></div><strong>Legislação Interna:</strong>&nbsp;Normas CGJ Tomo I + Res. 850/2021 + LC 1.111</div>
-        <div class="phase-row"><div class="phase-dot" style="background:#c9a84c;"></div><strong>Meta:</strong>&nbsp;12h/semana + simulado completo semanal</div>
+        <div class="phase-row"><div class="phase-dot" style="background:var(--blue);"></div><strong>Português:</strong>&nbsp;crase, regência, colocação pronominal + redação 1x/semana</div>
+        <div class="phase-row"><div class="phase-dot" style="background:var(--green);"></div><strong>Dir. Processual Civil:</strong>&nbsp;CPC arts. 188–538 + recursos arts. 994–1026</div>
+        <div class="phase-row"><div class="phase-dot" style="background:var(--gold);"></div><strong>Dir. Processual Penal:</strong>&nbsp;CPP arts. 351–667 + Lei 9.099/95</div>
+        <div class="phase-row"><div class="phase-dot" style="background:var(--purple);"></div><strong>Dir. Administrativo:</strong>&nbsp;Estatuto SP 10.261/68 + Lei 8.429/92</div>
+        <div class="phase-row"><div class="phase-dot" style="background:var(--orange);"></div><strong>Raciocínio Lógico:</strong>&nbsp;proposições, diagramas, sequências</div>
+        <div class="phase-row"><div class="phase-dot" style="background:var(--gold);"></div><strong>Legislação Interna:</strong>&nbsp;Normas CGJ Tomo I + Res. 850/2021 + LC 1.111</div>
+        <div class="phase-row"><div class="phase-dot" style="background:var(--gold);"></div><strong>Meta:</strong>&nbsp;12h/semana + simulado completo semanal</div>
       </div></div>
     </div>
     <div class="phase-block">
-      <div class="phase-header"><span class="phase-num">03</span><div><h3>Revisão Intensiva</h3><div style="font-size:11px;color:rgba(245,243,238,.5);">Novembro — até 07/12</div></div><span>~60h</span></div>
+      <div class="phase-header"><span class="phase-num">03</span><div><h3>Revisão Intensiva</h3><div style="font-size:11px;color:rgba(248,250,252,.5);">Novembro — até 07/12</div></div><span>~60h</span></div>
       <div class="phase-body"><div class="phase-rows">
-        <div class="phase-row"><div class="phase-dot" style="background:#c9a84c;"></div><strong>Simulados:</strong>&nbsp;2 por semana no tempo real (5h) — foco nos Blocos I e II</div>
-        <div class="phase-row"><div class="phase-dot" style="background:#1d4e8f;"></div><strong>Português:</strong>&nbsp;revisar concordância, crase e pontuação</div>
-        <div class="phase-row"><div class="phase-dot" style="background:#1a7a4a;"></div><strong>Direito:</strong>&nbsp;reler artigos-chave do CPC + Normas CGJ + Estatuto SP</div>
-        <div class="phase-row"><div class="phase-dot" style="background:#c0672b;"></div><strong>Lógica + Mat.:</strong>&nbsp;maratonar questões de anos anteriores</div>
-        <div class="phase-row"><div class="phase-dot" style="background:#0f0f14;"></div><strong>Redação:</strong>&nbsp;1 por semana + corrigir pelos 4 critérios do edital</div>
-        <div class="phase-row"><div class="phase-dot" style="background:#c9a84c;"></div><strong>Atualidades:</strong>&nbsp;ler G1 / Agência Brasil diariamente</div>
+        <div class="phase-row"><div class="phase-dot" style="background:var(--gold);"></div><strong>Simulados:</strong>&nbsp;2 por semana no tempo real (5h) — foco nos Blocos I e II</div>
+        <div class="phase-row"><div class="phase-dot" style="background:var(--blue);"></div><strong>Português:</strong>&nbsp;revisar concordância, crase e pontuação</div>
+        <div class="phase-row"><div class="phase-dot" style="background:var(--green);"></div><strong>Direito:</strong>&nbsp;reler artigos-chave do CPC + Normas CGJ + Estatuto SP</div>
+        <div class="phase-row"><div class="phase-dot" style="background:var(--orange);"></div><strong>Lógica + Mat.:</strong>&nbsp;maratonar questões de anos anteriores</div>
+        <div class="phase-row"><div class="phase-dot" style="background:var(--ink);"></div><strong>Redação:</strong>&nbsp;1 por semana + corrigir pelos 4 critérios do edital</div>
+        <div class="phase-row"><div class="phase-dot" style="background:var(--gold);"></div><strong>Atualidades:</strong>&nbsp;ler G1 / Agência Brasil diariamente</div>
       </div></div>
     </div>
   </div>
 
   <div class="section-title" style="margin-top:28px;">💡 Dicas da Banca VUNESP</div>
   <div class="tips-grid">
-    <div class="tip-card"><h4>📝 Português VUNESP (16q · eliminatório)</h4><ul>
-      <li>Interpretação de texto é sempre a maior parte — 4–6 questões</li>
-      <li>Concordância com casos especiais (coletivo, partitivo, % )</li>
+    <div class="tip-card"><h4>📝 Português VUNESP (16q)</h4><ul>
+      <li>Interpretação de texto é sempre a maior parte</li>
+      <li>Concordância com casos especiais (coletivo, partitivo)</li>
       <li>Crase e pontuação com vírgula caem todas as edições</li>
-      <li>Atenção às classes de palavras em contexto (não decorar definições)</li>
     </ul></div>
-    <div class="tip-card"><h4>⚖️ Direito VUNESP (30q · eliminatório!)</h4><ul>
-      <li>É o maior bloco: 30 questões — prioridade máxima!</li>
+    <div class="tip-card"><h4>⚖️ Direito VUNESP (30q)</h4><ul>
+      <li>É o maior bloco — prioridade máxima!</li>
       <li>Cobra a letra fria da lei — decorar artigos é essencial</li>
       <li>Normas CGJ Tomo I caem todos os anos no TJSP</li>
-      <li>CPC: foco em prazos, atos de comunicação e recursos</li>
     </ul></div>
-    <div class="tip-card"><h4>🧩 Lógica VUNESP (7q · classificatório)</h4><ul>
-      <li>7 questões — vale mais que Matemática! Não negligencie</li>
+    <div class="tip-card"><h4>🧩 Lógica VUNESP (7q)</h4><ul>
+      <li>Vale mais que Matemática! Não negligencie</li>
       <li>Diagramas lógicos (conjuntos) são os mais frequentes</li>
-      <li>Sequências numéricas: procure o padrão antes de calcular</li>
       <li>Proposições condicionais: domine negação e contrapositiva</li>
     </ul></div>
-    <div class="tip-card"><h4>✍️ Redação VUNESP (eliminatório)</h4><ul>
-      <li>Mínimo 20/40 para não ser eliminado — escreva com calma</li>
+    <div class="tip-card"><h4>✍️ Redação VUNESP</h4><ul>
+      <li>Mínimo 20/40 para não ser eliminado</li>
       <li>Não use 1ª ou 2ª pessoa — texto deve ter autonomia</li>
-      <li>Mínimo 8 linhas autorais; ideal 25–30 linhas</li>
-      <li>Não copie a coletânea — paráfrase demais também penaliza</li>
-    </ul></div>
-    <div class="tip-card"><h4>💻 Informática (9q · classificatório)</h4><ul>
-      <li>MS Teams e OneDrive são novidade — estudar com atenção</li>
-      <li>Excel: fórmulas SOMA, SE, MÉDIA, PROCV são frequentes</li>
-      <li>Word: estilos, mala direta, controle de alterações</li>
-      <li>Segurança digital e conceitos de internet sempre caem</li>
-    </ul></div>
-    <div class="tip-card"><h4>🗞️ Atualidades (4q · classificatório)</h4><ul>
-      <li>Estatuto da Pessoa com Deficiência (Lei 13.146/2015) é fixo</li>
-      <li>Foque em fatos de 2025 — edital delimita 1º semestre 2025</li>
-      <li>Leia G1 e Agência Brasil diariamente (15 min é suficiente)</li>
-      <li>Questões são objetivas: evite aprofundar demais um tema só</li>
+      <li>Não copie a coletânea em hipótese alguma</li>
     </ul></div>
   </div>
-  <div class="footer">Plano baseado no Edital TJ-SP 02/2025 · Banca VUNESP · Prova: 07/12/2025 · Dados salvos localmente</div>
+  <div class="footer">
+    Plano baseado no Edital TJ-SP 02/2025 · Banca VUNESP<br>
+    <span class="lgpd-badge">🔒 Respeitamos a LGPD: Seus dados nunca saem do seu computador.</span>
+  </div>
 </div>
 
 <script>
 /* ══ STORAGE ══ */
-const SK='tjsp_v5';
+const SK='tjsp_v6_gamified';
 function loadData(){try{return JSON.parse(localStorage.getItem(SK)||'{}');}catch{return{};}}
 function saveData(d){try{localStorage.setItem(SK,JSON.stringify(d));}catch(_){}flashToast();}
 let _tt=null;
 function flashToast(){const t=document.getElementById('save-toast');t.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>t.classList.remove('show'),1600);}
+
+/* ══ GAMIFICAÇÃO & XP ══ */
+function updateXP(amount) {
+  const d = loadData();
+  d.xp = (d.xp || 0) + amount;
+  if (d.xp < 0) d.xp = 0;
+  saveData(d);
+  renderGamification();
+}
+
+function renderGamification() {
+  const d = loadData();
+  const currentXP = d.xp || 0;
+  const level = Math.floor(currentXP / 100) + 1;
+  const xpInCurrentLevel = currentXP % 100;
+
+  let title = "Novato";
+  if(level >= 3) title = "Aspirante a Servidor";
+  if(level >= 7) title = "Estudante Tático";
+  if(level >= 12) title = "Concurseiro Focado";
+  if(level >= 20) title = "Mestre da VUNESP";
+  if(level >= 30) title = "Escrevente Elite";
+
+  const lvlNum = document.getElementById('level-num');
+  if(lvlNum) {
+      lvlNum.textContent = level;
+      document.getElementById('level-title').textContent = title;
+      document.getElementById('xp-fill').style.width = xpInCurrentLevel + '%';
+      document.getElementById('xp-text').textContent = xpInCurrentLevel + ' / 100 XP para o Nível ' + (level + 1);
+  }
+}
 
 /* ══ TABS ══ */
 const TAB_ORDER=['dashboard','checklist','agenda','cronograma'];
@@ -857,14 +920,14 @@ function switchTab(name, btn){
   if(btn) btn.classList.add('active');
   currentTab=name;
   window.scrollTo({top:0,behavior:'smooth'});
-  if(name==='dashboard')renderDashboard();
+  if(name==='dashboard'){ renderDashboard(); renderGamification(); }
   if(name==='agenda')renderWeek();
 }
 
 /* ══ CHECKLIST ══ */
 const GROUPS=['lp','dp','dpp','dpc','dc','da','li','atu','mat','inf','rl','red'];
 const GROUP_LABELS={lp:'Português',dp:'Dir. Penal',dpp:'D. Proc. Penal',dpc:'D. Proc. Civil',dc:'Dir. Const.',da:'Dir. Admin.',li:'Leg. Interna',atu:'Atualidades',mat:'Matemática',inf:'Informática',rl:'Rac. Lógico',red:'Redação'};
-const GROUP_COLORS={lp:'#1d4e8f',dp:'#c0392b',dpp:'#c9a84c',dpc:'#1a7a4a',dc:'#1d4e8f',da:'#5b2d8e',li:'#c9a84c',atu:'#c9a84c',mat:'#c0392b',inf:'#5b2d8e',rl:'#c0672b',red:'#0f0f14'};
+const GROUP_COLORS={lp:'var(--blue)',dp:'var(--red)',dpp:'var(--gold)',dpc:'var(--green)',dc:'var(--blue)',da:'var(--purple)',li:'var(--gold)',atu:'var(--gold)',mat:'var(--red)',inf:'var(--purple)',rl:'var(--orange)',red:'var(--ink)'};
 
 function toggleCard(id){document.getElementById(id).classList.toggle('open');}
 
@@ -880,6 +943,10 @@ function toggleTopic(el){
   if(isDone) d.daily[today]=(d.daily[today]||0)+1;
   else d.daily[today]=Math.max(0,(d.daily[today]||1)-1);
   saveData(d);
+  
+  // Ganha 10 XP por tópico
+  updateXP(isDone ? 10 : -10);
+
   const g=el.closest('.topics-list').id.replace('list-','');
   updateGroup(g);
   updateOverall();
@@ -922,12 +989,12 @@ function updateOverall(){
 
 function confirmReset(){
   if(!confirm('Resetar todo o progresso? Essa ação não pode ser desfeita.'))return;
-  const d=loadData();d.topics={};d.daily={};saveData(d);
+  const d=loadData();d.topics={};d.daily={};d.xp=0;saveData(d);
   document.querySelectorAll('.topic-item.done').forEach(el=>el.classList.remove('done'));
-  GROUPS.forEach(g=>updateGroup(g));updateOverall();renderDashboard();
+  GROUPS.forEach(g=>updateGroup(g));updateOverall();renderDashboard();renderGamification();
 }
 
-/* ══ STREAK ══ */
+/* ══ STREAK & METAS ══ */
 function todayStr(){return new Date().toISOString().slice(0,10);}
 
 function computeStreak(daily){
@@ -957,10 +1024,9 @@ function updateStreak(){
   document.getElementById('streak-best').textContent='recorde: '+best+' dia'+(best!==1?'s':'');
   document.getElementById('streak-fire').textContent=streak>=14?'🔥':streak>=7?'✨':streak>=3?'⚡':'💤';
 
-  // UX: Feedback de streak quebrado
   const labelEl = document.querySelector('.streak-label');
   if (streak === 0 && best > 0) {
-    labelEl.innerHTML = "Quebrou a sequência...<br><span style='color:var(--gold); font-weight:600; font-size:14px;'>Recomece hoje! 🚀</span>";
+    labelEl.innerHTML = "Quebrou a sequência...<br><span style='color:var(--gold-light); font-weight:600; font-size:14px;'>Recomece hoje! 🚀</span>";
   } else {
     labelEl.innerHTML = "dias de sequência";
   }
@@ -971,11 +1037,28 @@ function saveGoal(){
   const d=loadData();d.goal=v;saveData(d);updateDailyGoal();
 }
 
+let goalMetToday = false;
 function updateDailyGoal(){
   const d=loadData();
   const goal=d.goal||5;
   const todayDone=(d.daily||{})[todayStr()]||0;
   const pct=Math.min(100,Math.round(todayDone/goal*100));
+
+  // CONFETI SYSTEM (Dopamina)
+  if (pct >= 100 && !goalMetToday) {
+    goalMetToday = true;
+    if (typeof confetti === 'function') {
+        confetti({
+            particleCount: 150,
+            spread: 70,
+            origin: { y: 0.6 },
+            colors: ['#d97706', '#10b981', '#3b82f6', '#fcd34d']
+        });
+    }
+  } else if (pct < 100) {
+    goalMetToday = false;
+  }
+
   document.getElementById('goal-input').value=goal;
   document.getElementById('goal-fill').style.width=pct+'%';
   document.getElementById('goal-status').textContent=todayDone+' / '+goal+' tópicos hoje'+(pct>=100?' 🎉':'');
@@ -1060,7 +1143,7 @@ function renderWeek(){
     tasks.forEach((task,ti)=>{
       const btn=document.createElement('button');
       btn.className='day-task'+(task.done?' task-done':'');
-      btn.innerHTML=`<div class="task-dot" style="background:${task.color||'#c9a84c'};"></div><span>${task.text}</span>`;
+      btn.innerHTML=`<div class="task-dot" style="background:${task.color||'var(--gold)'};"></div><span>${task.text}</span>`;
       btn.addEventListener('click',e=>{e.stopPropagation();openModal(wk,i,ti);});
       btn.addEventListener('dblclick',e=>{e.stopPropagation();e.preventDefault();toggleTaskDone(wk,i,ti);});
       tc.appendChild(btn);
@@ -1075,7 +1158,7 @@ function openModal(wk,dayIdx,taskIdx){
   const isEdit=taskIdx!==null&&taskIdx!==undefined;
   document.getElementById('modal-title').textContent=isEdit?'Editar tarefa':'Nova tarefa';
   document.getElementById('task-input').value=isEdit?(tasks[taskIdx]?.text||''):'';
-  document.getElementById('task-color').value=isEdit?(tasks[taskIdx]?.color||'#c9a84c'):'#c9a84c';
+  document.getElementById('task-color').value=isEdit?(tasks[taskIdx]?.color||'#d97706'):'#d97706';
   document.getElementById('modal-del').style.display=isEdit?'block':'none';
   document.getElementById('task-modal').classList.add('show');
   setTimeout(()=>document.getElementById('task-input').focus(),50);
@@ -1103,8 +1186,13 @@ function deleteTask(){
 function toggleTaskDone(wk,dayIdx,taskIdx){
   const d=loadData();
   if(d.agenda?.[wk]?.[dayIdx]?.[taskIdx]!==undefined){
-    d.agenda[wk][dayIdx][taskIdx].done=!d.agenda[wk][dayIdx][taskIdx].done;
-    saveData(d);renderWeek();
+    const isNowDone = !d.agenda[wk][dayIdx][taskIdx].done;
+    d.agenda[wk][dayIdx][taskIdx].done = isNowDone;
+    saveData(d);
+    
+    // Ganha 5 XP por tarefa da agenda
+    updateXP(isNowDone ? 5 : -5);
+    renderWeek();
   }
 }
 
@@ -1129,7 +1217,6 @@ function filterTopics() {
   document.querySelectorAll('.discipline-card').forEach(card => {
     let hasVisible = false;
     card.querySelectorAll('.topic-item').forEach(item => {
-      // Busca pelo nome do tópico e pelas tags/palavras-chave
       const text = item.querySelector('.topic-name').textContent.toLowerCase() + " " + (item.querySelector('.topic-tag') ? item.querySelector('.topic-tag').textContent.toLowerCase() : "");
       if (text.includes(term)) {
         item.style.display = 'flex';
@@ -1138,7 +1225,6 @@ function filterTopics() {
         item.style.display = 'none';
       }
     });
-    // UX: Se estiver buscando e achar algo, abre o card automaticamente
     if (term.length > 0 && hasVisible) {
       card.querySelector('.card-inner').classList.add('open');
     }
@@ -1156,15 +1242,9 @@ function toggleSort() {
     items.sort((a, b) => {
       const aHot = a.querySelector('.hot-tag') ? 1 : 0;
       const bHot = b.querySelector('.hot-tag') ? 1 : 0;
-      
-      if (isSorted) {
-        return bHot - aHot; // Joga os "hot" para o topo
-      } else {
-        // Volta para a ordem original baseada no data-key (ex: lp-01, lp-02)
-        return a.dataset.key.localeCompare(b.dataset.key);
-      }
+      if (isSorted) return bHot - aHot;
+      else return a.dataset.key.localeCompare(b.dataset.key);
     });
-    // Reanexa os itens na nova ordem
     items.forEach(item => list.appendChild(item));
   });
 }
@@ -1206,11 +1286,10 @@ function toggleTheme() {
 
 /* ══ INIT ══ */
 document.addEventListener('DOMContentLoaded',()=>{
-  // Checa se o modo escuro estava ativado
   if(loadData().theme === 'dark') document.body.classList.add('dark-theme');
-  
   restoreTopics();attachTopics();
   GROUPS.forEach(g=>updateGroup(g));updateOverall();
+  renderGamification();
   renderDashboard();
   document.querySelectorAll('.bn-tab').forEach(b=>{
     if(b.dataset.tab==='dashboard')b.classList.add('active');
