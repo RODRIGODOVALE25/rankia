@@ -1,4 +1,4 @@
-Aqui está o código HTML/JS atualizado e corrigido com os dados extraídos do Edital de Abertura n.º 02/2026 (publicado em 19/10/2026), mantendo todas as funcionalidades do seu painel interativo (dashboard, gamificação, tema escuro otimizado, checklist de matérias e agenda):
+Aqui está o código HTML completo atualizado com a sua chave Pix inserida corretamente para receber colaborações para a manutenção do sistema:
 
 ```html
 <!DOCTYPE html>
@@ -6,7 +6,7 @@ Aqui está o código HTML/JS atualizado e corrigido com os dados extraídos do E
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Plano de estudos interativo TJ-SP Escrevente Técnico Judiciário — banca VUNESP — Edital 02/2026.">
+<meta name="description" content="Plano de estudos interativo TJ-SP Escrevente Técnico Judiciário (2ª a 10ª RAJ) — banca VUNESP — Edital 02/2026.">
 <meta name="theme-color" content="#0f172a">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -19,6 +19,7 @@ Aqui está o código HTML/JS atualizado e corrigido com os dados extraídos do E
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <style>
 :root{
+  /* Paleta Light (Slate & Amber) */
   --ink: #1e293b;
   --paper: #f8fafc;
   --cream: #f1f5f9;
@@ -74,10 +75,15 @@ body{font-family:'Outfit',sans-serif;background:var(--paper);color:var(--ink);mi
 .section-title::after{content:'';flex:1;height:1px;background:var(--border);}
 .card{background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:0 4px 12px var(--shadow);}
 
+/* RESET BTN */
+.reset-btn{display:inline-flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);border:1px solid var(--border);background:transparent;padding:6px 12px;border-radius:6px;cursor:pointer;transition:all .15s;}
+.reset-btn:hover{color:var(--red);border-color:var(--red);}
+
 /* ── DASHBOARD ── */
 .dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:0 20px;max-width:760px;margin:0 auto;}
 @media(max-width:520px){.dash-grid{grid-template-columns:1fr;}}
 
+/* GAMIFICAÇÃO CARD */
 .gamification-card { grid-column: 1 / -1; padding: 20px 24px; display: flex; align-items: center; gap: 20px; background: linear-gradient(135deg, var(--gold) 0%, #92400e 100%); color: white; border: none; }
 .level-circle { width: 64px; height: 64px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; flex-direction: column; align-items: center; justify-content: center; border: 2px solid rgba(255,255,255,0.4); flex-shrink: 0; box-shadow: 0 4px 10px rgba(0,0,0,0.2);}
 .level-circle span:first-child { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; opacity: 0.9; }
@@ -159,6 +165,7 @@ body{font-family:'Outfit',sans-serif;background:var(--paper);color:var(--ink);mi
 .elim-note{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-family:'DM Mono',monospace;background:#fef3c7;color:#b45309;border:1px solid #fcd34d;border-radius:6px;padding:4px 8px;margin-top:6px;}
 .elim-note-red{background:#fee2e2;color:var(--red);border-color:#fca5a5;}
 
+/* CONTROLES DO CHECKLIST (Busca e Ordenação) */
 .checklist-controls { max-width: 760px; margin: 0 auto 16px; padding: 0 20px; display: flex; gap: 10px; flex-wrap: wrap; }
 .checklist-controls input { flex: 1; min-width: 200px; padding: 12px 16px; border-radius: 10px; border: 1px solid var(--border); font-family: 'Outfit', sans-serif; font-size: 14px; background: white; color: var(--ink); box-shadow: 0 2px 8px var(--shadow); transition: border-color 0.2s; }
 .checklist-controls input:focus { outline: none; border-color: var(--gold); }
@@ -336,11 +343,11 @@ body{font-family:'Outfit',sans-serif;background:var(--paper);color:var(--ink);mi
 .theme-toggle:hover { background: rgba(255,255,255,0.1); }
 
 body.dark-theme { 
-  --ink: #f1f5f9; 
-  --paper: #0f172a; 
-  --cream: #1e293b; 
-  --border: #334155; 
-  --muted: #94a3b8; 
+  --ink: #f1f5f9;
+  --paper: #0f172a;
+  --cream: #1e293b;
+  --border: #334155;
+  --muted: #94a3b8;
   --shadow: rgba(0,0,0,0.6); 
 }
 
@@ -418,7 +425,7 @@ body.dark-theme .tip-card h4 { color: var(--gold-light); }
     </button>
     <button class="bn-tab" onclick="switchTab('cronograma',this)" data-tab="cronograma">
       <span class="bn-icon">📅</span>
-      <span class="bn-label">Edital</span>
+      <span class="bn-label">Dicas</span>
       <div class="bn-dot"></div>
     </button>
   </div>
@@ -450,632 +457,908 @@ body.dark-theme .tip-card h4 { color: var(--gold-light); }
 <div class="hero">
   <div class="hero-inner">
     <button onclick="toggleTheme()" class="theme-toggle" title="Alternar Modo Escuro">🌓</button>
-    <div class="badge">Edital 02/2026 · Banca VUNESP · Nível Médio[cite: 1, 2]</div>
+    <div class="badge">Edital 02/2026 · Banca VUNESP · Nível Médio</div>
     <h1>Plano de Estudos<br><em>TJ-SP Escrevente</em></h1>
-    <p>Conteúdo programático atualizado conforme Edital 02/2026 (Provas em 14/03/2027)[cite: 1, 14].</p>
+    <p>Conteúdo programático conforme Anexo VIII do edital. Dashboard · Streak · Agenda · Gamificação.</p>
   </div>
 </div>
 <div class="stats-bar">
-  <div class="stat"><span class="stat-num">3</span><span class="stat-label">Blocos[cite: 18]</span></div>
-  <div class="stat"><span class="stat-num">70</span><span class="stat-label">Questões obj.[cite: 14]</span></div>
+  <div class="stat"><span class="stat-num">3</span><span class="stat-label">Blocos</span></div>
+  <div class="stat"><span class="stat-num">70</span><span class="stat-label">Questões obj.</span></div>
   <div class="stat"><span class="stat-num">6</span><span class="stat-label">Matérias</span></div>
-  <div class="stat"><span class="stat-num">40pts</span><span class="stat-label">Redação[cite: 19]</span></div>
-  <div class="stat"><span class="stat-num">50%</span><span class="stat-label">Mín. B.I e B.II[cite: 18]</span></div>
+  <div class="stat"><span class="stat-num">40pts</span><span class="stat-label">Redação</span></div>
+  <div class="stat"><span class="stat-num">50%</span><span class="stat-label">Mín. B.I e B.II</span></div>
 </div>
 
 <nav class="nav-tabs">
   <button class="nav-tab active" onclick="switchTab('dashboard',this)">📊 Dashboard</button>
   <button class="nav-tab" onclick="switchTab('checklist',this)">✅ Checklist</button>
   <button class="nav-tab" onclick="switchTab('agenda',this)">🗓️ Agenda</button>
-  <button class="nav-tab" onclick="switchTab('cronograma',this)">📅 Edital & Cronograma</button>
+  <button class="nav-tab" onclick="switchTab('cronograma',this)">📅 Cronograma</button>
 </nav>
 
-<!-- DASHBOARD PAGE -->
 <div class="page active" id="page-dashboard">
-  <div class="section-title">Progresso Geral & Gamificação</div>
+  <div class="section-title">🏆 Desempenho</div>
   <div class="dash-grid">
+
     <div class="card gamification-card">
       <div class="level-circle">
-        <span>Nível</span>
-        <span id="user-level">1</span>
+        <span>Lvl</span>
+        <span id="level-num">1</span>
       </div>
       <div class="xp-info">
-        <div class="xp-title">Guerreiro(a) do TJ-SP</div>
-        <div class="xp-bar-bg"><div class="xp-fill" id="xp-fill" style="width:0%"></div></div>
-        <div class="xp-text"><span id="current-xp">0</span> / <span id="next-level-xp">100</span> XP (Nível Atual)</div>
+        <div class="xp-title" id="level-title">Novato</div>
+        <div class="xp-bar-bg">
+          <div class="xp-fill" id="xp-fill" style="width: 0%;"></div>
+        </div>
+        <div class="xp-text" id="xp-text">0 / 100 XP para o Nível 2</div>
       </div>
     </div>
 
     <div class="card streak-card">
-      <div class="streak-fire">🔥</div>
+      <div class="streak-fire" id="streak-fire">💤</div>
       <div class="streak-info">
-        <div class="streak-num" id="streak-count">0</div>
-        <div class="streak-label">Dias seguidos estudando</div>
-        <div class="streak-best" id="streak-best">Recorde: 0 dias</div>
+        <div class="streak-num" id="streak-num">0</div>
+        <div class="streak-label">dias de sequência</div>
+        <div class="streak-best" id="streak-best">recorde: 0 dias</div>
       </div>
-      <div class="streak-meta">
-        <div class="streak-meta-num" id="total-done-count">0</div>
-        <div class="streak-meta-label">Tópicos Concluídos</div>
+      <div class="streak-meta" style="margin-left:auto;text-align:center;position:relative;">
+        <div style="font-size:10px;color:rgba(248,250,252,.5);font-family:'DM Mono',monospace;margin-bottom:4px;">HOJE</div>
+        <div class="streak-meta-num" id="daily-done-num">0</div>
+        <div class="streak-meta-label">/ <span id="daily-goal-show">5</span> tópicos</div>
       </div>
     </div>
 
     <div class="card goal-card">
-      <h3>Meta Diária de Estudos</h3>
+      <h3>🎯 Meta Diária</h3>
       <div class="goal-row">
-        <label>Tópicos/Tarefas hoje:</label>
-        <input type="number" id="daily-goal-input" value="4" min="1" max="20" onchange="updateDailyGoal()">
+        <label>Tópicos por dia</label>
+        <input type="number" id="goal-input" min="1" max="30" value="5" onchange="saveGoal()">
       </div>
       <div class="goal-bar"><div class="goal-fill" id="goal-fill" style="width:0%"></div></div>
-      <div class="goal-status" id="goal-status">0 de 4 concluídos hoje</div>
-    </div>
-
-    <div class="card goal-card">
-      <h3>Ações Rápidas</h3>
-      <div style="display:flex;gap:8px;flex-direction:column;">
-        <button class="week-btn" onclick="resetData()" style="color:var(--red);border-color:var(--red);">⚠️ Resetar Progresso</button>
-      </div>
+      <div class="goal-status" id="goal-status">0 / 5 marcados hoje</div>
     </div>
 
     <div class="card heatmap-card">
-      <h3>Constância (Últimos 90 dias)</h3>
-      <div class="heatmap" id="heatmap-grid"></div>
+      <h3>📅 Atividade — últimos 90 dias</h3>
+      <div class="heatmap" id="heatmap"></div>
       <div class="hm-legend">
-        <span>Menos</span>
+        menos
         <div class="hm-sq" style="background:var(--cream)"></div>
         <div class="hm-sq" style="background:#a7f3d0"></div>
         <div class="hm-sq" style="background:#34d399"></div>
         <div class="hm-sq" style="background:#10b981"></div>
-        <div class="hm-sq" style="background:#059669"></div>
-        <span>Mais</span>
+        mais
       </div>
     </div>
 
     <div class="card chart-card">
-      <h3>Progresso por Matéria</h3>
-      <div class="bar-chart" id="bar-chart-container"></div>
+      <h3>📈 Progresso por disciplina</h3>
+      <div class="bar-chart" id="bar-chart"></div>
     </div>
+
+    <div class="card pix-card">
+      <h3>☕ Apoie o Projeto</h3>
+      <p>Gostou do plano de estudos? Contribua pagando um café para a manutenção do sistema!</p>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=00020126330014br.gov.bcb.pix0111076417496745204000053039865802BR5925RODRIGO_GONCALVES_DO_VALE6013Para_de_Minas610935661-29262290525AXJG0326954017924240238466304B01A" alt="QR Code Pix" class="pix-qr">
+      <div class="pix-input-wrap">
+        <input type="text" id="pix-code" class="pix-input" value="00020126330014br.gov.bcb.pix0111076417496745204000053039865802BR5925RODRIGO_GONCALVES_DO_VALE6013Para_de_Minas610935661-29262290525AXJG0326954017924240238466304B01A" readonly>
+      </div>
+      <button class="pix-btn" onclick="copyPixCode()">Copiar Código Pix</button>
+      <div id="pix-toast" class="pix-msg">Código copiado com sucesso!</div>
+    </div>
+
+  </div>
+  <div class="footer" style="padding-top:20px;">
+    Dados salvos no navegador · localStorage · Edital 02/2026 TJSP<br>
+    <span class="lgpd-badge">🔒 Em conformidade com a LGPD: Seus dados são salvos apenas no seu dispositivo.</span>
   </div>
 </div>
 
-<!-- CHECKLIST PAGE -->
 <div class="page" id="page-checklist">
   <div class="progress-section">
     <div class="progress-header">
-      <h2>Edital 02/2026 — Conteúdo Programático</h2>
-      <button class="reset-btn" onclick="resetChecklist()">↺ Limpar</button>
+      <h2>Seu progresso</h2>
+      <button class="reset-btn" onclick="confirmReset()">⟳ Resetar tudo</button>
     </div>
     <div class="overall-progress">
       <div class="ring-wrap">
-        <svg width="76" height="76">
-          <circle cx="38" cy="38" r="30" stroke="var(--border)" stroke-width="6" fill="none"/>
-          <circle id="ring-progress" cx="38" cy="38" r="30" stroke="var(--gold)" stroke-width="6" fill="none"
-                  stroke-dasharray="188.4" stroke-dashoffset="188.4" stroke-linecap="round" transform="rotate(-90 38 38)" style="transition:stroke-dashoffset .5s ease"/>
+        <svg width="80" height="80" viewBox="0 0 80 80">
+          <circle cx="40" cy="40" r="32" fill="none" stroke="var(--border)" stroke-width="8"/>
+          <circle id="progress-ring" cx="40" cy="40" r="32" fill="none" stroke="var(--gold)" stroke-width="8"
+            stroke-dasharray="201.06" stroke-dashoffset="201.06" stroke-linecap="round" transform="rotate(-90 40 40)"
+            style="transition:stroke-dashoffset .6s ease;"/>
         </svg>
         <div class="ring-label">
-          <span class="ring-pct" id="global-pct">0%</span>
-          <span class="ring-sub">Geral</span>
+          <span class="ring-pct" id="ring-pct">0%</span>
+          <span class="ring-sub">done</span>
         </div>
       </div>
       <div class="progress-info">
-        <h3>Aprovado no Edital</h3>
-        <p><span id="completed-count">0</span> de <span id="total-topics-count">0</span> tópicos concluídos</p>
-        <div class="elim-note">⚠️ Blocos I e II exigem mínimo de 50% de acertos cada![cite: 18]</div>
+        <h3>Tópicos concluídos</h3>
+        <p><span id="topics-done">0</span> de <span id="topics-total">0</span> tópicos</p>
+        <p style="margin-top:6px;font-size:12px;">Clique para marcar como estudado (+10 XP)</p>
+        <div class="elim-note">⚠️ Blocos I e II: eliminatório (mín. 50% cada) · nota final ≥ 5,0</div>
       </div>
     </div>
   </div>
 
   <div class="checklist-controls">
-    <input type="text" id="search-input" placeholder="🔍 Pesquisar tópico, lei ou artigo..." oninput="filterChecklist()">
-    <button id="filter-all-btn" class="active" onclick="setFilter('all')">Todos</button>
-    <button id="filter-pending-btn" onclick="setFilter('pending')">Pendentes</button>
+    <input type="text" id="search-input" placeholder="🔍 Buscar tópico (ex: crase, peculato...)" onkeyup="filterTopics()">
+    <button id="sort-btn" onclick="toggleSort()">
+      <span style="font-size:14px;">🔥</span> Mais Cobrados
+    </button>
   </div>
 
-  <div id="checklist-container"></div>
+  <div class="section-title">📘 Bloco I — Língua Portuguesa</div>
+  <div class="bloco-info">
+    <div class="bloco-info-inner">
+      <b>16 questões · Eliminatório + Classificatório</b> — Mínimo 50% de acertos (8 questões).
+    </div>
+  </div>
+  <div class="discipline-card"><div class="card-inner" id="card-lp">
+    <div class="card-header" onclick="toggleCard('card-lp')">
+      <div class="card-icon" style="background:#e0f2fe;">📝</div>
+      <div class="card-meta"><h3>Língua Portuguesa</h3><div class="card-info"><span class="pill pill-q">16 questões</span><span class="pill pill-elim">⛔ Eliminatório</span><span class="pill pill-peso">mín. 8 acertos</span></div></div>
+      <span class="card-pct" id="pct-lp">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-lp" style="width:0%;background:var(--blue);"></div></div><span class="chevron">▼</span>
+    </div>
+    <div class="topics-list" id="list-lp">
+      <div class="topic-item" data-key="lp-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Análise, compreensão e interpretação de textos <span class="hot-tag">🔥 mais cobrado</span></div><div class="topic-tag">Textos verbais, não verbais, literários e não literários · informações literais e inferências</div></div></div>
+      <div class="topic-item" data-key="lp-02"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Ponto de vista do autor</div><div class="topic-tag">Identificação da tese e argumentação do texto</div></div></div>
+      <div class="topic-item" data-key="lp-03"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Estruturação do texto e coesão <span class="hot-tag">🔥</span></div><div class="topic-tag">Relações entre ideias; recursos coesivos (conectivos, pronomes, elipse)</div></div></div>
+      <div class="topic-item" data-key="lp-04"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Significação contextual de palavras e expressões</div><div class="topic-tag">Sinônimos, antônimos, sentido próprio e figurado</div></div></div>
+      <div class="topic-item" data-key="lp-05"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Classes de palavras: emprego e sentido <span class="hot-tag">🔥</span></div><div class="topic-tag">Substantivo, adjetivo, artigo, numeral, pronome, verbo, advérbio, preposição, conjunção</div></div></div>
+      <div class="topic-item" data-key="lp-06"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Concordância verbal e nominal <span class="hot-tag">🔥</span></div><div class="topic-tag">Casos especiais, sujeito composto, partitivo, coletivo</div></div></div>
+      <div class="topic-item" data-key="lp-07"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Regência verbal e nominal <span class="hot-tag">🔥</span></div><div class="topic-tag">Verbos com mais de uma regência; regência nominal</div></div></div>
+      <div class="topic-item" data-key="lp-08"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Colocação pronominal</div><div class="topic-tag">Ênclise, próclise, mesóclise; contextos de uso</div></div></div>
+      <div class="topic-item" data-key="lp-09"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Crase <span class="hot-tag">🔥</span></div><div class="topic-tag">Uso obrigatório, facultativo e proibido</div></div></div>
+      <div class="topic-item" data-key="lp-10"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Pontuação <span class="hot-tag">🔥</span></div><div class="topic-tag">Vírgula, ponto e vírgula, dois-pontos, travessão, aspas</div></div></div>
+    </div>
+  </div></div>
+
+  <div class="section-title">⚖️ Bloco II — Conhecimentos em Direito</div>
+  <div class="bloco-info">
+    <div class="bloco-info-inner">
+      <b>30 questões · Eliminatório + Classificatório</b> — Mínimo 50% de acertos (15 questões). Maior bloco da prova!
+    </div>
+  </div>
+
+  <div class="discipline-card"><div class="card-inner" id="card-dp">
+    <div class="card-header" onclick="toggleCard('card-dp')">
+      <div class="card-icon" style="background:#fee2e2;">🔴</div>
+      <div class="card-meta"><h3>Direito Penal</h3><div class="card-info"><span class="pill pill-q">B.II · 30q total</span><span class="pill pill-elim">⛔ Eliminatório</span></div></div>
+      <span class="card-pct" id="pct-dp">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-dp" style="width:0%;background:var(--red);"></div></div><span class="chevron">▼</span>
+    </div>
+    <div class="topics-list" id="list-dp">
+      <div class="topic-item" data-key="dp-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">CP arts. 293–305 — Falsidade documental <span class="hot-tag">🔥</span></div><div class="topic-tag">Falsificação de documentos públicos e particulares, moeda, selos</div></div></div>
+      <div class="topic-item" data-key="dp-02"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">CP arts. 307, 308, 311-A — Falsa identidade / Fraudes</div><div class="topic-tag">Falsa identidade, uso de documento falso, fraude em certames</div></div></div>
+      <div class="topic-item" data-key="dp-03"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">CP arts. 312–317 — Crimes contra a administração pública <span class="hot-tag">🔥</span></div><div class="topic-tag">Peculato, concussão, corrupção passiva, prevaricação</div></div></div>
+      <div class="topic-item" data-key="dp-04"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">CP arts. 319–333 — Crimes funcionais e corrupção ativa <span class="hot-tag">🔥</span></div><div class="topic-tag">Prevaricação, condescendência criminosa, advocacia administrativa, corrupção ativa</div></div></div>
+      <div class="topic-item" data-key="dp-05"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">CP arts. 336, 337 — Contrabando e descaminho</div><div class="topic-tag">Impedimento, perturbação de ato oficial; contrabando</div></div></div>
+      <div class="topic-item" data-key="dp-06"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">CP arts. 339–347 — Crimes contra a administração da Justiça <span class="hot-tag">🔥</span></div><div class="topic-tag">Denúncia caluniosa, comunicação falsa, falso testemunho, fraude processual, favorecimento</div></div></div>
+      <div class="topic-item" data-key="dp-07"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">CP arts. 357, 359 — Exploração de prestígio / advocacia</div><div class="topic-tag">Exploração de prestígio, exercício ilegal da advocacia</div></div></div>
+    </div>
+  </div></div>
+
+  <div class="discipline-card"><div class="card-inner" id="card-dpp">
+    <div class="card-header" onclick="toggleCard('card-dpp')">
+      <div class="card-icon" style="background:#fef3c7;">🔍</div>
+      <div class="card-meta"><h3>Direito Processual Penal</h3><div class="card-info"><span class="pill pill-q">B.II · 30q total</span><span class="pill pill-elim">⛔ Eliminatório</span></div></div>
+      <span class="card-pct" id="pct-dpp">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-dpp" style="width:0%;background:var(--gold);"></div></div><span class="chevron">▼</span>
+    </div>
+    <div class="topics-list" id="list-dpp">
+      <div class="topic-item" data-key="dpp-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">CPP arts. 251–258, 261–267 — Juiz e defensor</div><div class="topic-tag">Poderes do juiz, suspeição, defesa técnica e defensoria</div></div></div>
+      <div class="topic-item" data-key="dpp-02"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">CPP art. 274 — Aplicação das normas ao MP</div><div class="topic-tag">Extensão das normas de suspeição ao MP</div></div></div>
+      <div class="topic-item" data-key="dpp-03"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">CPP arts. 351–372 — Citações e intimações <span class="hot-tag">🔥</span></div><div class="topic-tag">Formas de citação, réu preso, edital, intimação de testemunhas</div></div></div>
+      <div class="topic-item" data-key="dpp-04"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">CPP arts. 394–497 — Procedimentos comuns <span class="hot-tag">🔥</span></div><div class="topic-tag">Procedimento ordinário, sumário; resposta à acusação; instrução; sentença</div></div></div>
+      <div class="topic-item" data-key="dpp-05"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">CPP arts. 531–538, 541–548 — Procedimento sumaríssimo / apelação</div><div class="topic-tag">Rito sumaríssimo; apelação das decisões do júri</div></div></div>
+      <div class="topic-item" data-key="dpp-06"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">CPP arts. 574–667 — Recursos em geral <span class="hot-tag">🔥</span></div><div class="topic-tag">Apelação, protesto, embargos, revisão criminal, habeas corpus</div></div></div>
+      <div class="topic-item" data-key="dpp-07"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Lei 9.099/95 arts. 60–83, 88, 89 — JECrim <span class="hot-tag">🔥</span></div><div class="topic-tag">Competência, transação penal, suspensão condicional do processo, composição civil</div></div></div>
+    </div>
+  </div></div>
+
+  <div class="discipline-card"><div class="card-inner" id="card-dpc">
+    <div class="card-header" onclick="toggleCard('card-dpc')">
+      <div class="card-icon" style="background:#d1fae5;">⚖️</div>
+      <div class="card-meta"><h3>Direito Processual Civil</h3><div class="card-info"><span class="pill pill-q">B.II · 30q total</span><span class="pill pill-elim">⛔ Eliminatório</span></div></div>
+      <span class="card-pct" id="pct-dpc">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-dpc" style="width:0%;background:var(--green);"></div></div><span class="chevron">▼</span>
+    </div>
+    <div class="topics-list" id="list-dpc">
+      <div class="topic-item" data-key="dpc-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">CPC arts. 144–155 — Impedimento e suspeição do juiz <span class="hot-tag">🔥</span></div><div class="topic-tag">Hipóteses de impedimento, suspeição, arguição</div></div></div>
+      <div class="topic-item" data-key="dpc-02"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">CPC arts. 188–275 — Atos processuais <span class="hot-tag">🔥</span></div><div class="topic-tag">Forma, lugar e tempo dos atos; prazos; comunicação dos atos; cartas; intimações; nulidades</div></div></div>
+      <div class="topic-item" data-key="dpc-03"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">CPC arts. 294–311 — Tutelas provisórias <span class="hot-tag">🔥</span></div><div class="topic-tag">Tutela antecipada, cautelar, de evidência, de urgência</div></div></div>
+      <div class="topic-item" data-key="dpc-04"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">CPC arts. 318–538 — Processo de conhecimento <span class="hot-tag">🔥</span></div><div class="topic-tag">Petição inicial, citação, resposta, reconvenção, revelia; audiência; sentença e coisa julgada; liquidação</div></div></div>
+      <div class="topic-item" data-key="dpc-05"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">CPC arts. 994–1026 — Recursos <span class="hot-tag">🔥</span></div><div class="topic-tag">Apelação, agravo de instrumento, agravo interno, embargos de declaração, recurso especial/extraordinário</div></div></div>
+      <div class="topic-item" data-key="dpc-06"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Lei 9.099/95 arts. 3º–19 — Juizado Especial Cível <span class="hot-tag">🔥</span></div><div class="topic-tag">Competência, partes, conciliação, instrução e julgamento</div></div></div>
+      <div class="topic-item" data-key="dpc-07"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Lei 12.153/2009 — Juizado Especial da Fazenda Pública</div><div class="topic-tag">Competência, partes, procedimento, execução</div></div></div>
+    </div>
+  </div></div>
+
+  <div class="discipline-card"><div class="card-inner" id="card-dc">
+    <div class="card-header" onclick="toggleCard('card-dc')">
+      <div class="card-icon" style="background:#e0f2fe;">🏛️</div>
+      <div class="card-meta"><h3>Direito Constitucional</h3><div class="card-info"><span class="pill pill-q">B.II · 30q total</span><span class="pill pill-elim">⛔ Eliminatório</span></div></div>
+      <span class="card-pct" id="pct-dc">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-dc" style="width:0%;background:var(--blue);"></div></div><span class="chevron">▼</span>
+    </div>
+    <div class="topics-list" id="list-dc">
+      <div class="topic-item" data-key="dc-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">CF Título II Cap. I — Direitos e Deveres Individuais e Coletivos <span class="hot-tag">🔥</span></div><div class="topic-tag">Art. 5º: rol dos direitos fundamentais, habeas corpus, mandado de segurança, etc.</div></div></div>
+      <div class="topic-item" data-key="dc-02"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">CF Título II Cap. II — Direitos Sociais <span class="hot-tag">🔥</span></div><div class="topic-tag">Arts. 6º ao 11: direitos sociais trabalhistas, sindicais</div></div></div>
+      <div class="topic-item" data-key="dc-03"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">CF Título II Cap. III — Direitos de Nacionalidade e Políticos</div><div class="topic-tag">Arts. 12 ao 17: nacionalidade, direitos políticos, partidos</div></div></div>
+      <div class="topic-item" data-key="dc-04"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">CF Título III Cap. VII Seções I e II — Poder Judiciário <span class="hot-tag">🔥</span></div><div class="topic-tag">Arts. 92–100: estrutura, STF, CNJ, STJ, TJs, garantias da magistratura</div></div></div>
+      <div class="topic-item" data-key="dc-05"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">CF art. 92 — Órgãos do Poder Judiciário <span class="hot-tag">🔥</span></div><div class="topic-tag">Rol dos órgãos do Judiciário e sua estrutura hierárquica</div></div></div>
+    </div>
+  </div></div>
+
+  <div class="discipline-card"><div class="card-inner" id="card-da">
+    <div class="card-header" onclick="toggleCard('card-da')">
+      <div class="card-icon" style="background:#ede9fe;">📋</div>
+      <div class="card-meta"><h3>Direito Administrativo</h3><div class="card-info"><span class="pill pill-q">B.II · 30q total</span><span class="pill pill-elim">⛔ Eliminatório</span></div></div>
+      <span class="card-pct" id="pct-da">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-da" style="width:0%;background:var(--purple);"></div></div><span class="chevron">▼</span>
+    </div>
+    <div class="topics-list" id="list-da">
+      <div class="topic-item" data-key="da-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Estatuto SP — Lei 10.261/68 arts. 1º–86 <span class="hot-tag">🔥</span></div><div class="topic-tag">Direitos, deveres, responsabilidades, vencimentos, licenças, férias</div></div></div>
+      <div class="topic-item" data-key="da-02"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Estatuto SP — Lei 10.261/68 arts. 171–175</div><div class="topic-tag">Processo administrativo disciplinar — disposições gerais</div></div></div>
+      <div class="topic-item" data-key="da-03"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Estatuto SP — Lei 10.261/68 arts. 239–323 <span class="hot-tag">🔥</span></div><div class="topic-tag">Regime disciplinar: infrações, penalidades, PAD, demissão, cassação</div></div></div>
+      <div class="topic-item" data-key="da-04"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Lei 8.429/92 — Lei de Improbidade Administrativa <span class="hot-tag">🔥</span></div><div class="topic-tag">Atos de improbidade, sanções, enriquecimento ilícito, dano ao erário, violação de princípios</div></div></div>
+    </div>
+  </div></div>
+
+  <div class="discipline-card"><div class="card-inner" id="card-li">
+    <div class="card-header" onclick="toggleCard('card-li')">
+      <div class="card-icon" style="background:#fef3c7;">🏢</div>
+      <div class="card-meta"><h3>Legislação Interna TJSP</h3><div class="card-info"><span class="pill pill-q">B.II · 30q total</span><span class="pill pill-elim">⛔ Eliminatório</span></div></div>
+      <span class="card-pct" id="pct-li">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-li" style="width:0%;background:var(--gold);"></div></div><span class="chevron">▼</span>
+    </div>
+    <div class="topics-list" id="list-li">
+      <div class="topic-item" data-key="li-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Resolução TJSP 850/2021 — Teletrabalho <span class="hot-tag">🔥</span></div><div class="topic-tag">Modalidades, requisitos, direitos e deveres no teletrabalho judicial</div></div></div>
+      <div class="topic-item" data-key="li-02"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Resolução TJSP 963/2025 — Sistema eproc</div><div class="topic-tag">Governança e utilização do eproc nas unidades do TJSP</div></div></div>
+      <div class="topic-item" data-key="li-03"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">LC 1.111/2010 — Plano de Cargos e Carreiras TJSP <span class="hot-tag">🔥</span></div><div class="topic-tag">Cargos, carreiras, progressão, remuneração dos servidores</div></div></div>
+      <div class="topic-item" data-key="li-04"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Regimento Interno do TJSP</div><div class="topic-tag">Estrutura, competências, órgãos do tribunal</div></div></div>
+      <div class="topic-item" data-key="li-05"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Normas CGJ — Tomo I Cap. II Seção I (subseções I e II)</div><div class="topic-tag">Expediente, horário de funcionamento das unidades</div></div></div>
+      <div class="topic-item" data-key="li-06"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Normas CGJ — Tomo I Cap. III Seções I, II, V, VI, VII <span class="hot-tag">🔥</span></div><div class="topic-tag">Distribuição de processos, autuação, despachos, conclusão, carga</div></div></div>
+      <div class="topic-item" data-key="li-07"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Normas CGJ — Tomo I Cap. III Seção VIII (subseções I, II, III)</div><div class="topic-tag">Atos de comunicação: citação, intimação, mandado</div></div></div>
+      <div class="topic-item" data-key="li-08"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Normas CGJ — Tomo I Cap. III Seções IX–XIX <span class="hot-tag">🔥</span></div><div class="topic-tag">Certidões, arquivamento, carta precatória, cumprimento de sentença, penhora, leilão</div></div></div>
+      <div class="topic-item" data-key="li-09"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Normas CGJ — Tomo I Cap. XI Seções I–VII <span class="hot-tag">🔥</span></div><div class="topic-tag">Conduta funcional dos servidores: deveres, vedações, regime disciplinar</div></div></div>
+    </div>
+  </div></div>
+
+  <div class="section-title">📊 Bloco III — Conhecimentos Gerais</div>
+  <div class="bloco-info">
+    <div class="bloco-info-inner">
+      <b>24 questões · Somente Classificatório</b> — Atualidades (4) + Matemática (4) + Informática (9) + Raciocínio Lógico (7). Não é eliminatório.
+    </div>
+  </div>
+
+  <div class="discipline-card"><div class="card-inner" id="card-atu">
+    <div class="card-header" onclick="toggleCard('card-atu')">
+      <div class="card-icon" style="background:#fef3c7;">🗞️</div>
+      <div class="card-meta"><h3>Atualidades</h3><div class="card-info"><span class="pill pill-q">4 questões</span><span class="pill pill-class">✅ Classificatório</span></div></div>
+      <span class="card-pct" id="pct-atu">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-atu" style="width:0%;background:var(--gold);"></div></div><span class="chevron">▼</span>
+    </div>
+    <div class="topics-list" id="list-atu">
+      <div class="topic-item" data-key="atu-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Fatos políticos, econômicos, sociais e culturais nacionais <span class="hot-tag">🔥</span></div><div class="topic-tag">Eventos relevantes a partir do 1º semestre de 2026 (mídia local e nacional)</div></div></div>
+      <div class="topic-item" data-key="atu-02"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Fatos internacionais <span class="hot-tag">🔥</span></div><div class="topic-tag">Geopolítica, conflitos, eleições mundiais, economia global — a partir de 2026</div></div></div>
+      <div class="topic-item" data-key="atu-03"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Estatuto da Pessoa com Deficiência — Lei 13.146/2015 <span class="hot-tag">🔥</span></div><div class="topic-tag">Arts. 1º ao 13 (disposições gerais, igualdade, acessibilidade) e arts. 34 ao 38 (inclusão no trabalho)</div></div></div>
+    </div>
+  </div></div>
+
+  <div class="discipline-card"><div class="card-inner" id="card-mat">
+    <div class="card-header" onclick="toggleCard('card-mat')">
+      <div class="card-icon" style="background:#fee2e2;">🔢</div>
+      <div class="card-meta"><h3>Matemática</h3><div class="card-info"><span class="pill pill-q">4 questões</span><span class="pill pill-class">✅ Classificatório</span></div></div>
+      <span class="card-pct" id="pct-mat">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-mat" style="width:0%;background:var(--red);"></div></div><span class="chevron">▼</span>
+    </div>
+    <div class="topics-list" id="list-mat">
+      <div class="topic-item" data-key="mat-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Operações com números reais · MMC e MDC</div><div class="topic-tag">Potências, raízes, operações básicas, mínimo múltiplo comum, máximo divisor comum</div></div></div>
+      <div class="topic-item" data-key="mat-02"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Razão, proporção e regra de três <span class="hot-tag">🔥</span></div><div class="topic-tag">Regra de três simples e composta</div></div></div>
+      <div class="topic-item" data-key="mat-03"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Porcentagem <span class="hot-tag">🔥</span></div><div class="topic-tag">Cálculo, aumento, desconto, juros simples</div></div></div>
+      <div class="topic-item" data-key="mat-04"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Médias aritmética simples e ponderada</div><div class="topic-tag">Cálculo e interpretação de médias</div></div></div>
+      <div class="topic-item" data-key="mat-05"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Equações de 1º e 2º grau + sistema de equações <span class="hot-tag">🔥</span></div><div class="topic-tag">Equações lineares e quadráticas; sistema linear de 1º grau</div></div></div>
+      <div class="topic-item" data-key="mat-06"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Tabelas e gráficos <span class="hot-tag">🔥</span></div><div class="topic-tag">Leitura e interpretação de gráficos e tabelas; relação entre grandezas</div></div></div>
+      <div class="topic-item" data-key="mat-07"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Noções de geometria</div><div class="topic-tag">Forma, perímetro, área, volume, ângulo, teorema de Pitágoras; sistemas de medidas</div></div></div>
+      <div class="topic-item" data-key="mat-08"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Situações-problema contextualizadas <span class="hot-tag">🔥</span></div><div class="topic-tag">Resolução de problemas práticos do cotidiano</div></div></div>
+    </div>
+  </div></div>
+
+  <div class="discipline-card"><div class="card-inner" id="card-inf">
+    <div class="card-header" onclick="toggleCard('card-inf')">
+      <div class="card-icon" style="background:#ede9fe;">💻</div>
+      <div class="card-meta"><h3>Informática</h3><div class="card-info"><span class="pill pill-q">9 questões</span><span class="pill pill-class">✅ Classificatório</span></div></div>
+      <span class="card-pct" id="pct-inf">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-inf" style="width:0%;background:var(--purple);"></div></div><span class="chevron">▼</span>
+    </div>
+    <div class="topics-list" id="list-inf">
+      <div class="topic-item" data-key="inf-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Windows 10 ou superior <span class="hot-tag">🔥</span></div><div class="topic-tag">Pastas, diretórios, arquivos, atalhos, área de trabalho, área de transferência, menus, aplicativos</div></div></div>
+      <div class="topic-item" data-key="inf-02"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Microsoft Word (M365) <span class="hot-tag">🔥</span></div><div class="topic-tag">Edição e formatação, cabeçalhos, parágrafos, fontes, colunas, tabelas, índices, impressão, controle de quebras, campos</div></div></div>
+      <div class="topic-item" data-key="inf-03"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Microsoft Excel (M365) <span class="hot-tag">🔥</span></div><div class="topic-tag">Células, linhas, colunas, pastas, gráficos, fórmulas, funções, macros, impressão, dados externos, classificação</div></div></div>
+      <div class="topic-item" data-key="inf-04"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Correio Eletrônico</div><div class="topic-tag">Uso de e-mail, preparo e envio de mensagens, anexação de arquivos</div></div></div>
+      <div class="topic-item" data-key="inf-05"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Internet: navegação e busca <span class="hot-tag">🔥</span></div><div class="topic-tag">Conceitos de URL, links, sites, busca e impressão de páginas</div></div></div>
+      <div class="topic-item" data-key="inf-06"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">MS Teams <span class="hot-tag">🔥</span></div><div class="topic-tag">Chats, chamadas de áudio/vídeo, grupos, Word/Excel/PowerPoint/SharePoint/OneNote, agendamento, gravação</div></div></div>
+      <div class="topic-item" data-key="inf-07"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">OneDrive</div><div class="topic-tag">Armazenamento e compartilhamento de arquivos na nuvem</div></div></div>
+    </div>
+  </div></div>
+
+  <div class="discipline-card"><div class="card-inner" id="card-rl">
+    <div class="card-header" onclick="toggleCard('card-rl')">
+      <div class="card-icon" style="background:#ffedd5;">🧩</div>
+      <div class="card-meta"><h3>Raciocínio Lógico</h3><div class="card-info"><span class="pill pill-q">7 questões</span><span class="pill pill-class">✅ Classificatório</span></div></div>
+      <span class="card-pct" id="pct-rl">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-rl" style="width:0%;background:var(--orange);"></div></div><span class="chevron">▼</span>
+    </div>
+    <div class="topics-list" id="list-rl">
+      <div class="topic-item" data-key="rl-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Estruturas lógicas e lógica de argumentação <span class="hot-tag">🔥</span></div><div class="topic-tag">Proposições, negação, conjunção, disjunção, condicional, bicondicional; tabela-verdade</div></div></div>
+      <div class="topic-item" data-key="rl-02"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Diagramas lógicos <span class="hot-tag">🔥</span></div><div class="topic-tag">Relações entre conjuntos, silogismos, inferências válidas</div></div></div>
+      <div class="topic-item" data-key="rl-03"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Sequências numéricas e figurais <span class="hot-tag">🔥</span></div><div class="topic-tag">Identificação de regularidades, progressões, padrões; elemento de dada posição</div></div></div>
+      <div class="topic-item" data-key="rl-04"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Relações arbitrárias entre elementos</div><div class="topic-tag">Dedução de novas informações; avaliação das condições estabelecidas</div></div></div>
+    </div>
+  </div></div>
+
+  <div class="section-title">✍️ Prova Discursiva — Redação</div>
+  <div class="bloco-info">
+    <div class="bloco-info-inner" style="background:#fee2e2;border-color:#fca5a5;color:#991b1b;">
+      <b>⛔ Somente Eliminatório</b> — 0 a 40 pontos. Mínimo 24 pts (ampla concorrência) ou 19,2 pts (cotas e PcD). Não conta na classificação.
+    </div>
+  </div>
+  <div class="discipline-card"><div class="card-inner" id="card-red">
+    <div class="card-header" onclick="toggleCard('card-red')">
+      <div class="card-icon" style="background:#e2e8f0;">✍️</div>
+      <div class="card-meta"><h3>Prova Discursiva (Redação)</h3><div class="card-info"><span class="pill pill-q">0 a 40 pts</span><span class="pill pill-elim">⛔ Somente Eliminatório</span></div></div>
+      <span class="card-pct" id="pct-red">0%</span><div class="mini-bar"><div class="mini-fill" id="bar-red" style="width:0%;background:var(--ink);"></div></div><span class="chevron">▼</span>
+    </div>
+    <div class="topics-list" id="list-red">
+      <div class="topic-item" data-key="red-01"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Tema (critério a) <span class="hot-tag">🔥</span></div><div class="topic-tag">Atender ao tema proposto; fuga total = nota 0 automática</div></div></div>
+      <div class="topic-item" data-key="red-02"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Estrutura: gênero/tipo dissertativo-argumentativo (critério b) <span class="hot-tag">🔥</span></div><div class="topic-tag">Introdução/tese, desenvolvimento, conclusão; coerência, autonomia textual, macroestrutura · evitar 1ª pessoa do singular e 2ª pessoa · evitar referências como "segundo o texto I" (o texto precisa ter autonomia)</div></div></div>
+      <div class="topic-item" data-key="red-03"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Língua: modalidade e registro formal (critério c) <span class="hot-tag">🔥</span></div><div class="topic-tag">Concordância, regência, ortografia, pontuação, acentuação, precisão vocabular, nível formal</div></div></div>
+      <div class="topic-item" data-key="red-04"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Coesão: recursos coesivos (critério d)</div><div class="topic-tag">Anáforas, catáforas, substituições, conjunções; articulação entre períodos e parágrafos</div></div></div>
+      <div class="topic-item" data-key="red-05"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Regras práticas de aprovação <span class="hot-tag">🔥</span></div><div class="topic-tag">Nota 0 com 7 linhas ou menos ou menos de 8 linhas autorais · 20 linhas ou menos não alcançam a nota máxima em Língua e Coesão · 15 linhas ou menos perdem 1 ponto · título não conta · sem corretivo · caneta preta · proposta de intervenção não é obrigatória · não copiar nem parafrasear a coletânea · não usar modelos prontos</div></div></div>
+      <div class="topic-item" data-key="red-06"><div class="topic-check"></div><div class="topic-text"><div class="topic-name">Prática: 1 redação por semana <span class="hot-tag">🔥</span></div><div class="topic-tag">Temas de atualidades e direitos sociais · revisar com os 4 critérios do edital</div></div></div>
+    </div>
+  </div></div>
+  <div class="footer">
+    <span class="lgpd-badge">🔒 Seus dados são salvos localmente e não são enviados para a internet (LGPD).</span>
+  </div>
 </div>
 
-<!-- AGENDA PAGE -->
 <div class="page" id="page-agenda">
-  <div class="section-title">Agenda Semanal de Estudos</div>
+  <div class="section-title">🗓️ Agenda Semanal</div>
   <div class="agenda-wrap">
     <div class="week-nav">
-      <button class="week-btn" onclick="changeWeek(-1)">← Semana Anterior</button>
-      <h3 id="week-range-label">Carregando...</h3>
-      <button class="week-btn" onclick="changeWeek(1)">Próxima Semana →</button>
+      <button class="week-btn" onclick="shiftWeek(-1)">← Anterior</button>
+      <h3 id="week-label">Esta semana</h3>
+      <button class="week-btn" onclick="shiftWeek(1)">Próxima →</button>
     </div>
     <div class="week-grid" id="week-grid"></div>
+    <div style="margin-top:16px;font-size:12px;color:var(--muted);font-family:'DM Mono',monospace;text-align:center;">
+      Clique para editar · Duplo clique para marcar como concluída (+5 XP)
+    </div>
+  </div>
+  <div class="footer">
+    <span class="lgpd-badge">🔒 Seus dados são salvos localmente e não são enviados para a internet (LGPD).</span>
   </div>
 </div>
 
-<!-- CRONOGRAMA & EDITAL PAGE -->
 <div class="page" id="page-cronograma">
-  <div class="section-title">Informações e Datas do Edital 02/2026</div>
+  <div class="section-title">📅 Cronograma — Edital 02/2026</div>
   <div class="timeline-section">
     <div class="crono-table-wrap">
       <table class="crono-table">
-        <thead>
-          <tr><th>Evento / Prazo</th><th>Data / Período</th></tr>
-        </thead>
+        <thead><tr><th>Evento</th><th>Data</th></tr></thead>
         <tbody>
-          <tr><td>Inscrições (Vunesp)</td><td>28.10.2026 a 10.12.2026 (até 23h59)[cite: 6]</td></tr>
-          <tr><td>Redução de Taxa (Solicitação)</td><td>28.30.10.2026[cite: 27]</td></tr>
-          <tr><td>Prazo Final para Pagamento da Inscrição</td><td>11.12.2026[cite: 6]</td></tr>
-          <tr><td>Aplicação da Prova Objetiva e Redação</td><td><b>14.03.2027</b> (Período Vespertino)[cite: 14]</td></tr>
-          <tr><td>Divulgação do Gabarito Oficial</td><td>17.03.2027[cite: 27]</td></tr>
+          <tr><td>Início das inscrições</td><td>28/10/2026</td></tr>
+          <tr><td>Término das inscrições</td><td>10/12/2026</td></tr>
+          <tr><td>Vencimento do boleto (R$ 81,00)</td><td>11/12/2026</td></tr>
+          <tr><td>Taxa reduzida — solicitação</td><td>28 a 30/10/2026 (documentos até 03/11)</td></tr>
+          <tr><td>Resultado da taxa reduzida / recursos</td><td>25/11/2026 / 26 a 30/11/2026</td></tr>
+          <tr><td>Deferimento de condição especial, PcD e cotas</td><td>07/01/2027</td></tr>
+          <tr><td>Recursos (PcD / condição especial / cotas)</td><td>08 a 12/01/2027</td></tr>
+          <tr><td>Decisão dos recursos</td><td>22/01/2027</td></tr>
+          <tr><td><strong>Aplicação das provas (obj. + redação, período vespertino, 5h)</strong></td><td><strong>14/03/2027</strong></td></tr>
+          <tr><td>Divulgação do gabarito</td><td>17/03/2027</td></tr>
+          <tr><td>Resultado final</td><td>A definir</td></tr>
         </tbody>
       </table>
     </div>
 
     <div class="phase-block">
-      <div class="phase-header">
-        <div class="phase-num">01</div>
-        <h3>Estrutura das Provas (Edital 02/2026)</h3>
-      </div>
-      <div class="phase-body">
-        <div class="phase-rows">
-          <div class="phase-row"><div class="phase-dot" style="background:var(--blue)"></div><div><b>Bloco I: Língua Portuguesa</b> (16 questões). Caráter eliminatório e classificatório (mín. 50% de acertos).[cite: 18, 30]</div></div>
-          <div class="phase-row"><div class="phase-dot" style="background:var(--green)"></div><div><b>Bloco II: Conhecimentos em Direito</b> (30 questões: Penal, Processual Penal, Processual Civil, Constitucional, Administrativo e Legislação Interna). Caráter eliminatório e classificatório (mín. 50% de acertos).[cite: 18]</div></div>
-          <div class="phase-row"><div class="phase-dot" style="background:var(--gold)"></div><div><b>Bloco III: Conhecimentos Gerais</b> (24 questões: Atualidades [4], Matemática [4], Informática [9], Raciocínio Lógico [7]). Caráter apenas classificatório.[cite: 31, 32]</div></div>
-          <div class="phase-row"><div class="phase-dot" style="background:var(--red)"></div><div><b>Prova Discursiva (Redação):</b> Avaliada de 0 a 40 pontos (necessário nota ≥ 24 para ampla concorrência).[cite: 19]</div></div>
-        </div>
-      </div>
+      <div class="phase-header"><span class="phase-num">01</span><div><h3>Fase Base — Fundamentos</h3><div style="font-size:11px;color:rgba(248,250,252,.5);">Outubro e Novembro/2026</div></div><span>~60h</span></div>
+      <div class="phase-body"><div class="phase-rows">
+        <div class="phase-row"><div class="phase-dot" style="background:var(--blue);"></div><strong>Português:</strong>&nbsp;interpretação de textos, classes de palavras, concordância</div>
+        <div class="phase-row"><div class="phase-dot" style="background:var(--red);"></div><strong>Dir. Penal:</strong>&nbsp;arts. 293–359 CP (crimes contra a administração)</div>
+        <div class="phase-row"><div class="phase-dot" style="background:var(--blue);"></div><strong>Dir. Constitucional:</strong>&nbsp;Título II (Direitos Fundamentais) + art. 92</div>
+        <div class="phase-row"><div class="phase-dot" style="background:var(--purple);"></div><strong>Informática:</strong>&nbsp;Windows + Word + Excel + Teams + OneDrive</div>
+        <div class="phase-row"><div class="phase-dot" style="background:var(--gold);"></div><strong>Meta:</strong>&nbsp;10h/semana + 30 questões VUNESP antigas</div>
+      </div></div>
+    </div>
+    <div class="phase-block">
+      <div class="phase-header"><span class="phase-num">02</span><div><h3>Fase Aprofundamento</h3><div style="font-size:11px;color:rgba(248,250,252,.5);">Dezembro/2026 e Janeiro/2027</div></div><span>~80h</span></div>
+      <div class="phase-body"><div class="phase-rows">
+        <div class="phase-row"><div class="phase-dot" style="background:var(--blue);"></div><strong>Português:</strong>&nbsp;crase, regência, colocação pronominal + redação 1x/semana</div>
+        <div class="phase-row"><div class="phase-dot" style="background:var(--green);"></div><strong>Dir. Processual Civil:</strong>&nbsp;CPC arts. 188–538 + recursos arts. 994–1026</div>
+        <div class="phase-row"><div class="phase-dot" style="background:var(--gold);"></div><strong>Dir. Processual Penal:</strong>&nbsp;CPP arts. 351–667 + Lei 9.099/95</div>
+        <div class="phase-row"><div class="phase-dot" style="background:var(--purple);"></div><strong>Dir. Administrativo:</strong>&nbsp;Estatuto SP 10.261/68 + Lei 8.429/92</div>
+        <div class="phase-row"><div class="phase-dot" style="background:var(--orange);"></div><strong>Raciocínio Lógico:</strong>&nbsp;proposições, diagramas, sequências</div>
+        <div class="phase-row"><div class="phase-dot" style="background:var(--gold);"></div><strong>Legislação Interna:</strong>&nbsp;Normas CGJ Tomo I + Res. 850/2021 + LC 1.111</div>
+        <div class="phase-row"><div class="phase-dot" style="background:var(--gold);"></div><strong>Meta:</strong>&nbsp;12h/semana + simulado completo semanal</div>
+      </div></div>
+    </div>
+    <div class="phase-block">
+      <div class="phase-header"><span class="phase-num">03</span><div><h3>Revisão Intensiva</h3><div style="font-size:11px;color:rgba(248,250,252,.5);">Fevereiro — até 14/03/2027</div></div><span>~60h</span></div>
+      <div class="phase-body"><div class="phase-rows">
+        <div class="phase-row"><div class="phase-dot" style="background:var(--gold);"></div><strong>Simulados:</strong>&nbsp;2 por semana no tempo real (5h) — foco nos Blocos I e II</div>
+        <div class="phase-row"><div class="phase-dot" style="background:var(--blue);"></div><strong>Português:</strong>&nbsp;revisar concordância, crase e pontuação</div>
+        <div class="phase-row"><div class="phase-dot" style="background:var(--green);"></div><strong>Direito:</strong>&nbsp;reler artigos-chave do CPC + Normas CGJ + Estatuto SP</div>
+        <div class="phase-row"><div class="phase-dot" style="background:var(--orange);"></div><strong>Lógica + Mat.:</strong>&nbsp;maratonar questões de anos anteriores</div>
+        <div class="phase-row"><div class="phase-dot" style="background:var(--ink);"></div><strong>Redação:</strong>&nbsp;1 por semana + corrigir pelos 4 critérios do edital</div>
+        <div class="phase-row"><div class="phase-dot" style="background:var(--gold);"></div><strong>Atualidades:</strong>&nbsp;ler G1 / Agência Brasil diariamente</div>
+      </div></div>
     </div>
   </div>
 
+  <div class="section-title" style="margin-top:28px;">💡 Dicas da Banca VUNESP</div>
+  <div class="tips-grid">
+    <div class="tip-card"><h4>📝 Português VUNESP (16q)</h4><ul>
+      <li>Interpretação de texto é sempre a maior parte</li>
+      <li>Concordância com casos especiais (coletivo, partitivo)</li>
+      <li>Crase e pontuação com vírgula caem todas as edições</li>
+    </ul></div>
+    <div class="tip-card"><h4>⚖️ Direito VUNESP (30q)</h4><ul>
+      <li>É o maior bloco — prioridade máxima!</li>
+      <li>Cobra a letra fria da lei — decorar artigos é essencial</li>
+      <li>Normas CGJ Tomo I caem todos os anos no TJSP</li>
+    </ul></div>
+    <div class="tip-card"><h4>🧩 Lógica VUNESP (7q)</h4><ul>
+      <li>Vale mais que Matemática! Não negligencie</li>
+      <li>Diagramas lógicos (conjuntos) são os mais frequentes</li>
+      <li>Proposições condicionais: domine negação e contrapositiva</li>
+    </ul></div>
+    <div class="tip-card"><h4>✍️ Redação VUNESP</h4><ul>
+      <li>Mínimo 24/40 para não ser eliminado (19,2 para cotistas)</li>
+      <li>Não use 1ª ou 2ª pessoa — texto deve ter autonomia</li>
+      <li>Não copie nem parafraseie a coletânea, nem use modelos prontos</li>
+    </ul></div>
+    <div class="tip-card"><h4>🎯 Regras do edital 02/2026</h4><ul>
+      <li>70 questões de 5 alternativas, todas com o mesmo valor</li>
+      <li>Habilitação: nota final ≥ 5,0 e ≥ 50% nos Blocos I e II</li>
+      <li>Só os mais bem colocados na objetiva têm a redação corrigida</li>
+      <li>Desempate: idade ≥ 60 anos, depois Português, depois Direito</li>
+    </ul></div>
+    <div class="tip-card"><h4>💼 Cargo e vagas</h4><ul>
+      <li>Escrevente Técnico Judiciário — cadastro de reserva</li>
+      <li>Vencimento de R$ 6.782,54 (ref. mar/2026) + auxílios</li>
+      <li>Cotas: PcD 5% · negros 25% · indígenas 3% · quilombolas 2%</li>
+      <li>Inscrição: R$ 81,00 (28/10 a 10/12/2026)</li>
+    </ul></div>
+  </div>
   <div class="footer">
-    Plano de Estudos TJ-SP Escrevente — Baseado no Edital 02/2026 do TJSP <br>
-    <div class="lgpd-badge">🔒 Dados armazenados localmente no seu navegador (LocalStorage)</div>
+    Plano baseado no Edital TJ-SP 02/2026 · Banca VUNESP<br>
+    <span class="lgpd-badge">🔒 Respeitamos a LGPD: Seus dados nunca saem do seu computador.</span>
   </div>
 </div>
 
 <script>
-// DADOS PROGRAMÁTICOS OFICIAIS - EDITAL 02/2026 (TJSP)
-const disciplinasData = [
-  {
-    id: 'portugues',
-    name: 'Língua Portuguesa',
-    icon: '📘',
-    color: '#3b82f6',
-    bloco: 'Bloco I (16 questões - Eliminatório/Classificatório)',
-    questoes: 16,
-    peso: 'Peso 1',
-    topics: [
-      { id: 'p1', name: 'Análise, compreensão e interpretação de diversos tipos de textos verbais, não verbais, literários e não literários', tag: 'Interpretação' },
-      { id: 'p2', name: 'Informações literais e inferências possíveis', tag: 'Inferência' },
-      { id: 'p3', name: 'Ponto de vista do autor e estruturação do texto: relações entre ideias, recursos de coesão', tag: 'Coesão' },
-      { id: 'p4', name: 'Significação contextual de palavras e expressões, sinônimos, antônimos, sentido próprio e figurado', tag: 'Semântica' },
-      { id: 'p5', name: 'Classes de palavras: emprego e sentido (substantivo, adjetivo, artigo, numeral, pronome, verbo, advérbio, preposição, conjunção)', tag: 'Morfologia' },
-      { id: 'p6', name: 'Concordância verbal e nominal', tag: 'Sintaxe', hot: true },
-      { id: 'p7', name: 'Regência verbal e nominal', tag: 'Sintaxe', hot: true },
-      { id: 'p8', name: 'Colocação pronominal', tag: 'Sintaxe' },
-      { id: 'p9', name: 'Crase', tag: 'Sintaxe', hot: true },
-      { id: 'p10', name: 'Pontuação', tag: 'Pontuação', hot: true }
-    ]
-  },
-  {
-    id: 'direito',
-    name: 'Conhecimentos em Direito',
-    icon: '⚖️',
-    color: '#10b981',
-    bloco: 'Bloco II (30 questões - Eliminatório/Classificatório)',
-    questoes: 30,
-    peso: 'Peso 1',
-    topics: [
-      { id: 'd1', name: 'Direito Penal: Código Penal - arts. 293 a 305; 307; 308; 311-A; 312 a 317; 319 a 333; 336-337; 339-347; 357 e 359', tag: 'Penal' },
-      { id: 'd2', name: 'Direito Processual Penal: CPP - arts. 251-258; 261-267; 274; 351-372; 394-497; 531-538; 541-548; 574-667 e Lei 9.099/95 (arts. 60-83, 88, 89)', tag: 'Proc. Penal' },
-      { id: 'd3', name: 'Direito Processual Civil: CPC - arts. 144-155; 188-275; 294-311; 318-538; 994-1026 + Lei 9.099/95 (arts. 3-19) + Lei 12.153/09', tag: 'Proc. Civil', hot: true },
-      { id: 'd4', name: 'Direito Constitucional: CF/88 - Título II (Cap. I, II, III); Título III (Cap. VII, Seções I e II) + Artigo 92', tag: 'Constitucional' },
-      { id: 'd5', name: 'Direito Administrativo: Lei Estadual 10.261/68 (Estatuto dos Funcionários Públicos Civis do Estado de SP - arts. 1-86, 171-175, 239-323) + Lei 8.429/92 (Improbidade)', tag: 'Administrativo', hot: true },
-      { id: 'd6', name: 'Legislação Interna: Resoluções TJSP nº 850/2021 (Teletrabalho), nº 963/2025 (eproc), LC 1.111/2010, Regimento Interno TJSP e Normas da Corregedoria Geral da Justiça', tag: 'Normas TJSP', hot: true }
-    ]
-  },
-  {
-    id: 'gerais',
-    name: 'Conhecimentos Gerais (Atualidades, Matemática, Informática e Raciocínio Lógico)',
-    icon: '🌐',
-    color: '#d97706',
-    bloco: 'Bloco III (24 questões - Apenas Classificatório)',
-    questoes: 24,
-    peso: 'Peso 1',
-    topics: [
-      { id: 'g1', name: 'Atualidades: Fatos políticos, econômicos, sociais e culturais a partir do 1º semestre de 2026 + Lei 13.146/2015 (Estatuto da Pessoa com Deficiência - arts. 1-13, 34-38)', tag: 'Atualidades' },
-      { id: 'g2', name: 'Matemática: Números reais, MMC/MDC, Razão e proporção, Porcentagem, Regra de três, Média, Juros simples, Equações 1º/2º grau, Geometria e Medidas', tag: 'Matemática' },
-      { id: 'g3', name: 'Informática: MS-Windows 10/superior, MS-Word, MS-Excel (fórmulas/gráficos/macros), MS-Teams, OneDrive, Correio Eletrônico, Internet', tag: 'Informática', hot: true },
-      { id: 'g4', name: 'Raciocínio Lógico: Estrutura lógica das relações, deduções, sequências lógicas, diagramas, lógica de argumentação', tag: 'Raciocínio Lógico' }
-    ]
-  }
-];
+/* ══ STORAGE ══ */
+const SK='tjsp_v6_gamified'; /* mantido para preservar o progresso salvo. Para zerar, troque por 'tjsp_v7_2026' */
+function loadData(){try{return JSON.parse(localStorage.getItem(SK)||'{}');}catch{return{};}}
+function saveData(d){try{localStorage.setItem(SK,JSON.stringify(d));}catch(_){}flashToast();}
+let _tt=null;
+function flashToast(){const t=document.getElementById('save-toast');t.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>t.classList.remove('show'),1600);}
 
-let appData = {
-  theme: 'light',
-  currentTab: 'dashboard',
-  checklist: {},
-  dailyGoal: 4,
-  streak: 0,
-  bestStreak: 0,
-  lastStudyDate: '',
-  history: {},
-  customTasks: {},
-  currentWeekOffset: 0,
-  checklistFilter: 'all',
-  checklistSearch: ''
-};
+/* ══ GAMIFICAÇÃO & XP ══ */
+function updateXP(amount) {
+  const d = loadData();
+  d.xp = (d.xp || 0) + amount;
+  if (d.xp < 0) d.xp = 0;
+  saveData(d);
+  renderGamification();
+}
 
-function loadData() {
-  const saved = localStorage.getItem('tjsp_edital02_2026_data');
-  if (saved) {
-    try {
-      const parsed = JSON.parse(saved);
-      appData = { ...appData, ...parsed };
-    } catch(e) { console.error(e); }
-  }
-  if (appData.theme === 'dark') {
-    document.body.classList.add('dark-theme');
+function renderGamification() {
+  const d = loadData();
+  const currentXP = d.xp || 0;
+  const level = Math.floor(currentXP / 100) + 1;
+  const xpInCurrentLevel = currentXP % 100;
+
+  let title = "Novato";
+  if(level >= 3) title = "Aspirante a Servidor";
+  if(level >= 7) title = "Estudante Tático";
+  if(level >= 12) title = "Concurseiro Focado";
+  if(level >= 20) title = "Mestre da VUNESP";
+  if(level >= 30) title = "Escrevente Elite";
+
+  const lvlNum = document.getElementById('level-num');
+  if(lvlNum) {
+      lvlNum.textContent = level;
+      document.getElementById('level-title').textContent = title;
+      document.getElementById('xp-fill').style.width = xpInCurrentLevel + '%';
+      document.getElementById('xp-text').textContent = xpInCurrentLevel + ' / 100 XP para o Nível ' + (level + 1);
   }
 }
 
-function saveData() {
-  localStorage.setItem('tjsp_edital02_2026_data', JSON.stringify(appData));
-  showToast();
+/* ══ TABS ══ */
+const TAB_ORDER=['dashboard','checklist','agenda','cronograma'];
+let currentTab='dashboard';
+
+function switchTab(name, btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab, .bn-tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  document.querySelectorAll('[data-tab="'+name+'"]').forEach(b=>b.classList.add('active'));
+  if(btn) btn.classList.add('active');
+  currentTab=name;
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(name==='dashboard'){ renderDashboard(); renderGamification(); }
+  if(name==='agenda')renderWeek();
 }
 
-function showToast() {
-  const t = document.getElementById('save-toast');
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 1500);
+/* ══ CHECKLIST ══ */
+const GROUPS=['lp','dp','dpp','dpc','dc','da','li','atu','mat','inf','rl','red'];
+const GROUP_LABELS={lp:'Português',dp:'Dir. Penal',dpp:'D. Proc. Penal',dpc:'D. Proc. Civil',dc:'Dir. Const.',da:'Dir. Admin.',li:'Leg. Interna',atu:'Atualidades',mat:'Matemática',inf:'Informática',rl:'Rac. Lógico',red:'Redação'};
+const GROUP_COLORS={lp:'var(--blue)',dp:'var(--red)',dpp:'var(--gold)',dpc:'var(--green)',dc:'var(--blue)',da:'var(--purple)',li:'var(--gold)',atu:'var(--gold)',mat:'var(--red)',inf:'var(--purple)',rl:'var(--orange)',red:'var(--ink)'};
+
+function toggleCard(id){document.getElementById(id).classList.toggle('open');}
+
+function toggleTopic(el){
+  const d=loadData();
+  const key=el.dataset.key;
+  el.classList.toggle('done');
+  const isDone=el.classList.contains('done');
+  d.topics=d.topics||{};
+  d.topics[key]=isDone;
+  const today=todayStr();
+  d.daily=d.daily||{};
+  if(isDone) d.daily[today]=(d.daily[today]||0)+1;
+  else d.daily[today]=Math.max(0,(d.daily[today]||1)-1);
+  saveData(d);
+  
+  // Ganha 10 XP por tópico
+  updateXP(isDone ? 10 : -10);
+
+  const g=el.closest('.topics-list').id.replace('list-','');
+  updateGroup(g);
+  updateOverall();
+  updateDailyGoal();
+  updateStreak();
 }
 
+function attachTopics(){
+  document.querySelectorAll('.topic-item').forEach(el=>{
+    el.addEventListener('click',()=>toggleTopic(el));
+  });
+}
+
+function restoreTopics(){
+  const topics=(loadData().topics)||{};
+  document.querySelectorAll('.topic-item').forEach(el=>{
+    if(topics[el.dataset.key])el.classList.add('done');
+  });
+}
+
+function updateGroup(g){
+  const list=document.getElementById('list-'+g);if(!list)return;
+  const total=list.querySelectorAll('.topic-item').length;
+  const done=list.querySelectorAll('.topic-item.done').length;
+  const pct=total?Math.round(done/total*100):0;
+  const pe=document.getElementById('pct-'+g),be=document.getElementById('bar-'+g);
+  if(pe)pe.textContent=pct+'%';
+  if(be)be.style.width=pct+'%';
+}
+
+function updateOverall(){
+  const total=document.querySelectorAll('.topic-item').length;
+  const done=document.querySelectorAll('.topic-item.done').length;
+  const pct=total?Math.round(done/total*100):0;
+  document.getElementById('topics-done').textContent=done;
+  document.getElementById('topics-total').textContent=total;
+  document.getElementById('ring-pct').textContent=pct+'%';
+  document.getElementById('progress-ring').style.strokeDashoffset=201.06-(pct/100)*201.06;
+}
+
+function confirmReset(){
+  if(!confirm('Resetar todo o progresso? Essa ação não pode ser desfeita.'))return;
+  const d=loadData();d.topics={};d.daily={};d.xp=0;saveData(d);
+  document.querySelectorAll('.topic-item.done').forEach(el=>el.classList.remove('done'));
+  GROUPS.forEach(g=>updateGroup(g));updateOverall();renderDashboard();renderGamification();
+}
+
+/* ══ STREAK & METAS ══ */
+function todayStr(){return new Date().toISOString().slice(0,10);}
+
+function computeStreak(daily){
+  if(!Object.keys(daily).length)return{streak:0,best:0};
+  const today=todayStr();
+  const hasTodayActivity=(daily[today]||0)>0;
+  const ptr=new Date((hasTodayActivity?today:new Date(new Date().setDate(new Date().getDate()-1)).toISOString().slice(0,10))+'T12:00:00');
+  let streak=0;
+  while((daily[ptr.toISOString().slice(0,10)]||0)>0){streak++;ptr.setDate(ptr.getDate()-1);}
+  const sorted=Object.keys(daily).filter(k=>(daily[k]||0)>0).sort();
+  let best=0,cur=0;
+  for(let i=0;i<sorted.length;i++){
+    if(i===0){cur=1;}
+    else{
+      const prev=new Date(sorted[i-1]+'T12:00:00'),curr=new Date(sorted[i]+'T12:00:00');
+      cur=((curr-prev)/864e5<=1.5)?cur+1:1;
+    }
+    best=Math.max(best,cur);
+  }
+  return{streak,best};
+}
+
+function updateStreak(){
+  const d=loadData();
+  const{streak,best}=computeStreak(d.daily||{});
+  document.getElementById('streak-num').textContent=streak;
+  document.getElementById('streak-best').textContent='recorde: '+best+' dia'+(best!==1?'s':'');
+  document.getElementById('streak-fire').textContent=streak>=14?'🔥':streak>=7?'✨':streak>=3?'⚡':'💤';
+
+  const labelEl = document.querySelector('.streak-label');
+  if (streak === 0 && best > 0) {
+    labelEl.innerHTML = "Quebrou a sequência...<br><span style='color:var(--gold-light); font-weight:600; font-size:14px;'>Recomece hoje! 🚀</span>";
+  } else {
+    labelEl.innerHTML = "dias de sequência";
+  }
+}
+
+function saveGoal(){
+  const v=Math.max(1,parseInt(document.getElementById('goal-input').value)||5);
+  const d=loadData();d.goal=v;saveData(d);updateDailyGoal();
+}
+
+let goalMetToday = false;
+function updateDailyGoal(){
+  const d=loadData();
+  const goal=d.goal||5;
+  const todayDone=(d.daily||{})[todayStr()]||0;
+  const pct=Math.min(100,Math.round(todayDone/goal*100));
+
+  // CONFETI SYSTEM (Dopamina)
+  if (pct >= 100 && !goalMetToday) {
+    goalMetToday = true;
+    if (typeof confetti === 'function') {
+        confetti({
+            particleCount: 150,
+            spread: 70,
+            origin: { y: 0.6 },
+            colors: ['#d97706', '#10b981', '#3b82f6', '#fcd34d']
+        });
+    }
+  } else if (pct < 100) {
+    goalMetToday = false;
+  }
+
+  document.getElementById('goal-input').value=goal;
+  document.getElementById('goal-fill').style.width=pct+'%';
+  document.getElementById('goal-status').textContent=todayDone+' / '+goal+' tópicos hoje'+(pct>=100?' 🎉':'');
+  document.getElementById('daily-done-num').textContent=todayDone;
+  document.getElementById('daily-goal-show').textContent=goal;
+}
+
+/* ══ HEATMAP ══ */
+function buildHeatmap(){
+  const daily=(loadData().daily)||{};
+  const container=document.getElementById('heatmap');container.innerHTML='';
+  const today=new Date();
+  for(let i=89;i>=0;i--){
+    const dt=new Date(today);dt.setDate(dt.getDate()-i);
+    const s=dt.toISOString().slice(0,10);
+    const count=daily[s]||0;
+    let cls='hm-day';
+    if(count>=8)cls+=' s4';else if(count>=5)cls+=' s3';else if(count>=2)cls+=' s2';else if(count>=1)cls+=' s1';
+    if(i===0)cls+=' today';
+    const el=document.createElement('div');el.className=cls;
+    const tip=document.createElement('div');tip.className='hm-tip';
+    tip.textContent=s+': '+count+' tópico'+(count!==1?'s':'');
+    el.appendChild(tip);container.appendChild(el);
+  }
+}
+
+/* ══ BAR CHART ══ */
+function buildBarChart(){
+  const chart=document.getElementById('bar-chart');chart.innerHTML='';
+  GROUPS.forEach(g=>{
+    const list=document.getElementById('list-'+g);if(!list)return;
+    const total=list.querySelectorAll('.topic-item').length;
+    const done=list.querySelectorAll('.topic-item.done').length;
+    const pct=total?Math.round(done/total*100):0;
+    const row=document.createElement('div');row.className='bar-row';
+    row.innerHTML=`<div class="bar-label">${GROUP_LABELS[g]}</div><div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${GROUP_COLORS[g]};"></div></div><div class="bar-val">${done}/${total}</div>`;
+    chart.appendChild(row);
+  });
+}
+
+function renderDashboard(){updateStreak();updateDailyGoal();buildHeatmap();buildBarChart();}
+
+/* ══ AGENDA ══ */
+const DAY_NAMES=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+let weekOffset=0,editingTask=null;
+
+function getWeekDates(offset){
+  const today=new Date();
+  const dow=today.getDay();
+  const monday=new Date(today);
+  monday.setDate(today.getDate()-dow+1+(offset*7));
+  return Array.from({length:7},(_,i)=>{const d=new Date(monday);d.setDate(monday.getDate()+i);return d;});
+}
+
+function getWeekKey(date){
+  const d=new Date(date);d.setHours(12,0,0,0);
+  const jan4=new Date(d.getFullYear(),0,4);
+  const week=Math.ceil(((d-jan4)/864e5+jan4.getDay()+1)/7);
+  return d.getFullYear()+'-W'+String(week).padStart(2,'0');
+}
+
+function shiftWeek(dir){weekOffset+=dir;renderWeek();}
+
+function renderWeek(){
+  const days=getWeekDates(weekOffset);
+  const wk=getWeekKey(days[0]);
+  const d=loadData();
+  const weekData=(d.agenda||{})[wk]||{};
+  const todayISO=new Date().toISOString().slice(0,10);
+  const fmt=dt=>dt.toLocaleDateString('pt-BR',{day:'2-digit',month:'short'});
+  document.getElementById('week-label').textContent=fmt(days[0])+' – '+fmt(days[6]);
+  const grid=document.getElementById('week-grid');grid.innerHTML='';
+  days.forEach((dt,i)=>{
+    const iso=dt.toISOString().slice(0,10);
+    const isToday=iso===todayISO;
+    const tasks=weekData[i]||[];
+    const col=document.createElement('div');
+    col.className='day-col'+(isToday?' today-col':'');
+    col.innerHTML=`<div class="day-name">${DAY_NAMES[dt.getDay()]}</div><div class="day-date">${dt.getDate()}</div><div class="day-tasks" id="dt-${i}"></div><button class="add-task-btn" onclick="openModal('${wk}',${i},null)">+ tarefa</button>`;
+    grid.appendChild(col);
+    const tc=col.querySelector('#dt-'+i);
+    tasks.forEach((task,ti)=>{
+      const btn=document.createElement('button');
+      btn.className='day-task'+(task.done?' task-done':'');
+      btn.innerHTML=`<div class="task-dot" style="background:${task.color||'var(--gold)'};"></div><span>${task.text}</span>`;
+      btn.addEventListener('click',e=>{e.stopPropagation();openModal(wk,i,ti);});
+      btn.addEventListener('dblclick',e=>{e.stopPropagation();e.preventDefault();toggleTaskDone(wk,i,ti);});
+      tc.appendChild(btn);
+    });
+  });
+}
+
+function openModal(wk,dayIdx,taskIdx){
+  editingTask={wk,dayIdx,taskIdx};
+  const d=loadData();
+  const tasks=((d.agenda||{})[wk]||{})[dayIdx]||[];
+  const isEdit=taskIdx!==null&&taskIdx!==undefined;
+  document.getElementById('modal-title').textContent=isEdit?'Editar tarefa':'Nova tarefa';
+  document.getElementById('task-input').value=isEdit?(tasks[taskIdx]?.text||''):'';
+  document.getElementById('task-color').value=isEdit?(tasks[taskIdx]?.color||'#d97706'):'#d97706';
+  document.getElementById('modal-del').style.display=isEdit?'block':'none';
+  document.getElementById('task-modal').classList.add('show');
+  setTimeout(()=>document.getElementById('task-input').focus(),50);
+}
+
+function closeModal(){document.getElementById('task-modal').classList.remove('show');editingTask=null;}
+
+function saveTask(){
+  const text=document.getElementById('task-input').value.trim();if(!text)return;
+  const color=document.getElementById('task-color').value;
+  const d=loadData();const{wk,dayIdx,taskIdx}=editingTask;
+  d.agenda=d.agenda||{};d.agenda[wk]=d.agenda[wk]||{};d.agenda[wk][dayIdx]=d.agenda[wk][dayIdx]||[];
+  if(taskIdx!==null&&taskIdx!==undefined){d.agenda[wk][dayIdx][taskIdx]={...d.agenda[wk][dayIdx][taskIdx],text,color};}
+  else{d.agenda[wk][dayIdx].push({text,color,done:false});}
+  saveData(d);closeModal();renderWeek();
+}
+
+function deleteTask(){
+  if(!editingTask)return;const{wk,dayIdx,taskIdx}=editingTask;
+  const d=loadData();
+  if(d.agenda?.[wk]?.[dayIdx]){d.agenda[wk][dayIdx].splice(taskIdx,1);saveData(d);}
+  closeModal();renderWeek();
+}
+
+function toggleTaskDone(wk,dayIdx,taskIdx){
+  const d=loadData();
+  if(d.agenda?.[wk]?.[dayIdx]?.[taskIdx]!==undefined){
+    const isNowDone = !d.agenda[wk][dayIdx][taskIdx].done;
+    d.agenda[wk][dayIdx][taskIdx].done = isNowDone;
+    saveData(d);
+    
+    // Ganha 5 XP por tarefa da agenda
+    updateXP(isNowDone ? 5 : -5);
+    renderWeek();
+  }
+}
+
+/* ══ PIX COPY FUNCTION ══ */
+function copyPixCode() {
+  const pixInput = document.getElementById("pix-code");
+  pixInput.select();
+  pixInput.setSelectionRange(0, 99999);
+  navigator.clipboard.writeText(pixInput.value).then(() => {
+    const toast = document.getElementById("pix-toast");
+    toast.style.opacity = 1;
+    setTimeout(() => { toast.style.opacity = 0; }, 2500);
+  });
+}
+
+document.getElementById('task-modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+document.getElementById('task-input').addEventListener('keydown',e=>{if(e.key==='Enter')saveTask();if(e.key==='Escape')closeModal();});
+
+/* ══ BUSCA E ORDENAÇÃO (CHECKLIST) ══ */
+function filterTopics() {
+  const term = document.getElementById('search-input').value.toLowerCase();
+  document.querySelectorAll('.discipline-card').forEach(card => {
+    let hasVisible = false;
+    card.querySelectorAll('.topic-item').forEach(item => {
+      const text = item.querySelector('.topic-name').textContent.toLowerCase() + " " + (item.querySelector('.topic-tag') ? item.querySelector('.topic-tag').textContent.toLowerCase() : "");
+      if (text.includes(term)) {
+        item.style.display = 'flex';
+        hasVisible = true;
+      } else {
+        item.style.display = 'none';
+      }
+    });
+    if (term.length > 0 && hasVisible) {
+      card.querySelector('.card-inner').classList.add('open');
+    }
+  });
+}
+
+let isSorted = false;
+function toggleSort() {
+  isSorted = !isSorted;
+  const btn = document.getElementById('sort-btn');
+  isSorted ? btn.classList.add('active') : btn.classList.remove('active');
+
+  document.querySelectorAll('.topics-list').forEach(list => {
+    const items = Array.from(list.querySelectorAll('.topic-item'));
+    items.sort((a, b) => {
+      const aHot = a.querySelector('.hot-tag') ? 1 : 0;
+      const bHot = b.querySelector('.hot-tag') ? 1 : 0;
+      if (isSorted) return bHot - aHot;
+      else return a.dataset.key.localeCompare(b.dataset.key);
+    });
+    items.forEach(item => list.appendChild(item));
+  });
+}
+
+/* ══ MODO ESCURO ══ */
 function toggleTheme() {
   document.body.classList.toggle('dark-theme');
-  appData.theme = document.body.classList.contains('dark-theme') ? 'dark' : 'light';
-  saveData();
+  const isDark = document.body.classList.contains('dark-theme');
+  const d = loadData();
+  d.theme = isDark ? 'dark' : 'light';
+  saveData(d);
 }
 
-function switchTab(tabId, el) {
-  appData.currentTab = tabId;
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('page-' + tabId).classList.add('active');
-
-  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.bn-tab').forEach(t => t.classList.remove('active'));
-
-  document.querySelectorAll(`[data-tab="${tabId}"]`).forEach(t => t.classList.add('active'));
-  window.scrollTo(0, 0);
-
-  if(tabId === 'dashboard') renderDashboard();
-  if(tabId === 'agenda') renderAgenda();
-}
-
-function getTotalTopicsCount() {
-  let count = 0;
-  disciplinasData.forEach(d => count += d.topics.length);
-  return count;
-}
-
-function getCompletedTopicsCount() {
-  let count = 0;
-  Object.keys(appData.checklist).forEach(id => {
-    if(appData.checklist[id]) count++;
-  });
-  return count;
-}
-
-function toggleTopic(id) {
-  const nowDone = !appData.checklist[id];
-  appData.checklist[id] = nowDone;
-  
-  const todayStr = new Date().toISOString().split('T')[0];
-  if(!appData.history[todayStr]) appData.history[todayStr] = 0;
-  if(nowDone) {
-    appData.history[todayStr]++;
-    confetti({ particleCount: 50, spread: 60, origin: { y: 0.8 } });
-  } else {
-    appData.history[todayStr] = Math.max(0, appData.history[todayStr] - 1);
-  }
-
-  updateStreak(todayStr);
-  saveData();
-  renderChecklist();
-  renderDashboard();
-}
-
-function updateStreak(todayStr) {
-  if (appData.lastStudyDate === todayStr) return;
-  const todayCount = appData.history[todayStr] || 0;
-  if (todayCount > 0) {
-    if (!appData.lastStudyDate) {
-      appData.streak = 1;
-    } else {
-      const lastDate = new Date(appData.lastStudyDate);
-      const currDate = new Date(todayStr);
-      const diffDays = Math.round((currDate - lastDate) / (1000 * 60 * 60 * 24));
-      if (diffDays === 1) {
-        appData.streak++;
-      } else if (diffDays > 1) {
-        appData.streak = 1;
-      }
+/* ══ SWIPE ══ */
+(function(){
+  let sx=0,sy=0,moved=false;
+  document.addEventListener('touchstart',e=>{
+    if(e.target.closest('.modal,.topics-list,.heatmap,.week-grid,.pix-input'))return;
+    sx=e.touches[0].clientX;sy=e.touches[0].clientY;moved=false;
+  },{passive:true});
+  document.addEventListener('touchmove',e=>{
+    if(Math.abs(e.touches[0].clientX-sx)>10)moved=true;
+  },{passive:true});
+  document.addEventListener('touchend',e=>{
+    if(!moved)return;
+    const dx=e.changedTouches[0].clientX-sx;
+    const dy=e.changedTouches[0].clientY-sy;
+    if(Math.abs(dx)<40||Math.abs(dy)>Math.abs(dx)*1.2)return;
+    const idx=TAB_ORDER.indexOf(currentTab);
+    if(dx<-50&&idx<TAB_ORDER.length-1){
+      const next=TAB_ORDER[idx+1];
+      switchTab(next,document.querySelector('.bn-tab[data-tab="'+next+'"]'));
+    } else if(dx>50&&idx>0){
+      const prev=TAB_ORDER[idx-1];
+      switchTab(prev,document.querySelector('.bn-tab[data-tab="'+prev+'"]'));
     }
-    appData.lastStudyDate = todayStr;
-    if (appData.streak > appData.bestStreak) {
-      appData.bestStreak = appData.streak;
-    }
-  }
-}
+  },{passive:true});
+})();
 
-function renderDashboard() {
-  const total = getTotalTopicsCount();
-  const completed = getCompletedTopicsCount();
-  const xp = completed * 25;
-  const level = Math.floor(xp / 150) + 1;
-  const xpInLevel = xp % 150;
-
-  document.getElementById('user-level').innerText = level;
-  document.getElementById('current-xp').innerText = xpInLevel;
-  document.getElementById('next-level-xp').innerText = 150;
-  document.getElementById('xp-fill').style.width = Math.min(100, (xpInLevel / 150) * 100) + '%';
-
-  document.getElementById('streak-count').innerText = appData.streak;
-  document.getElementById('streak-best').innerText = `Recorde: ${appData.bestStreak} dias`;
-  document.getElementById('total-done-count').innerText = completed;
-
-  const todayStr = new Date().toISOString().split('T')[0];
-  const todayDone = appData.history[todayStr] || 0;
-  const goal = appData.dailyGoal || 4;
-  document.getElementById('goal-fill').style.width = Math.min(100, (todayDone / goal) * 100) + '%';
-  document.getElementById('goal-status').innerText = `${todayDone} de ${goal} concluídos hoje`;
-
-  renderHeatmap();
-  renderBarChart();
-}
-
-function renderHeatmap() {
-  const grid = document.getElementById('heatmap-grid');
-  grid.innerHTML = '';
-  const today = new Date();
-  for (let i = 89; i >= 0; i--) {
-    const d = new Date(today);
-    d.setDate(d.getDate() - i);
-    const dateStr = d.toISOString().split('T')[0];
-    const count = appData.history[dateStr] || 0;
-
-    const sq = document.createElement('div');
-    sq.className = 'hm-day';
-    if (i === 0) sq.classList.add('today');
-    if (count > 0 && count <= 1) sq.classList.add('s1');
-    else if (count > 1 && count <= 3) sq.classList.add('s2');
-    else if (count > 3 && count <= 5) sq.classList.add('s3');
-    else if (count > 5) sq.classList.add('s4');
-
-    const tip = document.createElement('div');
-    tip.className = 'hm-tip';
-    tip.innerText = `${dateStr}: ${count} tópicos`;
-    sq.appendChild(tip);
-    grid.appendChild(sq);
-  }
-}
-
-function renderBarChart() {
-  const container = document.getElementById('bar-chart-container');
-  container.innerHTML = '';
-  disciplinasData.forEach(d => {
-    let comp = 0;
-    d.topics.forEach(t => { if(appData.checklist[t.id]) comp++; });
-    const pct = Math.round((comp / d.topics.length) * 100);
-
-    const row = document.createElement('div');
-    row.className = 'bar-row';
-    row.innerHTML = `
-      <div class="bar-label">${d.name}</div>
-      <div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${d.color}"></div></div>
-      <div class="bar-val">${pct}%</div>
-    `;
-    container.appendChild(row);
-  });
-}
-
-function renderChecklist() {
-  const container = document.getElementById('checklist-container');
-  container.innerHTML = '';
-
-  const total = getTotalTopicsCount();
-  const completed = getCompletedTopicsCount();
-  const pct = total > 0 ? Math.round((completed / total) * 100) : 0;
-
-  document.getElementById('global-pct').innerText = pct + '%';
-  document.getElementById('completed-count').innerText = completed;
-  document.getElementById('total-topics-count').innerText = total;
-
-  const circ = 188.4;
-  const offset = circ - (pct / 100) * circ;
-  document.getElementById('ring-progress').style.strokeDashoffset = offset;
-
-  disciplinasData.forEach(disc => {
-    let discComp = 0;
-    disc.topics.forEach(t => { if(appData.checklist[t.id]) discComp++; });
-    const discPct = Math.round((discComp / disc.topics.length) * 100);
-
-    const card = document.createElement('div');
-    card.className = 'discipline-card';
-    
-    let topicsHtml = '';
-    disc.topics.forEach(t => {
-      const isDone = !!appData.checklist[t.id];
-      if (appData.checklistFilter === 'pending' && isDone) return;
-      if (appData.checklistSearch) {
-        const query = appData.checklistSearch.toLowerCase();
-        if (!t.name.toLowerCase().includes(query) && !t.tag.toLowerCase().includes(query)) return;
-      }
-
-      topicsHtml += `
-        <div class="topic-item ${isDone ? 'done' : ''}" onclick="toggleTopic('${t.id}')">
-          <div class="topic-check"></div>
-          <div class="topic-text">
-            <div class="topic-name">${t.name} ${t.hot ? '<span class="hot-tag">QUENTE VUNESP</span>' : ''}</div>
-            <div class="topic-tag">${t.tag}</div>
-          </div>
-        </div>
-      `;
-    });
-
-    card.innerHTML = `
-      <div class="card-inner open" id="disc-card-${disc.id}">
-        <div class="card-header" onclick="toggleCard('${disc.id}')">
-          <div class="card-icon" style="background:${disc.color}15;color:${disc.color}">${disc.icon}</div>
-          <div class="card-meta">
-            <h3>${disc.name}</h3>
-            <div class="card-info">
-              <span class="pill pill-q">${disc.questoes} questões</span>
-              <span class="pill pill-peso">${disc.peso}</span>
-            </div>
-          </div>
-          <div class="card-pct">${discPct}%</div>
-          <div class="mini-bar"><div class="mini-fill" style="width:${discPct}%;background:${disc.color}"></div></div>
-          <div class="chevron">▼</div>
-        </div>
-        <div class="topics-list" id="topics-list-${disc.id}">
-          <div class="bloco-info"><div class="bloco-info-inner"><b>🎯 ${disc.bloco}</b></div></div>
-          ${topicsHtml}
-        </div>
-      </div>
-    `;
-    container.appendChild(card);
-  });
-}
-
-function toggleCard(id) {
-  const el = document.getElementById('disc-card-' + id);
-  el.classList.toggle('open');
-}
-
-function setFilter(filter) {
-  appData.checklistFilter = filter;
-  document.getElementById('filter-all-btn').classList.toggle('active', filter === 'all');
-  document.getElementById('filter-pending-btn').classList.toggle('active', filter === 'pending');
-  renderChecklist();
-}
-
-function filterChecklist() {
-  appData.checklistSearch = document.getElementById('search-input').value;
-  renderChecklist();
-}
-
-function resetChecklist() {
-  if(confirm('Deseja limpar todos os tópicos marcados?')) {
-    appData.checklist = {};
-    saveData();
-    renderChecklist();
-    renderDashboard();
-  }
-}
-
-function resetData() {
-  if(confirm('⚠️ ATENÇÃO: Isso apagará todo o seu progresso, histórico e streak. Deseja continuar?')) {
-    localStorage.removeItem('tjsp_edital02_2026_data');
-    location.reload();
-  }
-}
-
-function updateDailyGoal() {
-  appData.dailyGoal = parseInt(document.getElementById('daily-goal-input').value) || 4;
-  saveData();
+/* ══ INIT ══ */
+document.addEventListener('DOMContentLoaded',()=>{
+  if(loadData().theme === 'dark') document.body.classList.add('dark-theme');
+  restoreTopics();attachTopics();
+  GROUPS.forEach(g=>updateGroup(g));updateOverall();
+  renderGamification();
   renderDashboard();
-}
-
-// AGENDA LOGIC
-let activeModalDate = null;
-let activeEditingTaskIndex = null;
-
-function renderAgenda() {
-  const grid = document.getElementById('week-grid');
-  grid.innerHTML = '';
-
-  const curr = new Date();
-  curr.setDate(curr.getDate() + (appData.currentWeekOffset * 7));
-  const dayOfWeek = curr.getDay();
-  const monday = new Date(curr);
-  monday.setDate(curr.getDate() - (dayOfWeek === 0 ? 6 : dayOfWeek - 1));
-
-  const sunday = new Date(monday);
-  sunday.setDate(monday.getDate() + 6);
-
-  document.getElementById('week-range-label').innerText = 
-    `${monday.toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'})} a ${sunday.toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'})}`;
-
-  const todayStr = new Date().toISOString().split('T')[0];
-
-  for (let i = 0; i < 7; i++) {
-    const d = new Date(monday);
-    d.setDate(monday.getDate() + i);
-    const dateStr = d.toISOString().split('T')[0];
-    const isToday = (dateStr === todayStr);
-
-    const col = document.createElement('div');
-    col.className = `day-col ${isToday ? 'today-col' : ''}`;
-
-    const dayNames = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
-    
-    let tasksHtml = '';
-    const tasks = appData.customTasks[dateStr] || [];
-    tasks.forEach((t, idx) => {
-      tasksHtml += `
-        <button class="day-task ${t.done ? 'task-done' : ''}" onclick="toggleTask('${dateStr}', ${idx})">
-          <div class="task-dot" style="background:${t.color || 'var(--gold)'}"></div>
-          <span style="flex:1">${t.text}</span>
-        </button>
-      `;
-    });
-
-    col.innerHTML = `
-      <div class="day-name">${dayNames[i]}</div>
-      <div class="day-date">${d.getDate()}</div>
-      <div class="day-tasks">${tasksHtml}</div>
-      <button class="add-task-btn" onclick="openModal('${dateStr}')">+ Tarefa</button>
-    `;
-    grid.appendChild(col);
-  }
-}
-
-function changeWeek(dir) {
-  appData.currentWeekOffset += dir;
-  renderAgenda();
-}
-
-function openModal(dateStr) {
-  activeModalDate = dateStr;
-  document.getElementById('task-input').value = '';
-  document.getElementById('task-modal').classList.add('show');
-}
-
-function closeModal() {
-  document.getElementById('task-modal').classList.remove('show');
-}
-
-function saveTask() {
-  const text = document.getElementById('task-input').value.trim();
-  const color = document.getElementById('task-color').value;
-  if(!text) return;
-
-  if(!appData.customTasks[activeModalDate]) appData.customTasks[activeModalDate] = [];
-  appData.customTasks[activeModalDate].push({ text, color, done: false });
-
-  saveData();
-  closeModal();
-  renderAgenda();
-}
-
-function toggleTask(dateStr, idx) {
-  if(appData.customTasks[dateStr] && appData.customTasks[dateStr][idx]) {
-    appData.customTasks[dateStr][idx].done = !appData.customTasks[dateStr][idx].done;
-    saveData();
-    renderAgenda();
-  }
-}
-
-window.onload = function() {
-  loadData();
-  renderDashboard();
-  renderChecklist();
-  renderAgenda();
-};
+  document.querySelectorAll('.bn-tab').forEach(b=>{
+    if(b.dataset.tab==='dashboard')b.classList.add('active');
+  });
+});
 </script>
 </body>
 </html>
